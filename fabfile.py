@@ -44,9 +44,10 @@ def configure_project():
 def gitclone(repository):
     output['everything'] = True
     local(u'git init')
+    local(u'git add -A')
+    local(u"git commit -m 'first commit'")
     local(u'git remote add origin {}'.format(repository))
-    local(u'git fetch')
-    local(u'git checkout -t origin/master')
+    local(u'git push -u origin master')
 
 
 def fastpush(message):
