@@ -1,4 +1,12 @@
 *.log
 *.pot
 *.pyc
-local_settings.py
+*.py[cod]
+*.db
+*.log.old
+*migrations
+.idea
+.DS_Store
+.swp
+media/
+analysis

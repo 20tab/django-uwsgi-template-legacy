@@ -1,0 +1,16 @@
+Django>=1.6.2
+South
+django-debug-toolbar
+psycopg2
+
+#twentytab-utils
+#twentytab-customadmin
+#twentytab-highlighter
+#twentytab-image-ui
+#twentytab-immortalmodel
+#twentytab-inspectmodel
+#twentytab-select2
+#twentytab-seo
+#twentytab-sortable
+#twentytab-tab-translation
+#twentytab-tree
