@@ -1,5 +1,5 @@
 """
-Django settings for twentytab_project_tmp project.
+Django settings for {{ project_name }} project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -29,21 +29,26 @@ else:
     DEBUG = True
     TEMPLATE_DEBUG = True
     """ True only in development to debug your application"""
+    INTERNAL_IPS = ('127.0.0.1',)
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-)
+    'south',
+]
 
 TEMPLATES = (
     'templates'
 )
 
-MANAGERS = (("errors", "errors@sitename.com"),)
+MANAGERS = (("errors", "errors@{{ project_name }}.com"),)
 
 DATABASES = {
     'remote': {
@@ -64,25 +69,26 @@ DATABASES = {
     },
 }
 
-if REMOTE_SERVER:
-    DATABASES['default'] = DATABASES['remote']
-else:
-    DATABASES['default'] = DATABASES['local']
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'j!7z%+(kog8tqv-%y7ga5a#0i+!mc_436p2u&i_v9uy1@!#^&t'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
+
+if REMOTE_SERVER:
+    DATABASES['default'] = DATABASES['remote']
+else:
+    DATABASES['default'] = DATABASES['local']
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+
+
 
 ROOT_URLCONF = '{{ project_name }}.urls'
 
@@ -113,11 +119,6 @@ MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-print STATIC_ROOT
-print MEDIA_ROOT
-print STATIC_URL
-print MEDIA_URL
-
 """
 THE FOLLOWING CODE SHOULD BE DELETED AT FIRST CONFIGURATION
 """
@@ -128,5 +129,4 @@ print(u'ALLOWED_HOSTS')
 print(u'MANAGERS')
 print(u'DATABASES')
 print(u'INSTALLED_APPS')
-print(u'MANAGERS')
 sys.exit(0)

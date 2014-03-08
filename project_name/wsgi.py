@@ -1,5 +1,5 @@
 """
-WSGI config for twentytab_project_tmp project.
+WSGI config for {{ project_name }} project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
