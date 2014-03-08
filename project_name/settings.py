@@ -88,6 +88,7 @@ else:
     DATABASES['default'] = DATABASES['local']
     INSTALLED_APPS.append('debug_toolbar')
     MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 
 
