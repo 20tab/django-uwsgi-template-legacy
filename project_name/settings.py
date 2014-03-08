@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import socket
 
 gettext = lambda s: s
 
@@ -29,7 +30,7 @@ else:
     DEBUG = True
     TEMPLATE_DEBUG = True
     """ True only in development to debug your application"""
-    INTERNAL_IPS = ('127.0.0.1',)
+    INTERNAL_IPS = ('127.0.0.1', socket.gethostbyname(socket.gethostname()))
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False,
     }
