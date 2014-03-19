@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'south',
 ]
 
-TEMPLATES = (
+TEMPLATE_DIRS = (
     'templates'
 )
 
