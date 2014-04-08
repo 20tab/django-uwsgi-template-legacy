@@ -18,6 +18,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 REMOTE_SERVER = False
 """True if application is in production, False if it's in development"""
+if "www" in os.getcwd():
+    REMOTE_SERVER = True
 if REMOTE_SERVER:
     ALLOWED_HOSTS = ('{{ project_name }}.com',)
     """A list of strings representing the host/domain names that this Django site can serve."""
