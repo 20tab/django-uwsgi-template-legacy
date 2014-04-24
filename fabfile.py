@@ -4,25 +4,27 @@ from fabric.contrib.files import sed
 from fabric.utils import fastprint
 from fabric.state import output
 from fabric.operations import prompt
+from {{ project_name }}.settings import DATABASES
 import os
 
 BASE_DIR = os.path.dirname(__file__)
 PROJECT_DIRNAME = os.path.basename(os.path.dirname(__file__))
 VENVS_DIRNAME = u"{}/venvs".format(os.path.dirname(BASE_DIR))
+VASSALS = u"{}/vassals".format(os.path.dirname(BASE_DIR))
 
 output['everything'] = False
 port = '22'
 host = ''
 env.hosts = ['%s:%s' % (host,port)]
-project_dir = ''
-prod_project_dir = ''
+project_dir = 'www/{{ project_name }}'
+prod_project_dir = 'www/{{ project_name }}'
 
 templates_dir = 'templates'
 static_dir = 'static'
 analysis_dir = 'analysis'
 
-#db_local = DATABASES['local']
-#db_remote = DATABASES['remote']
+db_local = DATABASES['local']
+db_remote = DATABASES['remote']
 
 
 def configure_project():
@@ -31,14 +33,18 @@ def configure_project():
     if not venv:
         venv = VENVS_DIRNAME
 
-    local(u"virtualenv {}/{}".format(venv, PROJECT_DIRNAME))
-    local(u"{}/{}/bin/pip install -r {}/requirements.txt".format(venv, PROJECT_DIRNAME, BASE_DIR))
+    if not os.path.exists(u"{}/{}".format(venv, PROJECT_DIRNAME)):
+        local(u"virtualenv {}/{}".format(venv, PROJECT_DIRNAME))
+        local(u"{}/{}/bin/pip install -r {}/requirements.txt".format(venv, PROJECT_DIRNAME, BASE_DIR))
     if not os.path.exists(u'templates'):
         local(u'mkdir templates')
     if not os.path.exists('static'):
         local(u'mkdir static')
     if not os.path.exists('media'):
         local(u'mkdir media')
+    if not os.path.exists(u'{}/{}.ini'.format(VASSALS, PROJECT_DIRNAME)):
+        local(u'ln -s {}/{}.ini {}/{}.ini'.format(BASE_DIR, PROJECT_DIRNAME, VASSALS, PROJECT_DIRNAME))
+    db_from_server()
 
 
 def gitclone(repository):
@@ -90,7 +96,7 @@ def sl(message="Update templates and static"):
     synclayout(message=message)
 
 
-def media_to_server(debug=False):
+def media_to_server(debug=True):
     if debug:
         output['everything'] = True
     if confirm("Stai sovrascrivendo tutti i file contenuti in /media/ sul server con quelli in locale. Vuoi procedere? "):
@@ -98,7 +104,7 @@ def media_to_server(debug=False):
         fastprint(u"Ricordati che sincronizzando i file media e' necessario sincronizzare anche il database con il comando 'fab db_to_server'.")
 
 
-def media_from_server(debug=False):
+def media_from_server(debug=True):
     if debug:
         output['everything'] = True
     if confirm("Stai sovrascrivendo tutti i file contenuti in /media/ in locale con quelli sul server. Vuoi procedere? "):
@@ -106,7 +112,7 @@ def media_from_server(debug=False):
         fastprint(u"Ricordati che sincronizzando i file media e' necessario sincronizzare anche il database con il comando 'fab db_from_server'.")
 
 
-def db_from_server(debug=False):
+def db_from_server(debug=True):
     if debug:
         output['everything'] = True
     if confirm("Attenzione, in questo modo tutti i dati presenti sul database del tuo computer verranno sovrascritti con quelli del database remoto. Sei sicuro di voler procedere?"):
@@ -116,12 +122,9 @@ def db_from_server(debug=False):
                 run("python dbdump.py")
                 local("scp -P %s %s:%s/tempdump.sql tempdump.sql" % (port, host,project_dir))
                 run("rm tempdump.sql")
-                try:
-                    local('psql -h %s -p %s -U postgres -c "select pg_terminate_backend(pid) from pg_stat_activity where datname = \'%s\';"' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
-                    local('dropdb -h %s -p %s -U postgres %s' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
-                    print (u'- Database %s eliminato' % db_local['NAME'])
-                except Exception, e:
-                    print e
+                local('psql -h %s -p %s -U postgres -c "select pg_terminate_backend(pid) from pg_stat_activity where datname = \'%s\';"' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
+                local('dropdb --if-exists -h %s -p %s -U postgres %s' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
+                print (u'- Database %s eliminato' % db_local['NAME'])
                 local('createdb -h %s -p %s -U postgres %s' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
                 print (u'- Database %s creato. carico il dump' % db_local['NAME'])
                 if debug:

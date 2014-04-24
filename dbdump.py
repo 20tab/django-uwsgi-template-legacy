@@ -1,6 +1,6 @@
 from {{ project_name }}.settings import DATABASES
 import subprocess
-PGDUMP = "/usr/lib/postgresql/9.1/bin/pg_dump"
+PGDUMP = "pg_dump"
 db = DATABASES['remote']
 
 command = []
