@@ -28,23 +28,34 @@ db_remote = DATABASES['remote']
 
 
 def configure_project():
-    output['everything'] = True
-    venv = prompt(u'Specifica il percorso della directory per il virtualenv oppure lascia vuoto per installarlo dentro {}'.format(VENVS_DIRNAME))
+    output[u'everything'] = True
+    venv = prompt(
+        u'Specifica il percorso della directory per il virtualenv oppure lascia vuoto per installarlo dentro {}'.format(
+            VENVS_DIRNAME))
     if not venv:
         venv = VENVS_DIRNAME
+    vassals = prompt(u'Specifica il percorso della directory per i vassals oppure lascia vuoto per usare {}'.format(
+        VASSALS))
+    if not vassals:
+        vassals = VASSALS
 
     if not os.path.exists(u"{}/{}".format(venv, PROJECT_DIRNAME)):
         local(u"virtualenv {}/{}".format(venv, PROJECT_DIRNAME))
         local(u"{}/{}/bin/pip install -r {}/requirements.txt".format(venv, PROJECT_DIRNAME, BASE_DIR))
     if not os.path.exists(u'templates'):
         local(u'mkdir templates')
-    if not os.path.exists('static'):
+    if not os.path.exists(u'static'):
         local(u'mkdir static')
-    if not os.path.exists('media'):
+    if not os.path.exists(u'media'):
         local(u'mkdir media')
-    if not os.path.exists(u'{}/{}.ini'.format(VASSALS, PROJECT_DIRNAME)):
-        local(u'ln -s {}/{}.ini {}/{}.ini'.format(BASE_DIR, PROJECT_DIRNAME, VASSALS, PROJECT_DIRNAME))
-    db_from_server()
+    if not os.path.exists(u'{}/{}.ini'.format(vassals, PROJECT_DIRNAME)):
+        local(u'ln -s {}/{}.ini {}/{}.ini'.format(BASE_DIR, PROJECT_DIRNAME, vassals, PROJECT_DIRNAME))
+
+    how_db = prompt(u'Digita 1 per creare il db, 2 per scaricarlo dal server oppure lascia vuoto per non fare nulla!')
+    if how_db == "1":
+        create_db()
+    elif how_db == "2":
+        db_from_server()
 
 
 def gitclone(repository):
@@ -143,6 +154,15 @@ def db_from_server(debug=True):
             elif "sqlite" in db_remote['ENGINE']:
                 fastprint(u'- Engine SQLite')
                 local("scp -P %s %s:%s/project/dev.db project/dev.db" % (port, host, project_dir))
+
+
+def create_db(debug=True):
+    if debug:
+        output['everything'] = True
+    if confirm("Attenzione, stai creando il db. Sei sicuro di voler procedere?"):
+        if "postgresql_psycopg2" in db_local['ENGINE']:
+            local('createdb -h %s -p %s -U postgres %s' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
+            print (u'- Database %s creato. carico il dump' % db_local['NAME'])
 
 
 def touch():
