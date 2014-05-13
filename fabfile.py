@@ -153,7 +153,7 @@ def db_from_server(debug=True):
                 local('rm tempdump.sql')
             elif "sqlite" in db_remote['ENGINE']:
                 fastprint(u'- Engine SQLite')
-                local("scp -P %s %s:%s/project/dev.db project/dev.db" % (port, host, project_dir))
+                local("scp -P %s %s:%s/%s %s" % (port, host, project_dir, db_remote['NAME'], db_local['NAME']))
 
 
 def create_db(debug=True):
