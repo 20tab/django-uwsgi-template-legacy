@@ -27,7 +27,7 @@ if REMOTE_SERVER:
     TEMPLATE_DEBUG = False
     """ True only in development to debug your application"""
 else:
-    ALLOWED_HOSTS = ('localhost','127.0.0.1')
+    ALLOWED_HOSTS = ('localhost', '127.0.0.1')
     """A list of strings representing the host/domain names that this Django site can serve."""
     DEBUG = True
     TEMPLATE_DEBUG = True
@@ -53,19 +53,19 @@ MANAGERS = (("errors", "errors@{{ project_name }}.com"),)
 DATABASES = {
     'remote': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'name',#'/path/example.db'. Path to database file if using sqlite3.
-        'USER': 'user',                      # Not used with sqlite3.
-        'PASSWORD': 'password',                  # Not used with sqlite3.
-        'HOST': '127.0.0.1',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '5432',                     # Set to empty string for default. Not used with sqlite3.
+        'NAME': 'name',  #'/path/example.db'. Path to database file if using sqlite3.
+        'USER': 'user',  # Not used with sqlite3.
+        'PASSWORD': 'password',  # Not used with sqlite3.
+        'HOST': '127.0.0.1',  # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '5432',  # Set to empty string for default. Not used with sqlite3.
     },
     'local': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'name',#os.path.dirname(__file__) + "/../dev.db",#'/path/example.db'. Path to database file if using sqlite3.
-        'USER': 'user',                      # Not used with sqlite3.
-        'PASSWORD': 'password',                  # Not used with sqlite3.
-        'HOST': '127.0.0.1',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '5432',                     # Set to empty string for default. Not used with sqlite3.
+        'NAME': 'name', #os.path.dirname(__file__) + "/../dev.db",#'/path/example.db'. Path to database file if using sqlite3.
+        'USER': 'user',  # Not used with sqlite3.
+        'PASSWORD': 'password',  # Not used with sqlite3.
+        'HOST': '127.0.0.1',  # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '5432',  # Set to empty string for default. Not used with sqlite3.
     },
 }
 
@@ -88,8 +88,6 @@ else:
     INSTALLED_APPS.append('debug_toolbar')
     MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
     DEBUG_TOOLBAR_PATCH_SETTINGS = False
-
-
 
 ROOT_URLCONF = '{{ project_name }}.urls'
 
