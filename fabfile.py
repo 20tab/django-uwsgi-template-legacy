@@ -111,7 +111,7 @@ def media_to_server(debug=True):
     if debug:
         output['everything'] = True
     if confirm("Stai sovrascrivendo tutti i file contenuti in /media/ sul server con quelli in locale. Vuoi procedere? "):
-        local("rsync -av --progress --inplace ./media/ %s:%s/media/" % (host, project_dir))
+        local("rsync -av --progress --inplace --rsh='ssh -p%s' %s:%s/media/ ./media/" % (port, host, project_dir))
         fastprint(u"Ricordati che sincronizzando i file media e' necessario sincronizzare anche il database con il comando 'fab db_to_server'.")
 
 
@@ -119,7 +119,7 @@ def media_from_server(debug=True):
     if debug:
         output['everything'] = True
     if confirm("Stai sovrascrivendo tutti i file contenuti in /media/ in locale con quelli sul server. Vuoi procedere? "):
-        local("rsync -av --progress --inplace %s:%s/media/ ./media/" % (host, project_dir))
+        local("rsync -av --progress --inplace --rsh='ssh -p%s' %s:%s/media/ ./media/" % (port, host, project_dir))
         fastprint(u"Ricordati che sincronizzando i file media e' necessario sincronizzare anche il database con il comando 'fab db_from_server'.")
 
 

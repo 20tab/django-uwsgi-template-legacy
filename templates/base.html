@@ -1,0 +1,17 @@
+{% load i18n %}<!doctype html>
+<html lang="{{LANGUAGE_CODE}}">
+<head>
+<title>{% block title %}{% endblock %}</title>
+<meta charset="{% block content_type %}{% endblock content_type %}" />
+{% block head_meta %}
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+{% endblock head_meta %}
+{% block extra_style %}{% endblock %}
+{% block extra_head %}{% endblock %}
+</head>
+{% block tag_body %}
+<body>
+{% endblock %}
+{% block body %}{% endblock %}
+</body>
+</html>
