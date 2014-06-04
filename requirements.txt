@@ -3,16 +3,22 @@ South
 django-debug-toolbar
 psycopg2
 
-#twentytab-utils
+#django-spoolgore
+#django-taggit-live
+#twentytab-choicesfilter
+#twentytab-cked
+#twentytab-colorful
 #twentytab-customadmin
+#twentytab-geocode
+#twentytab-gmaps
 #twentytab-highlighter
 #twentytab-image-ui
 #twentytab-immortalmodel
 #twentytab-inspectmodel
+#twentytab-model-to-bidimensional
 #twentytab-select2
 #twentytab-seo
 #twentytab-sortable
 #twentytab-tab-translation
 #twentytab-tree
-#twentytab-cked
-#twentytab-choicesfilter
+#twentytab-utils
