@@ -5,6 +5,7 @@ psycopg2
 
 #django-spoolgore
 #django-taggit-live
+#django-colorful
 #twentytab-choicesfilter
 #twentytab-cked
 #django-colorful
