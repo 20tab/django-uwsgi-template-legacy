@@ -5,9 +5,9 @@ psycopg2
 
 #django-spoolgore
 #django-taggit-live
+#django-colorful
 #twentytab-choicesfilter
 #twentytab-cked
-#twentytab-colorful
 #twentytab-customadmin
 #twentytab-geocode
 #twentytab-gmaps
