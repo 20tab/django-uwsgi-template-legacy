@@ -21,6 +21,9 @@ psycopg2
 #twentytab-seo
 #twentytab-sortable
 #twentytab-tab-translation
+#twentytab-totalsum-admin
 #twentytab-tree
+#twentytab-treeeditor
 #twentytab-utils
 #twentytab-previewadmin
+

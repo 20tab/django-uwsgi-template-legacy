@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 TEMPLATE_DIRS = (
-    'templates'
+    'templates',
 )
 
 MANAGERS = (("errors", "errors@{{ project_name }}.com"),)
