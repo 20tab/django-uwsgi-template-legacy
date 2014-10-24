@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 """
 Django settings for {{ project_name }} project.
 
@@ -41,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'south',
 ]
 
 TEMPLATE_DIRS = (
@@ -98,9 +98,9 @@ WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'it-it'
 
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'it'
 
 TIME_ZONE = 'UTC'
 

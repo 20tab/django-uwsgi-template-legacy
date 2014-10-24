@@ -1,5 +1,4 @@
-Django>=1.6.2
-South
+Django>=1.7
 django-debug-toolbar
 psycopg2
 

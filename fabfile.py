@@ -167,4 +167,4 @@ def create_db(debug=True):
 
 def touch():
     with cd(project_dir):
-        run("touch uwsgi_unbit.ini")
+        run("touch uwsgi.ini")
