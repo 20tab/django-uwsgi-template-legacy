@@ -1,12 +1,15 @@
 *.log
 *.pot
-*.pyc
 *.py[cod]
 *.db
 *.log.old
 *migrations
 .idea
 .DS_Store
-.swp
+*.swp
+*.un~
 media/
 analysis
+*.sublime-project
+*.sublime-workspace
+*.TODO
