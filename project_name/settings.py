@@ -48,7 +48,7 @@ TEMPLATE_DIRS = (
     'templates',
 )
 
-MANAGERS = (("errors", "errors@{{ project_name }}.com"),)
+ADMINS = (("errors", "errors@{{ project_name }}.com"),)
 
 DATABASES = {
     'remote': {
