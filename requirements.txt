@@ -1,5 +1,6 @@
 Django>=1.7
 django-debug-toolbar
+django-cookie-law
 psycopg2
 
 #django-spoolgore
