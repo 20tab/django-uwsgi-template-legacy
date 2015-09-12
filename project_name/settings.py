@@ -17,6 +17,8 @@ gettext = lambda s: s
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+USE_DEBUG_TOOLBAR = True
+
 REMOTE_SERVER = False
 """True if application is in production, False if it's in development"""
 if "www" in os.getcwd():
@@ -98,10 +100,11 @@ if REMOTE_SERVER:
     DATABASES['default'] = DATABASES['remote']
 else:
     DATABASES['default'] = DATABASES['local']
-    INSTALLED_APPS.append('debug_toolbar')
-    MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
-    DEBUG_TOOLBAR_PATCH_SETTINGS = False
-    SHOW_TOOLBAR_CALLBACK = True
+    if USE_DEBUG_TOOLBAR:
+        INSTALLED_APPS.append('debug_toolbar')
+        MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+        DEBUG_TOOLBAR_PATCH_SETTINGS = False
+        SHOW_TOOLBAR_CALLBACK = True
 
 ROOT_URLCONF = '{{ project_name }}.urls'
 
