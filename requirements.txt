@@ -2,6 +2,8 @@ Django>=1.7
 django-debug-toolbar
 django-cookie-law
 psycopg2
+django-coverage
+django-selenium
 
 #django-spoolgore
 #django-taggit-live
