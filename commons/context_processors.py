@@ -4,10 +4,11 @@ import uuid
 
 
 def metainfo(request):
-    metainfo = { 
-        'uuid': unicode(uuid.uuid4()),
-        'version': __version__,
-        'static_version': "?v={}".format(uuid),
-        'branch': environ['BRANCH']
-    } 
+    current_id = unicode(uuid.uuid4())
+    metainfo = {
+        'uuid': current_id,
+        'version': version,
+        'static_version': "?v={}".format(current_id),
+        'branch': environ.get('BRANCH', None)
+    }
     return metainfo
