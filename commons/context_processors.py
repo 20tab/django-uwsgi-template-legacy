@@ -7,7 +7,7 @@ def metainfo(request):
     current_id = unicode(uuid.uuid4())
     metainfo = {
         'uuid': current_id,
-        'version': version,
+        'version': __version__,
         'static_version': "?v={}".format(current_id),
         'branch': environ.get('BRANCH', None)
     }
