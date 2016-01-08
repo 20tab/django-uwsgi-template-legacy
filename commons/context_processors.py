@@ -2,13 +2,14 @@ from os import environ
 from {{ project_name }} import __version__
 import uuid
 
+    
+CURRENT_ID = unicode(uuid.uuid4())
 
 def metainfo(request):
-    current_id = unicode(uuid.uuid4())
-    metainfo = {
-        'uuid': current_id,
+    metainfo = { 
+        'uuid': CURRENT_ID,
         'version': __version__,
-        'static_version': "?v={}".format(current_id),
+        'static_version': "?v={}".format(CURRENT_ID),
         'branch': environ.get('BRANCH', None)
-    }
+    }   
     return metainfo
