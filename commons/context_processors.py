@@ -5,6 +5,7 @@ import uuid
     
 CURRENT_ID = unicode(uuid.uuid4())
 
+
 def metainfo(request):
     metainfo = { 
         'uuid': CURRENT_ID,
