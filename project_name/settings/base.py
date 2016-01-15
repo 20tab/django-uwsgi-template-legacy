@@ -31,8 +31,11 @@ TEMPLATE_DIRS = (
     'templates',
 )
 
-MANAGERS = (("errors", "errors@20tab.com"),)
+MANAGERS = (("errors", "errors@mantainer-domain.com"),)
 ADMINS = MANAGERS
+SERVER_EMAIL = 'errors@mantainer-domain.com'
+
+# !!! set EMAIL_HOST, EMAIL_PORT, EMAIL_USE_TLS
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'j!7z%+(kog8tqv-%y7ga5a#0i+!mc_436p2u&i_v9uy1@!#^&t'
