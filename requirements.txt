@@ -1,9 +1,9 @@
-Django>=1.7
+Django>=1.9
 django-debug-toolbar
 django-cookie-law
 psycopg2
 django-coverage
-django-selenium
+django-webtest
 
 #django-spoolgore
 #django-taggit-live

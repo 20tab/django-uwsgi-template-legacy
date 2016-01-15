@@ -49,7 +49,7 @@ def configure_project():
     if not os.path.exists(u'media'):
         local(u'mkdir media')
     if not os.path.exists(u'{}/{}.ini'.format(vassals, PROJECT_DIRNAME)):
-        local(u'ln -s {}/{}.ini {}/{}.ini'.format(BASE_DIR, PROJECT_DIRNAME, vassals, PROJECT_DIRNAME))
+        local(u'ln -s {}/uwsgiconf/locals/{}.ini {}/{}.ini'.format(BASE_DIR, PROJECT_DIRNAME, vassals, PROJECT_DIRNAME))
 
     how_db = prompt(u'Digita 1 per creare il db, 2 per scaricarlo dal server oppure lascia vuoto per non fare nulla!')
     if how_db == "1":
