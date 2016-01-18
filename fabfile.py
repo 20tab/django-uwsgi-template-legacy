@@ -23,8 +23,8 @@ templates_dir = 'templates'
 static_dir = 'static'
 analysis_dir = 'analysis'
 
-db_local = DATABASES['local']
-db_remote = DATABASES['remote']
+db_local = DATABASES['default']
+db_remote = DATABASES['default']
 
 
 def configure_project():
@@ -52,11 +52,13 @@ def configure_project():
         local(u'ln -s {}/uwsgiconf/locals/{}.ini {}/{}.ini'.format(BASE_DIR, PROJECT_DIRNAME, vassals, PROJECT_DIRNAME))
 
     how_db = prompt(u'Digita 1 per creare il db, 2 per scaricarlo dal server oppure lascia vuoto per non fare nulla!')
+    # TODO da implementare db_from_server e create_db con una configurazione migliore
     if how_db == "1":
-        create_db()
+        # create_db()
+        print('TODO: create_db')
     elif how_db == "2":
-        db_from_server()
-
+        # db_from_server()
+        print('TODO: db_from_server')
 
 def gitclone(repository):
     output['everything'] = True
