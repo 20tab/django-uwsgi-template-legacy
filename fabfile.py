@@ -60,6 +60,13 @@ def configure_project():
         # db_from_server()
         print('TODO: db_from_server')
 
+
+def run_test():
+    output['everything'] = True
+    local("coverage run ./manage.py test --settings='{{ project_name }}.settings.testing'")
+    local("coverage html")
+
+
 def gitclone(repository):
     output['everything'] = True
     local(u'git init')

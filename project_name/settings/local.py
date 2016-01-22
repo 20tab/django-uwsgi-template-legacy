@@ -3,7 +3,7 @@ from {{ project_name }}.settings.base import *
 
 ALLOWED_HOSTS = ('localhost', '127.0.0.1')
 DEBUG = True
-TEMPLATE_DEBUG = True
+TEMPLATES[0]['DEBUG'] = True
 USE_DEBUG_TOOLBAR = True
 INTERNAL_IPS = ('127.0.0.1', socket.gethostbyname(socket.gethostname()))
 

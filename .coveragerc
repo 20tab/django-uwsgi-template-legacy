@@ -1,0 +1,16 @@
+[run]
+branch = True
+source = .
+include =
+
+omit =  **/__init__.py
+        **/migrations/**
+        **/settings/*.py
+        **/tests/**
+        **/{{ project_name }}/{{ project_name }}/*.py
+        dbdump.py
+        manage.py
+        fabfile.py
+
+[html]
+directory = coverage

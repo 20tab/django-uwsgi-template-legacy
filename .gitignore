@@ -13,3 +13,5 @@ analysis
 *.sublime-project
 *.sublime-workspace
 *.TODO
+coverage/
+.coverage

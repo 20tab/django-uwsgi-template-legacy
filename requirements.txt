@@ -4,6 +4,7 @@ django-cookie-law
 psycopg2
 django-coverage
 django-webtest
+coverage
 
 #django-spoolgore
 #django-taggit-live
