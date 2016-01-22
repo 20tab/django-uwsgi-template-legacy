@@ -8,7 +8,7 @@ This is a django template with custom configuration. It requires uwsgi as applic
 To start a new project with this template:
 
 ```
-django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master -e py -e ini -e txt <project_name>
+django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master -e py -e ini -e txt -e coveragerc <project_name>
 ```
 
 ## Configuration
