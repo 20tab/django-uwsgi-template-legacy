@@ -6,7 +6,7 @@ from fabric.contrib.files import sed
 from fabric.utils import fastprint
 from fabric.state import output
 from fabric.operations import prompt
-from {{project_name}}.settings import DATABASES
+from {{project_name}}.settings.local import DATABASES as LOCAL_DB
 import os
 
 BASE_DIR = os.path.dirname(__file__)
@@ -25,8 +25,7 @@ templates_dir = 'templates'
 static_dir = 'static'
 analysis_dir = 'analysis'
 
-db_local = DATABASES['default']
-db_remote = DATABASES['default']
+db_local = LOCAL_DB['default']
 
 
 def configure_project():
@@ -56,8 +55,7 @@ def configure_project():
     how_db = prompt('Digita 1 per creare il db, 2 per scaricarlo dal server oppure lascia vuoto per non fare nulla!')
     # TODO da implementare db_from_server e create_db con una configurazione migliore
     if how_db == "1":
-        # create_db()
-        print('TODO: create_db')
+        create_db()
     elif how_db == "2":
         # db_from_server()
         print('TODO: db_from_server')
@@ -80,54 +78,6 @@ def gitclone(repository):
     local('git push -u origin master')
 
 
-def fastpush(message):
-    output['everything'] = True
-    local("git add -A")
-    local("git commit -m '%s'" % message)
-    local("git push")
-    with cd(project_dir):
-        run("git pull")
-
-
-def serverpull():
-    output['everything'] = True
-    with cd(prod_project_dir):
-        run("git pull")
-
-
-def prodpull():
-    output['everything'] = True
-    with cd(project_dir):
-        run("git pull")
-
-
-def fp(message):
-    output['everything'] = True
-    fastpush(message=message)
-
-
-def synclayout(message="Update templates and static"):
-    output['everything'] = True
-    local("git add -A -- %s %s" % (templates_dir, static_dir))
-    local("git commit -m '%s' -- %s %s" % (message, templates_dir, static_dir))
-    local("git push")
-    with cd(project_dir):
-        run("git pull")
-
-
-def sl(message="Update templates and static"):
-    output['everything'] = True
-    synclayout(message=message)
-
-
-def media_to_server(debug=True):
-    if debug:
-        output['everything'] = True
-    if confirm("Stai sovrascrivendo tutti i file contenuti in /media/ sul server con quelli in locale. Vuoi procedere? "):
-        local("rsync -av --progress --inplace --rsh='ssh -p%s' %s:%s/media/ ./media/" % (port, host, project_dir))
-        fastprint("Ricordati che sincronizzando i file media e' necessario sincronizzare anche il database con il comando 'fab db_to_server'.")
-
-
 def media_from_server(debug=True):
     if debug:
         output['everything'] = True
@@ -136,15 +86,7 @@ def media_from_server(debug=True):
         fastprint("Ricordati che sincronizzando i file media e' necessario sincronizzare anche il database con il comando 'fab db_from_server'.")
 
 
-def bkp_to_server(debug=True):
-    if debug:
-        output['everything'] = True
-    if confirm("Stai sovrascrivendo tutti i file contenuti in /bkp/ sul server con quelli in locale. Vuoi procedere? "):
-        local("rsync -av --progress --inplace ./bkp/ %s:%s/bkp/" % (host, project_dir))
-        fastprint("Operazione completata.")
-
-
-def db_from_server(debug=True):
+def db_from_server(debug=True, settings='develop'):
     if debug:
         output['everything'] = True
     if confirm("Attenzione, in questo modo tutti i dati presenti sul database del tuo computer verranno sovrascritti con quelli del database remoto. Sei sicuro di voler procedere?"):
@@ -176,8 +118,3 @@ def create_db(debug=True):
         if "postgresql_psycopg2" in db_local['ENGINE']:
             local('createdb -h %s -p %s -U postgres %s' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
             print ('- Database %s creato. carico il dump' % db_local['NAME'])
-
-
-def touch():
-    with cd(project_dir):
-        run("touch uwsgi.ini")
