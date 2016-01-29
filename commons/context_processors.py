@@ -6,7 +6,6 @@ import uuid
 
 
 
-
 CURRENT_ID = unicode(uuid.uuid4())
 
 
