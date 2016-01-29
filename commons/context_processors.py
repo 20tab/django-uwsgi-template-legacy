@@ -3,6 +3,10 @@ from {{project_name}} import __version__
 import uuid
 
 
+
+
+
+
 CURRENT_ID = unicode(uuid.uuid4())
 
 
