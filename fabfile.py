@@ -53,10 +53,6 @@ def configure_project():
     if not os.path.exists('{}/{}.ini'.format(vassals, PROJECT_DIRNAME)):
         local('ln -s {}/uwsgiconf/locals/{}.ini {}/{}.ini'.format(BASE_DIR, PROJECT_DIRNAME, vassals, PROJECT_DIRNAME))
 
-    local("{}/{}/bin/activate".format(venv, PROJECT_DIRNAME))
-    local('flake8 --install-hook')
-    local('git config flake8.strict true')
-
     how_db = prompt('Digita 1 per creare il db, 2 per scaricarlo dal server oppure lascia vuoto per non fare nulla!')
     # TODO da implementare db_from_server e create_db con una configurazione migliore
     if how_db == "1":
@@ -76,6 +72,8 @@ def run_test():
 def gitclone(repository):
     output['everything'] = True
     local('git init')
+    local('flake8 --install-hook')
+    local('git config flake8.strict true')
     local('git add -A')
     local("git commit -m 'first commit'")
     local('git remote add origin {}'.format(repository))
