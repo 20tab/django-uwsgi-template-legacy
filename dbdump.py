@@ -1,5 +1,7 @@
-from {{ project_name }}.settings import DATABASES
+from {{project_name}}.settings import DATABASES
 import subprocess
+
+
 PGDUMP = "pg_dump"
 db = DATABASES['remote']
 

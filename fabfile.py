@@ -4,7 +4,7 @@ from fabric.contrib.files import sed
 from fabric.utils import fastprint
 from fabric.state import output
 from fabric.operations import prompt
-from {{ project_name }}.settings import DATABASES
+from {{project_name}}.settings import DATABASES
 import os
 
 BASE_DIR = os.path.dirname(__file__)
@@ -15,9 +15,9 @@ VASSALS = u"{}/vassals".format(os.path.dirname(BASE_DIR))
 output['everything'] = False
 port = '22'
 host = ''
-env.hosts = ['%s:%s' % (host,port)]
-project_dir = 'www/{{ project_name }}'
-prod_project_dir = 'www/{{ project_name }}'
+env.hosts = ['%s:%s' % (host, port)]
+project_dir = 'www/{{project_name}}'
+prod_project_dir = 'www/{{project_name}}'
 
 templates_dir = 'templates'
 static_dir = 'static'
@@ -148,7 +148,7 @@ def db_from_server(debug=True):
             if "postgresql_psycopg2" in db_local['ENGINE']:
                 print (u'- Engine Postgres')
                 run("python dbdump.py")
-                local("scp -P %s %s:%s/tempdump.sql tempdump.sql" % (port, host,project_dir))
+                local("scp -P %s %s:%s/tempdump.sql tempdump.sql" % (port, host, project_dir))
                 run("rm tempdump.sql")
                 local('psql -h %s -p %s -U postgres -c "select pg_terminate_backend(pid) from pg_stat_activity where datname = \'%s\';"' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
                 local('dropdb --if-exists -h %s -p %s -U postgres %s' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
