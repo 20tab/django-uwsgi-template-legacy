@@ -15,7 +15,3 @@ if 'debug_toolbar' in settings.INSTALLED_APPS:
     urlpatterns.append(
         url(r'^__debug__/', include(debug_toolbar.urls))
     )
-
-
-
-
