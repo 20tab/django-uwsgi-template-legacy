@@ -3,7 +3,6 @@
 *.py[cod]
 *.db
 *.log.old
-*migrations
 .idea
 .DS_Store
 *.swp

@@ -15,3 +15,9 @@ DATABASES = {
         'PORT': '5432',  # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+# Fab commands configuration
+WORKING_DIR = "www/{{project_name}}"
+HOST_USER = "30248"
+HOST_IP = ""
+HOST_PORT = "22"

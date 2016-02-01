@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
-from fabric.api import local, run, env, cd
+import importlib
+from fabric.api import local, run, env, cd, settings as fab_settings
 from fabric.contrib.console import confirm
 from fabric.contrib.files import sed
 from fabric.utils import fastprint
@@ -14,22 +15,11 @@ PROJECT_DIRNAME = os.path.basename(os.path.dirname(__file__))
 VENVS_DIRNAME = "{}/venvs".format(os.path.dirname(BASE_DIR))
 VASSALS = "{}/vassals".format(os.path.dirname(BASE_DIR))
 
-output['everything'] = False
-port = '22'
-host = ''
-env.hosts = ['%s:%s' % (host, port)]
-project_dir = 'www/{{project_name}}'
-prod_project_dir = 'www/{{project_name}}'
-
-templates_dir = 'templates'
-static_dir = 'static'
-analysis_dir = 'analysis'
-
+output['everything'] = True
 db_local = LOCAL_DB['default']
 
 
 def configure_project():
-    output['everything'] = True
     venv = prompt(
         'Specifica il percorso della directory per il virtualenv oppure lascia vuoto per installarlo dentro {}'.format(
             VENVS_DIRNAME))
@@ -53,22 +43,27 @@ def configure_project():
         local('ln -s {}/uwsgiconf/locals/{}.ini {}/{}.ini'.format(BASE_DIR, PROJECT_DIRNAME, vassals, PROJECT_DIRNAME))
 
     how_db = prompt('Digita 1 per creare il db, 2 per scaricarlo dal server oppure lascia vuoto per non fare nulla!')
-    # TODO da implementare db_from_server e create_db con una configurazione migliore
     if how_db == "1":
         create_db()
     elif how_db == "2":
-        # db_from_server()
-        print('TODO: db_from_server')
+        db_from_server()
+
+
+def create_db():
+    if confirm("Attenzione, stai creando il db. Sei sicuro di voler procedere?"):
+        if "postgresql_psycopg2" in db_local['ENGINE']:
+            local('createdb -h {} -p {} -U postgres {}'.format(
+                db_local['HOST'], db_local['PORT'], db_local['NAME']))
+            fastprint('- Database {} creato. carico il dump'.format(
+                db_local['NAME']))
 
 
 def run_test():
-    output['everything'] = True
-    local("coverage run ./manage.py test --settings='{{ project_name }}.settings.testing'")
+    local("coverage run ./manage.py test --settings='{{project_name}}.settings.testing'")
     local("coverage html")
 
 
 def gitclone(repository):
-    output['everything'] = True
     local('git init')
     local('flake8 --install-hook')
     local('git config flake8.strict true')
@@ -78,43 +73,88 @@ def gitclone(repository):
     local('git push -u origin master')
 
 
-def media_from_server(debug=True):
-    if debug:
-        output['everything'] = True
-    if confirm("Stai sovrascrivendo tutti i file contenuti in /media/ in locale con quelli sul server. Vuoi procedere? "):
-        local("rsync -av --progress --inplace --rsh='ssh -p%s' %s:%s/media/ ./media/" % (port, host, project_dir))
+def media_from_server(settings='develop'):
+    """
+    Copia tutti i file media dal server definito dal settings passato come argomento
+    """
+    server = ServerUtil(settings)
+    if confirm("Stai sovrascrivendo tutti i file contenuti in /media/ in locale con quelli sul server {}. Vuoi procedere?".format(settings.upper())):
+        local("rsync -av --progress --inplace --rsh='ssh -p{}' {}@{}:{}/media/ ./media/".format(
+            server.port, server.user, server.ip, server.working_dir))
         fastprint("Ricordati che sincronizzando i file media e' necessario sincronizzare anche il database con il comando 'fab db_from_server'.")
 
 
-def db_from_server(debug=True, settings='develop'):
-    if debug:
-        output['everything'] = True
+def db_from_server(settings='develop'):
+    server = ServerUtil(settings)
     if confirm("Attenzione, in questo modo tutti i dati presenti sul database del tuo computer verranno sovrascritti con quelli del database remoto. Sei sicuro di voler procedere?"):
-        with cd(project_dir):
-            if "postgresql_psycopg2" in db_local['ENGINE']:
+        if "postgresql_psycopg2" in server.conf.DATABASES['default']['ENGINE']:
+            server.get_remote_dump()
+            local('psql -h {} -p {} -U postgres -c "select pg_terminate_backend(pid) from pg_stat_activity where datname = \'{}\';"'.format(
+                db_local['HOST'], db_local['PORT'], db_local['NAME']))
+            local('dropdb --if-exists -h {} -p {} -U postgres {}'.format(
+                db_local['HOST'], db_local['PORT'], db_local['NAME']))
+            fastprint('- Database {} eliminato'.format(db_local['NAME']))
+            local('createdb -h {} -p {} -U postgres {}'.format(
+                db_local['HOST'], db_local['PORT'], db_local['NAME']))
+            fastprint('- Database {} creato. carico il dump'.format(
+                db_local['NAME']))
+            local('psql -h {} -p {} -U postgres -x -e -E -w -d {} -f tempdump.sql -L /dev/null'.format(
+                db_local['HOST'], db_local['PORT'], db_local['NAME']))
+            local('rm tempdump.sql')
+        elif "sqlite" in server.conf.DATABASES['default']['ENGINE']:
+            fastprint('- Engine SQLite')
+            local("scp -P {} {}@{}:{}/{} {}".format(
+                server.port, server.user, server.host, server.working_dir,
+                server.conf.DATABASES['default']['NAME'], db_local['NAME'])
+            )
+
+
+def migrate_db(source='master', dest='develop'):
+    server_source = ServerUtil(source)
+    server_dest = ServerUtil(dest)
+    if confirm("Attenzione, stai cancellando il database {} Sei sicuro di voler procedere?".format(dest.upper())):
+        server_source.get_remote_dump()
+        server_dest.set_remote_dump()
+
+
+class ServerUtil(object):
+
+    def __init__(self, settings):
+        self.settings = settings
+
+        self.conf = importlib.import_module('{{project_name}}.settings.{}'.format(settings))
+        self.user = self.conf.HOST_USER
+        self.ip = self.conf.HOST_IP
+        self.port = self.conf.HOST_PORT
+        self.host = "{}@{}:{}".format(self.user, self.ip, self.port)
+        self.working_dir = self.conf.WORKING_DIR
+        self.db = self.conf.DATABASES['default']
+
+    def get_remote_dump(self):
+        with fab_settings(host_string=self.host):
+            with cd(self.working_dir):
                 print ('- Engine Postgres')
-                run("python dbdump.py")
-                local("scp -P %s %s:%s/tempdump.sql tempdump.sql" % (port, host, project_dir))
+                run("pg_dump -h {} --port={} --username={} -O {} -f tempdump.sql".format(
+                    self.db['HOST'], self.db['PORT'], self.db['USER'], self.db['NAME']))
+                local("scp -P {} {}@{}:{}/tempdump.sql tempdump.sql".format(
+                    self.port, self.user, self.ip, self.working_dir))
                 run("rm tempdump.sql")
-                local('psql -h %s -p %s -U postgres -c "select pg_terminate_backend(pid) from pg_stat_activity where datname = \'%s\';"' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
-                local('dropdb --if-exists -h %s -p %s -U postgres %s' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
-                print ('- Database %s eliminato' % db_local['NAME'])
-                local('createdb -h %s -p %s -U postgres %s' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
-                print ('- Database %s creato. carico il dump' % db_local['NAME'])
-                if debug:
-                    local('psql -h %s -p %s -U postgres -x -e -E -w -d %s -f tempdump.sql -L /dev/null' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
-                else:
-                    local('psql -h %s -p %s -U postgres --output=/dev/null -q -t -w -d %s -f tempdump.sql -L /dev/null' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
-                local('rm tempdump.sql')
-            elif "sqlite" in db_remote['ENGINE']:
-                fastprint('- Engine SQLite')
-                local("scp -P %s %s:%s/%s %s" % (port, host, project_dir, db_remote['NAME'], db_local['NAME']))
 
+    def set_remote_dump(self):
 
-def create_db(debug=True):
-    if debug:
-        output['everything'] = True
-    if confirm("Attenzione, stai creando il db. Sei sicuro di voler procedere?"):
-        if "postgresql_psycopg2" in db_local['ENGINE']:
-            local('createdb -h %s -p %s -U postgres %s' % (db_local['HOST'], db_local['PORT'], db_local['NAME']))
-            print ('- Database %s creato. carico il dump' % db_local['NAME'])
+        if confirm("Attenzione, in questo modo tutti i dati presenti sul database {} verranno sovrascritti. Sei sicuro di voler procedere?".format(self.settings.upper())):
+            with fab_settings(host_string=self.host):
+                with cd(self.working_dir):
+                    local("scp -P {} tempdump.sql {}@{}:{}/tempdump.sql".format(
+                        self.port, self.user, self.ip, self.working_dir))
+                    run('psql -h {} -p {} -U postgres -c "select pg_terminate_backend(pid) from pg_stat_activity where datname = \'{}\';"'.format(
+                        self.db['HOST'], self.db['PORT'], self.db['NAME']))
+                    run('dropdb --if-exists -h {} -p {} -U postgres {}'.format(
+                        self.db['HOST'], self.db['PORT'], self.db['NAME']))
+                    print('- Database {} eliminato'.format(self.db['NAME']))
+                    run('createdb -h {} -p {} -U postgres {}'.format(
+                        self.db['HOST'], self.db['PORT'], self.db['NAME']))
+                    print('- Database {} creato. carico il dump'.format(
+                        self.db['NAME']))
+                    run('psql -h {} -p {} -U postgres -x -e -E -w -d {} -f tempdump.sql -L /dev/null'.format(
+                        self.db['HOST'], self.db['PORT'], self.db['NAME']))
