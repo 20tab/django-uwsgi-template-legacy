@@ -30,6 +30,6 @@ fab gitclone:your_repo_path
 
 - If you use uwsgi with emperor mode you have to create symbolic link of yourproject.ini into vassals directory
 
-- Check settings.py and urls.py to configure django applications
+- Check settings and urls to configure django applications
 
 - Enjoy
