@@ -5,6 +5,7 @@ psycopg2
 django-coverage
 django-webtest
 coverage
+flake8
 
 #django-spoolgore
 #django-taggit-live
