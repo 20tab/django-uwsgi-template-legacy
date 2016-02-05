@@ -24,5 +24,5 @@ DEBUG_TOOLBAR_PATCH_SETTINGS = False
 SHOW_TOOLBAR_CALLBACK = True
 
 CLONEDIGGER_CONFIG = {
-    'IGNORE_DIRS': []
+    'IGNORE_DIRS': ['fabfile.py', 'manage.py', '{{project_name}}','migrations',]
 }
