@@ -14,3 +14,4 @@ analysis
 *.TODO
 coverage/
 .coverage
+clonedigger_output.html

@@ -22,3 +22,7 @@ INSTALLED_APPS.append('debug_toolbar')
 MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 SHOW_TOOLBAR_CALLBACK = True
+
+CLONEDIGGER_CONFIG = {
+    'IGNORE_DIRS': []
+}

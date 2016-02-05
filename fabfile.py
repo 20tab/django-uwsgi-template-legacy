@@ -117,6 +117,16 @@ def migrate_db(source='master', dest='develop'):
         server_dest.set_remote_dump()
 
 
+def clonedigger_run(filename='clonedigger_output.html'):
+    conf = importlib.import_module('{{project_name}}.settings.local')
+    ignore_dirs = ''
+    if conf.CLONEDIGGER_CONFIG and conf.CLONEDIGGER_CONFIG['IGNORE_DIRS']:
+        ignore_dirs = ' '.join(['--ignore-dir={}'.format(dir) for dir in conf.CLONEDIGGER_CONFIG['IGNORE_DIRS']])
+        ignore_dirs = ' {} '.format(ignore_dirs)
+
+    local('clonedigger -o {}{} .'.format(filename, ignore_dirs))
+
+
 class ServerUtil(object):
 
     def __init__(self, settings):
