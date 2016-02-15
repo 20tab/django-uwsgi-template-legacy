@@ -1,6 +1,5 @@
 from django.test import TestCase
-from commons import CURRENT_ID
-from commons.context_processors import metainfo
+from commons.context_processors import metainfo, CURRENT_ID
 
 
 class CommonsTest(TestCase):
