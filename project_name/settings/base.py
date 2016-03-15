@@ -27,10 +27,6 @@ INSTALLED_APPS = [
     'cookielaw',
 ]
 
-TEMPLATE_DIRS = (
-    'templates',
-)
-
 MANAGERS = (("errors", "errors@mantainer-domain.com"),)
 ADMINS = MANAGERS
 SERVER_EMAIL = 'errors@mantainer-domain.com'
