@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import socket
+
 
 gettext = lambda s: s
 
@@ -94,5 +94,3 @@ STATIC_ROOT = os.path.abspath('static')
 MEDIA_ROOT = os.path.abspath('media')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-
-
