@@ -11,7 +11,7 @@ class LoginRequiredTestCase(WebTest):
         self.user = get_user_model().objects.create(
             username='usertest',
             first_name='John', last_name='Smith',
-            email='test@wfp.org',
+            email='test@test.org',
         )
         self.user_password = 'test'
         self.user.set_password(self.user_password)
