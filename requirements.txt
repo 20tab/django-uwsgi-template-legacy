@@ -1,4 +1,4 @@
-Django>=1.9
+Django>=1.10rc1
 django-debug-toolbar
 django-cookie-law
 psycopg2

@@ -51,7 +51,7 @@ def configure_project():
 
 def create_db():
     if confirm("Attenzione, stai creando il db. Sei sicuro di voler procedere?"):
-        if "postgresql_psycopg2" in db_local['ENGINE']:
+        if "postgresql" in db_local['ENGINE']:
             local('createdb -h {} -p {} -U postgres {}'.format(
                 db_local['HOST'], db_local['PORT'], db_local['NAME']))
             fastprint('- Database {} creato. carico il dump'.format(
@@ -87,7 +87,7 @@ def media_from_server(settings='develop'):
 def db_from_server(settings='develop'):
     server = ServerUtil(settings)
     if confirm("Attenzione, in questo modo tutti i dati presenti sul database del tuo computer verranno sovrascritti con quelli del database remoto. Sei sicuro di voler procedere?"):
-        if "postgresql_psycopg2" in server.conf.DATABASES['default']['ENGINE']:
+        if "postgresql" in server.conf.DATABASES['default']['ENGINE']:
             server.get_remote_dump()
             local('psql -h {} -p {} -U postgres -c "select pg_terminate_backend(pid) from pg_stat_activity where datname = \'{}\';"'.format(
                 db_local['HOST'], db_local['PORT'], db_local['NAME']))
