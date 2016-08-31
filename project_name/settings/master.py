@@ -3,7 +3,7 @@ from {{ project_name }}.settings.base import *
 ALLOWED_HOSTS = ('{{ project_name }}.com',)
 
 DEBUG = False
-TEMPLATE_DEBUG = False
+TEMPLATES[0]['OPTIONS']['debug'] = False
 
 DATABASES = {
     'default': {
