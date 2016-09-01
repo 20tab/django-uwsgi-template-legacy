@@ -1,4 +1,4 @@
-Django>=1.10rc1
+Django>=1.10
 django-debug-toolbar
 django-cookie-law
 psycopg2
@@ -31,4 +31,3 @@ clonedigger
 #twentytab-treeeditor
 #twentytab-utils
 #twentytab-previewadmin
-
