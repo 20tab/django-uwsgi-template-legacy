@@ -1,5 +1,3 @@
-from __future__ import absolute_import, print_function, unicode_literals
-
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django_webtest import WebTest
