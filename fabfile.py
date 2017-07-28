@@ -30,8 +30,10 @@ def configure_project():
     if not vassals:
         vassals = VASSALS
 
+    py_version = prompt('Sara\' usato python3 di default. Altrimenti specifica la versione corretta (Es. python2.7)') or 'python3'
+
     if not os.path.exists("{}/{}".format(venv, PROJECT_DIRNAME)):
-        local("virtualenv {}/{}".format(venv, PROJECT_DIRNAME))
+        local("virtualenv -p {} {}/{}".format(py_version, venv, PROJECT_DIRNAME))
         local("{}/{}/bin/pip install -r {}/requirements.txt".format(venv, PROJECT_DIRNAME, BASE_DIR))
     if not os.path.exists('templates'):
         local('mkdir templates')
