@@ -67,7 +67,7 @@ def run_test():
 
 def gitclone(repository):
     local('git init')
-    local('flake8 --install-hook')
+    local('flake8 --install-hook git')
     local('git config flake8.strict true')
     local('git add -A')
     local("git commit -m 'first commit'")
