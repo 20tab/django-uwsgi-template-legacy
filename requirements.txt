@@ -6,4 +6,4 @@ django-coverage
 django-webtest
 coverage
 flake8
-pep8
+pycodestyle
