@@ -7,8 +7,11 @@ ci:
 		pip install -r requirements.txt; \
 		pycodestyle; \
 		coverage run --source='.' manage.py test tests --settings=${SETTINGS}; \
+		coverage xml; \
 	)
 
-deploy:
-	@${MAKE} ci
-	echo "sto eseguendo il deploy"
+alpha:
+	( \
+		@${MAKE} ci; \
+		cd deploy && ansible-playbook -vv deploy.yml; \
+	)

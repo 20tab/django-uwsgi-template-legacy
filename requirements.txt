@@ -7,3 +7,4 @@ django-webtest
 coverage
 flake8
 pycodestyle
+ansible

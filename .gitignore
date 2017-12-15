@@ -17,3 +17,4 @@ coverage/
 clonedigger_output.html
 flake.out
 pep8.out
+coverage.xml
