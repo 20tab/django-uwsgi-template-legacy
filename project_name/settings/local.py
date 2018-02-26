@@ -49,3 +49,4 @@ STATIC_DEBUG = True
 # uWSGI
 
 UWSGI_ACCESS_LOG_BASE_PATH = f'{BASE_DIR}/{{ project_name }}_access-'
+

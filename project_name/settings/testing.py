@@ -3,6 +3,9 @@ from {{ project_name }}.settings.base import *  # noqa
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -30,3 +33,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 # BDD_HEADLESS_BROWSER = True
 # BDD_BROWSER_LANGUAGE = 'it-IT'
 # BDD_DEFAULT_WAIT_TIME = 2
+
