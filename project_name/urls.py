@@ -1,31 +1,33 @@
 """{{ project_name }} URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.10/topics/http/urls/
+    https://docs.djangoproject.com/en/2.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
 Class-based views
     1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.contrib import admin
 from django.conf import settings
+from django.contrib import admin
+from django.urls import include, path, re_path
 
 urlpatterns = [
     # Examples:
-    # url(r'^$', '{{ project_name }}.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-    url(r'^admin/', admin.site.urls),
+    # path('', '{{ project_name }}.views.home', name='home'),
+    # path('blog/', include('blog.urls')),
+    path('admin/', admin.site.urls),
+    # Django auth urls
+    # path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 if 'debug_toolbar' in settings.INSTALLED_APPS:
     import debug_toolbar
     urlpatterns.append(
-        url(r'^__debug__/', debug_toolbar.urls)
+        re_path(r'^__debug__/', include(debug_toolbar.urls))
     )
