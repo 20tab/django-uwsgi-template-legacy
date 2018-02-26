@@ -1,7 +1,6 @@
 [run]
 branch = True
 source = .
-include =
 
 omit =  **/__init__.py
         **/migrations/**
@@ -11,6 +10,3 @@ omit =  **/__init__.py
         dbdump.py
         manage.py
         fabfile.py
-
-[html]
-directory = coverage

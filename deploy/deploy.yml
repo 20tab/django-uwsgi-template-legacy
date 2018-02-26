@@ -1,0 +1,38 @@
+---
+- name: Deployment configuration
+  hosts: alpha
+  gather_facts: False
+  vars_files:
+      - ${TARGET}.yaml
+
+  tasks:
+    - name: Clone repository
+      git:
+        repo={{git_repository}}
+        dest=www/{{project_dir_name}}
+        accept_hostkey=yes
+        version={{branch}}
+    - name: Manually create the initial virtualenv
+      command: virtualenv -p python3 ${HOME}/venvs/{{project_name}} creates="${HOME}/venvs/{{project_name}}"
+    - name: Install requirements
+      pip:
+        requirements=${HOME}/www/{{project_dir_name}}/requirements.txt
+        virtualenv=${HOME}/venvs/{{project_name}}
+    - name: Create vassall
+      file:
+        src: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{branch}}.ini"
+        dest: "${HOME}/vassals/{{project_dir_name}}.ini"
+        state: link
+    - name: Create database
+      postgresql_db:
+        name={{project_dir_name}}
+        encoding=UTF-8
+        template=template0
+        login_user={{db_user}}
+        login_password={{db_password}}
+      vars:
+        ansible_python_interpreter: "your_virtualenv/bin/python"
+    - name: Migrate database
+      command: "${HOME}/venvs/{{project_name}}/bin/python manage.py migrate --settings={{project_name}}.settings.{{branch}}"
+      args:
+        chdir: ${HOME}/www/{{project_dir_name}}/

@@ -1,0 +1,6 @@
+project_name: {{project_name}}
+project_dir_name: {{project_name}}_dev
+git_repository: servergit/{{project_name}}.git
+db_user: postgres
+db_password: password
+branch: develop

@@ -26,5 +26,5 @@ if USE_DEBUG_TOOLBAR:
     SHOW_TOOLBAR_CALLBACK = True
 
 CLONEDIGGER_CONFIG = {
-    'IGNORE_DIRS': ['{{project_name}}','migrations']
+    'IGNORE_DIRS': ['{{project_name}}', 'migrations']
 }
