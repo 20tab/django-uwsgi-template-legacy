@@ -1,30 +1,52 @@
-from {{ project_name }}.settings.base import *
-import socket
+from {{ project_name }}.settings.base import *  # noqa
 
+ALLOWED_HOSTS = ('localhost', '127.0.0.1', '{{ project_name }}.local)
 
-ALLOWED_HOSTS = ('localhost', '127.0.0.1')
-DEBUG = True
-TEMPLATES[0]['OPTIONS']['debug'] = True
-USE_DEBUG_TOOLBAR = True
-INTERNAL_IPS = ('127.0.0.1', socket.gethostbyname(socket.gethostname()))
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # Add 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '{{ project_name }}',  # '/path/example.db'. Path to database file if using sqlite3.
-        'USER': 'user',  # Not used with sqlite3.
-        'PASSWORD': 'password',  # Not used with sqlite3.
-        'HOST': '127.0.0.1',  # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '5432',  # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '{{ project_name }}',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
-if USE_DEBUG_TOOLBAR:
-    INSTALLED_APPS.append('debug_toolbar')
-    MIDDLEWARE_CLASSES.append('debug_toolbar.middleware.DebugToolbarMiddleware')
-    DEBUG_TOOLBAR_PATCH_SETTINGS = False
-    SHOW_TOOLBAR_CALLBACK = True
+# Email
 
-CLONEDIGGER_CONFIG = {
-    'IGNORE_DIRS': ['{{project_name}}','migrations']
-}
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '/tmp/app-messages'
+
+# Debug
+
+DEBUG = True
+if DEBUG:
+    TEMPLATES[0]['OPTIONS']['debug'] = True  # noqa
+
+try:
+    import debug_toolbar
+except ModuleNotFoundError:
+    pass
+else:
+    INTERNAL_IPS = ['127.0.0.1', 'localhost']
+    INSTALLED_APPS.append('debug_toolbar')  # noqa
+    MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')  # noqa
+    DEBUG_TOOLBAR_CONFIG = {
+        'DISABLE_PANELS': {
+            'debug_toolbar.panels.redirects.RedirectsPanel',
+            'debug_toolbar.panels.templates.TemplatesPanel'
+        },
+    }
+
+# ASSETS
+
+STATIC_DEBUG = True
+
+# uWSGI
+
+UWSGI_ACCESS_LOG_BASE_PATH = f'{BASE_DIR}/{{ project_name }}_access-'
+
