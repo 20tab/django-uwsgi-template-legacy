@@ -14,7 +14,7 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 ## Configuration
 
 - To configure project with virtualenv and required empty directories: 
-  - check requirements.txt to customize your virtualenv 
+  - check requirements/dev.txt to customize your virtualenv 
   - check <project_name>.ini to customize your workarea root and project root
   - and than:
 ```
@@ -33,3 +33,13 @@ fab gitclone:your_repo_path
 - Check settings and urls to configure django applications
 
 - Enjoy
+
+## Setup
+
+Basic commands:
+
+```shell
+$ pytohn manage.py migrate
+$ python manage.py createsuperuser
+$ pytohn manage.py runserver
+```
