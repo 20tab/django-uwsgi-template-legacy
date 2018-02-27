@@ -140,10 +140,10 @@ ADMINS = MANAGERS
 
 # Email
 
-DEAFULT_NAME = '{{ project_name }}'
+DEFAULT_NAME = '{{ project_name }}'
 SERVER_EMAIL = f'info@{BASE_HOST_URL}'
-DEFAULT_FROM_EMAIL = f'{DEAFULT_NAME} <{SERVER_EMAIL}>'
-EMAIL_SUBJECT_PREFIX = f'[{DEAFULT_NAME}] '
+DEFAULT_FROM_EMAIL = f'{DEFAULT_NAME} <{SERVER_EMAIL}>'
+EMAIL_SUBJECT_PREFIX = f'[{DEFAULT_NAME}] '
 EMAIL_USE_LOCALTIME = True
 
 # Languages
@@ -156,7 +156,7 @@ EMAIL_USE_LOCALTIME = True
 
 # User
 
-#AUTH_USER_MODEL = 'users.User'
+# AUTH_USER_MODEL = 'users.User'
 
 # Django Auth Urls
 
@@ -176,4 +176,3 @@ STATIC_PATH = {True: 'dev', False: 'dist'}
 # uWSGI
 
 UWSGI_ACCESS_LOG_BASE_PATH = f'{HOME_DIR}/logs/{{ project_name }}_access-'
-

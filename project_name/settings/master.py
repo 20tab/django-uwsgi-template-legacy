@@ -1,4 +1,4 @@
-from {{ project_name }}.settings.base import *  # noqa
+from {{project_name}}.settings.base import *  # noqa
 
 ALLOWED_HOSTS = (f'{BASE_HOST_URL}',)
 
@@ -44,4 +44,3 @@ WORKING_DIR = "www/{{project_name}}"
 HOST_USER = ""
 HOST_IP = ""
 HOST_PORT = "22"
-
