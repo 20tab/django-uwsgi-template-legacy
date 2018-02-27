@@ -1,12 +1,32 @@
-from {{ project_name }}.settings.base import *
+from {{project_name}}.settings.base import *  # noqa
+
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # Add 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '{{ project_name }}',  # os.path.dirname(__file__) + "/../dev.db",#'/path/example.db'. Path to database file if using sqlite3.
-        'USER': 'user',  # Not used with sqlite3.
-        'PASSWORD': 'password',  # Not used with sqlite3.
-        'HOST': '127.0.0.1',  # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '5432',  # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '{{ project_name }}',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
+
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+# ASSETS
+
+# STATIC_DEBUG = True
+
+# Behave
+
+# INSTALLED_APPS += ('behave_django',)
+
+# BDD_DEFAULT_BROWSER = 'chrome'
+# BDD_HEADLESS_BROWSER = True
+# BDD_BROWSER_LANGUAGE = 'it-IT'
+# BDD_DEFAULT_WAIT_TIME = 2
