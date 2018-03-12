@@ -127,23 +127,22 @@ MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
 
 # Site
 
+DEFAULT_NAME = '{{ project_name }}'
 BASE_HOST_URL = '{{ project_name }}.com'
 BASE_DOMAIN_URL = f'https://www.{BASE_HOST_URL}'
 
 # SITE_ID = 1
 
-# Managers
-
-MANAGERS = (("errors", "errors@20tab.com"),)
-ADMINS = MANAGERS
-
 # Email
-
-DEFAULT_NAME = '{{ project_name }}'
 SERVER_EMAIL = f'info@{BASE_HOST_URL}'
 DEFAULT_FROM_EMAIL = f'{DEFAULT_NAME} <{SERVER_EMAIL}>'
 EMAIL_SUBJECT_PREFIX = f'[{DEFAULT_NAME}] '
 EMAIL_USE_LOCALTIME = True
+
+# Managers
+
+MANAGERS = ((DEFAULT_NAME, SERVER_EMAIL),)
+ADMINS = MANAGERS
 
 # Languages
 

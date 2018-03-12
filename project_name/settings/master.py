@@ -1,6 +1,6 @@
 from {{project_name}}.settings.base import *  # noqa
 
-ALLOWED_HOSTS = (f'{BASE_HOST_URL}',)
+ALLOWED_HOSTS = (f'{BASE_HOST_URL}', f'www.{BASE_HOST_URL}')
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -8,17 +8,23 @@ ALLOWED_HOSTS = (f'{BASE_HOST_URL}',)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '{{ project_name }}',
-        'USER': '{{ project_name }}',
+        'NAME': os.environ.get('DATABASES_DEFAULT_NAME', '{{ project_name }}'),
+        'USER': os.environ.get('DATABASES_DEFAULT_USER', '{{ project_name }}'),
         'PASSWORD': os.environ.get('DATABASES_DEFAULT_PASSWORD', ''),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'HOST': os.environ.get('DATABASES_DEFAULT_HOST', '127.0.0.1'),
+        'PORT': os.environ.get('DATABASES_DEFAULT_PORT', '5432',),
     }
 }
 
 # Email
 
-EMAIL_HOST = ''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
+# EMAIL_PORT = os.environ.get('EMAIL_PORT', 465)
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+# EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', False)
+# EMAIL_USE_TLS = os.environ.get('EMAIL_USE_SSL', False)
 
 # Deployment
 
