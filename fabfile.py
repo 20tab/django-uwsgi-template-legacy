@@ -34,7 +34,7 @@ def configure_project():
 
     if not os.path.exists("{}/{}".format(venv, PROJECT_DIRNAME)):
         local("virtualenv -p {} {}/{}".format(py_version, venv, PROJECT_DIRNAME))
-        local("{}/{}/bin/pip install -r {}/requirements.txt".format(venv, PROJECT_DIRNAME, BASE_DIR))
+        local("{}/{}/bin/pip install -r {}/requirements/dev.txt".format(venv, PROJECT_DIRNAME, BASE_DIR))
     if not os.path.exists('templates'):
         local('mkdir templates')
     if not os.path.exists('static'):
