@@ -16,7 +16,7 @@ sudo pip3 install django fabric3
 To start a new project with this template:
 
 ```
-django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master -e py -e ini -e txt -e coveragerc {{project_name}}
+django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master -e py -e ini -e txt -e md -e yaml -e coveragerc {{project_name}}
 ```
 
 ## Configuration
