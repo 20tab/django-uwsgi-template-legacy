@@ -36,3 +36,7 @@
       command: "${HOME}/venvs/{{project_name}}/bin/python manage.py migrate --settings={{project_name}}.settings.{{branch}}"
       args:
         chdir: ${HOME}/www/{{project_dir_name}}/
+    - name: Restart vassal
+      file:
+        path: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{branch}}.ini"
+        state: touch

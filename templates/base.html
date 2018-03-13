@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load cookielaw_tags %}<!doctype html>
+<!doctype html>
 <html lang="{{LANGUAGE_CODE}}">
 <head>
 <title>{% block title %}{% endblock %}</title>
@@ -12,9 +12,7 @@
 </head>
 {% block tag_body %}
 <body>
-{% cookielaw_banner %}
 {% endblock %}
 {% block body %}{% endblock %}
-<script src="{{STATIC_URL}}cookielaw/js/cookielaw.js"></script>
 </body>
 </html>
