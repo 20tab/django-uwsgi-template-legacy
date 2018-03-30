@@ -11,7 +11,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '{{ project_name }}',
+        'NAME': '{{ project_name }}_dev',
         'USER': '{{ project_name }}',
         'PASSWORD': os.environ.get('DATABASES_DEFAULT_PASSWORD', ''),
         'HOST': '127.0.0.1',
@@ -22,6 +22,14 @@ DATABASES = {
 # Email
 
 EMAIL_HOST = ''
+
+# Site
+
+# SITE_ID = 2
+
+# ASSETS
+
+# STATIC_DEBUG = True
 
 # Fab commands configuration
 
