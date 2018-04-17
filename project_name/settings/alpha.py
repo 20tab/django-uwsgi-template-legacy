@@ -2,7 +2,7 @@ import os
 
 from {{project_name}}.settings.base import *  # noqa
 
-ALLOWED_HOSTS = (f'dev.{BASE_HOST_URL}',)
+ALLOWED_HOSTS = (f'alpha.{BASE_HOST_URL}',)
 
 DEBUG = True
 TEMPLATES[0]['OPTIONS']['debug'] = True
@@ -27,7 +27,7 @@ EMAIL_HOST = ''
 
 # Site
 
-# SITE_ID = 2
+# SITE_ID = 3
 
 # ASSETS
 
@@ -35,7 +35,7 @@ EMAIL_HOST = ''
 
 # Fab commands configuration
 
-WORKING_DIR = "www/{{project_name}}_dev"
+WORKING_DIR = "www/{{project_name}}_alpha"
 HOST_USER = ""
 HOST_IP = ""
 HOST_PORT = "22"

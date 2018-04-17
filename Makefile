@@ -4,10 +4,11 @@ ci:
 	( \
 		virtualenv --python=python3.6 ${JENKINSBUILD_DIR}/{{ project_name }}; \
 		source ${JENKINSBUILD_DIR}/{{ project_name }}/bin/activate; \
-		pip install -r requirements.txt; \
-		pycodestyle; \
-		coverage run --source='.' manage.py test tests --settings=${SETTINGS}; \
+		pip install -U -r requirements/tests.txt; \
+		flake8; \
+		coverage run --source='.' manage.py test --settings=${SETTINGS} --noinput; \
 		coverage xml; \
+		python manage.py behave --settings=${SETTINGS}; \
 	)
 
 alpha:

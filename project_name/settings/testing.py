@@ -27,6 +27,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 # INSTALLED_APPS += ('behave_django',)
 
 # BDD_DEFAULT_BROWSER = 'chrome'
-# BDD_HEADLESS_BROWSER = True
+# BDD_HEADLESS_BROWSER = False
 # BDD_BROWSER_LANGUAGE = 'it-IT'
 # BDD_DEFAULT_WAIT_TIME = 2

@@ -6,14 +6,18 @@
 #
 behave-django==1.1.0
 behave==1.2.6
-coverage==4.4.2
+coverage==4.5.1
 django==2.0.3
+flake8==3.5.0
+mccabe==0.6.1             # via flake8
 parse-type==0.4.2         # via behave
 parse==1.8.2              # via behave, parse-type
 pillow==5.0.0
 psycopg2-binary==2.7.4
+pycodestyle==2.3.1        # via flake8
+pyflakes==1.6.0           # via flake8
 pytz==2018.3
-selenium==3.8.1
+selenium==3.11.0
 six==1.11.0               # via behave, parse-type
 splinter==0.7.7
 tblib==1.3.2

@@ -3,6 +3,7 @@
 *.py[cod]
 *.db
 *.log.old
+*.log.gz
 .idea
 .DS_Store
 *.swp
