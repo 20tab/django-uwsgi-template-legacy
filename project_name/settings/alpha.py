@@ -1,33 +1,41 @@
 import os
 
-from concertiaroma3.settings.base import *  # noqa
+from {{project_name}}.settings.base import *  # noqa
 
-INSTANCE = 'alpha'
+ALLOWED_HOSTS = (f'alpha.{BASE_HOST_URL}',)
 
-ALLOWED_HOSTS = [
-    INSTANCE + '.concertiaroma.com'
-]
+DEBUG = True
+TEMPLATES[0]['OPTIONS']['debug'] = True
+
+# Database
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'concertiaroma3_' + INSTANCE,
-        'USER': 'concertiaroma3',
+        'NAME': '{{ project_name }}_dev',
+        'USER': '{{ project_name }}',
         'PASSWORD': os.environ.get('DATABASES_DEFAULT_PASSWORD', ''),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
 
-CONN_MAX_AGE = None
+# Email
 
-DEBUG = True
-TEMPLATES[0]['OPTIONS']['debug'] = True  # noqa
+EMAIL_HOST = ''
 
 # Site
 
-SITE_ID = 3
+# SITE_ID = 3
 
 # ASSETS
 
-STATIC_DEBUG = True
+# STATIC_DEBUG = True
+
+# Fab commands configuration
+
+WORKING_DIR = "www/{{project_name}}_alpha"
+HOST_USER = ""
+HOST_IP = ""
+HOST_PORT = "22"

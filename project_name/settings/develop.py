@@ -1,3 +1,5 @@
+import os
+
 from {{project_name}}.settings.base import *  # noqa
 
 ALLOWED_HOSTS = (f'dev.{BASE_HOST_URL}',)
