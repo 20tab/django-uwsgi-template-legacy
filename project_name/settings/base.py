@@ -35,7 +35,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     # 'django.contrib.sites',
-    # 'registration',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -169,13 +168,6 @@ ADMINS = MANAGERS
 # LOGIN_ERROR_URL = 'home'
 # LOGIN_REDIRECT_URL = 'home'
 # LOGOUT_REDIRECT_URL = 'home'
-
-
-# Registration
-# http://django-registration-redux.readthedocs.io/en/latest/index.html
-
-# ACCOUNT_ACTIVATION_DAYS = 7
-# INCLUDE_REGISTER_URL = False
 
 
 # ASSETS
