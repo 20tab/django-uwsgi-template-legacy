@@ -4,21 +4,21 @@
 #
 #    pip-compile --output-file deploy.txt deploy.ini
 #
-ansible==2.4.3.0
+ansible==2.5.1
 asn1crypto==0.24.0        # via cryptography
 bcrypt==3.1.4             # via paramiko
 cffi==1.11.5              # via bcrypt, cryptography, pynacl
-cryptography==2.1.4       # via ansible, paramiko
-django==2.0.3
+cryptography==2.2.2       # via ansible, paramiko
+django==2.0.4
 idna==2.6                 # via cryptography
 jinja2==2.10              # via ansible
 markupsafe==1.0           # via jinja2
-paramiko==2.4.0           # via ansible
-pillow==5.0.0
+paramiko==2.4.1           # via ansible
+pillow==5.1.0
 psycopg2-binary==2.7.4
 pyasn1==0.4.2             # via paramiko
 pycparser==2.18           # via cffi
 pynacl==1.2.1             # via paramiko
-pytz==2018.3
+pytz==2018.4
 pyyaml==3.12              # via ansible
 six==1.11.0               # via bcrypt, cryptography, pynacl

@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    # 'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -123,7 +124,9 @@ STATICFILES_DIRS = (os.path.abspath(os.path.join(BASE_DIR, 'static')),)
 
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
 
-# Site
+
+# Sites
+# https://docs.djangoproject.com/en/2.0/ref/contrib/sites/
 
 DEFAULT_NAME = '{{ project_name }}'
 BASE_HOST_URL = '{{ project_name }}.com'
@@ -131,7 +134,9 @@ BASE_DOMAIN_URL = f'https://www.{BASE_HOST_URL}'
 
 # SITE_ID = 1
 
-# Email
+# Email Settings
+# https://docs.djangoproject.com/en/2.0/topics/email/
+
 SERVER_EMAIL = f'info@{BASE_HOST_URL}'
 DEFAULT_FROM_EMAIL = f'{DEFAULT_NAME} <{SERVER_EMAIL}>'
 EMAIL_SUBJECT_PREFIX = f'[{DEFAULT_NAME}] '
@@ -150,7 +155,9 @@ ADMINS = MANAGERS
 # )
 # LOCALE_PATHS = (os.path.abspath(os.path.join(BASE_DIR, 'locale')),)
 
-# User
+
+# Authentication
+# https://docs.djangoproject.com/en/2.0/topics/auth/customizing/
 
 # AUTH_USER_MODEL = 'users.User'
 
@@ -168,6 +175,7 @@ ADMINS = MANAGERS
 PACKAGE_FILENAME = 'package.json'
 STATIC_DEBUG = False
 STATIC_PATH = {True: 'dev', False: 'dist'}
+
 
 # uWSGI
 
