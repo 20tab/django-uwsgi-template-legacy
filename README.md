@@ -22,7 +22,7 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 ## Configuration
 
 - To configure project with virtualenv and required empty directories: 
-  - check `requirements/dev.txt` to customize your virtualenv 
+  - check `requirements/dev.ini` to customize your virtualenv 
   - check `{{project_name}}.ini` to customize your workarea root and project root
   - and than execute `fab configure_project` into your project directory
 
