@@ -1,6 +1,6 @@
 from {{project_name}}.settings.base import *  # noqa
 
-ALLOWED_HOSTS = (f'{BASE_HOST_URL}', f'www.{BASE_HOST_URL}')
+ALLOWED_HOSTS = (f'{BASE_URL}',)
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases

@@ -102,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'it'
+LANGUAGE_CODE = 'it_IT'
 
 TIME_ZONE = 'Europe/Rome'
 
@@ -130,7 +130,8 @@ MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
 
 DEFAULT_NAME = '{{ project_name }}'
 BASE_HOST_URL = '{{ project_name }}.com'
-BASE_DOMAIN_URL = f'https://www.{BASE_HOST_URL}'
+BASE_URL = f'www.{BASE_HOST_URL}'
+BASE_DOMAIN_URL = f'http://{BASE_URL}'
 
 # SITE_ID = 1
 
@@ -141,10 +142,12 @@ SERVER_EMAIL = f'info@{BASE_HOST_URL}'
 DEFAULT_FROM_EMAIL = f'{DEFAULT_NAME} <{SERVER_EMAIL}>'
 EMAIL_SUBJECT_PREFIX = f'[{DEFAULT_NAME}] '
 EMAIL_USE_LOCALTIME = True
+ERROR_EMAIL = f'errors@{BASE_HOST_URL}'
+EMAIL_SIGNATURE = f'\n-- \n{DEFAULT_FROM_EMAIL}'
 
 # Managers
 
-MANAGERS = ((DEFAULT_NAME, SERVER_EMAIL),)
+MANAGERS = ((DEFAULT_NAME, ERROR_EMAIL),)
 ADMINS = MANAGERS
 
 # Languages
