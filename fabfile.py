@@ -54,6 +54,13 @@ def create_db():
             fastprint(f"- Database {db_local['NAME']} creato.")
 
 
+def drop_db():
+    if confirm("Attenzione, stai cancellando il db. Sei sicuro di voler procedere?"):
+        if "postgresql" in db_local['ENGINE']:
+            local(f"dropdb -h {db_local['HOST']} -p {db_local['PORT']} -U postgres {db_local['NAME']}")
+            fastprint(f"- Database {db_local['NAME']} cancellato.")
+
+
 def gitclone(repository):
     local('git init')
     local('flake8 --install-hook git')
