@@ -19,7 +19,7 @@ initalpha:
 alpha:
 	( \
 		@${MAKE} ci; \
-		cd deploy && TARGET=alpha ANSIBLE_PYTHON_INTERPRETER="~/venvs/{{ project_name }}_alpha/bin/python" ansible-playbook -vv deploy.yaml; \
+		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml; \
 	)
 
 test:

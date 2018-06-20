@@ -32,7 +32,7 @@
         login_user={{db_user}}
         login_password={{db_password}}
       vars:
-        ansible_python_interpreter: venv/{{project_venv_name}}/bin/python
+        ansible_python_interpreter: venvs/{{project_venv_name}}/bin/python
     - name: Migrate database
       command: "${HOME}/venvs/{{project_venv_name}}/bin/python manage.py migrate{% endverbatim %} --settings={{project_name}}.settings.{% verbatim %}{{settings}}"
       args:

@@ -62,9 +62,10 @@ def create_db():
             fastprint('- Database {} creato.'.format(db_local['NAME']))
 
 
-
 def gitclone(repository):
     local('git init')
+    local('flake8 --install-hook git')
+    local('git config flake8.strict true')
     local('git add -A')
     local("git commit -m 'first commit'")
     local('git remote add origin {}'.format(repository))
@@ -80,7 +81,6 @@ def media_from_server(settings='develop'):
         local("rsync -av --progress --inplace --rsh='ssh -p{}' {}@{}:{}/media/ ./media/".format(
             server.port, server.user, server.ip, server.working_dir))
         fastprint("Ricordati che sincronizzando i file media e' necessario sincronizzare anche il database.")
-
 
 
 class ServerUtil(object):

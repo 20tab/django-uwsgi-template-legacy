@@ -17,7 +17,7 @@ DATABASES = {
         'NAME': DATABASES_DEFAULT_NAME or '{{project_name}}_dev',
         'USER': DATABASES_DEFAULT_USER or '{{project_name}}',
         'PASSWORD': DATABASES_DEFAULT_PASSWORD or '',
-        'HOST': DATABASES_DEFAULT_HOST or '127.0.0.1,
+        'HOST': DATABASES_DEFAULT_HOST or '127.0.0.1',
         'PORT': DATABASES_DEFAULT_PORT or '5432',
     }
 }

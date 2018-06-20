@@ -4,8 +4,13 @@ source = .
 
 omit =  **/__init__.py
         **/migrations/**
-        **/settings/*.py
         **/tests/**
-        **/{{ project_name }}/{{ project_name }}/wsgi.py
+        **/settings/master.py
+        **/settings/develop.py
+        **/settings/alpha.py
+        **/settings/local.py
+        **/settings/secret.py
+        **/wsgi.py
+        **/urls.py
         manage.py
         fabfile.py
