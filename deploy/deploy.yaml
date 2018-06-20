@@ -31,11 +31,13 @@
         template=template0
         login_user={{db_user}}
         login_password={{db_password}}
+      vars:
+        ansible_python_interpreter: venv/{{project_venv_name}}/bin/python
     - name: Migrate database
       command: "${HOME}/venvs/{{project_venv_name}}/bin/python manage.py migrate{% endverbatim %} --settings={{project_name}}.settings.{% verbatim %}{{settings}}"
       args:
         chdir: ${HOME}/www/{{project_dir_name}}/
     - name: Restart vassal
       file:
-        path: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{branch}}.ini"
+        path: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{settings}}.ini"
         state: touch{% endverbatim %}

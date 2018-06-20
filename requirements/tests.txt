@@ -15,7 +15,6 @@ mccabe==0.6.1             # via flake8
 parse-type==0.4.2         # via behave
 parse==1.8.4              # via behave, parse-type
 pillow==5.1.0
-psycopg2-binary==2.7.5
 pycodestyle==2.3.1        # via flake8
 pyflakes==1.6.0           # via flake8
 pytz==2018.4
