@@ -4,7 +4,6 @@
 #
 #    pip-compile --output-file dev.txt dev.ini
 #
-appnope==0.1.0            # via ipython
 backcall==0.1.0           # via ipython
 click==6.7                # via pip-tools
 decorator==4.3.0          # via ipython, traitlets
