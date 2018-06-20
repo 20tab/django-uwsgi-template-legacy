@@ -27,7 +27,7 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
   - copy `{{project_name}}/settings/secret.py.template` to `{{project_name}}/settings/secret.py.template` and:
     - set `SECRET_KEY` with
       ```
-      $  python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+      $  python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
       ```
     - (optional) set `DATABESE_*` and `EMAIL_*` values
   - execute `fab init` into your project directory
