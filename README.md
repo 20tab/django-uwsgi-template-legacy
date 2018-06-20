@@ -16,7 +16,7 @@ sudo pip3 install django fabric3
 To start a new project with this template:
 
 ```
-django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master -e py -e ini -e txt -e md -e yaml -e coveragerc {{project_name}}
+django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master --extension=py,ini,txt,md,yaml,coveragerc -n Makefile,hosts {{project_name}}
 ```
 
 ## Configuration
@@ -24,7 +24,7 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 - To configure project with virtualenv and required empty directories: 
   - check `requirements/dev.ini` to customize your virtualenv 
   - check `{{project_name}}.ini` to customize your workarea root and project root
-  - and than execute `fab configure_project` into your project directory
+  - and than execute `fab init` into your project directory
 
 - To merge your project with git repository execute `fab gitclone:<your_repo_git_url>`
 

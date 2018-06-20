@@ -6,7 +6,6 @@ omit =  **/__init__.py
         **/migrations/**
         **/settings/*.py
         **/tests/**
-        **/{{ project_name }}/{{ project_name }}/*.py
-        dbdump.py
+        **/{{ project_name }}/{{ project_name }}/wsgi.py
         manage.py
         fabfile.py

@@ -1,23 +1,24 @@
 ---
 - name: Deployment configuration
-  hosts: alpha
+  hosts: servers
   gather_facts: False
   vars_files:
       - ${TARGET}.yaml
 
   tasks:
+    - name: Manually create the initial virtualenv
+      command: virtualenv -p python3.6 ${HOME}/venvs/{% verbatim %}{{project_venv_name}} creates="${HOME}/venvs/{{project_venv_name}}{% endverbatim %}"
+      tags: init
     - name: Clone repository
-      git:
+      git:{% verbatim %}
         repo={{git_repository}}
         dest=www/{{project_dir_name}}
         accept_hostkey=yes
         version={{branch}}
-    - name: Manually create the initial virtualenv
-      command: virtualenv -p python3 ${HOME}/venvs/{{project_name}} creates="${HOME}/venvs/{{project_name}}"
     - name: Install requirements
       pip:
-        requirements=${HOME}/www/{{project_dir_name}}/requirements.txt
-        virtualenv=${HOME}/venvs/{{project_name}}
+        requirements=${HOME}/www/{{project_dir_name}}/requirements/deploy.txt
+        virtualenv=${HOME}/venvs/{{project_venv_name}}
     - name: Create vassall
       file:
         src: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{branch}}.ini"
@@ -30,13 +31,11 @@
         template=template0
         login_user={{db_user}}
         login_password={{db_password}}
-      vars:
-        ansible_python_interpreter: "your_virtualenv/bin/python"
     - name: Migrate database
-      command: "${HOME}/venvs/{{project_name}}/bin/python manage.py migrate --settings={{project_name}}.settings.{{branch}}"
+      command: "${HOME}/venvs/{{project_venv_name}}/bin/python manage.py migrate{% endverbatim %} --settings={{project_name}}.settings.{% verbatim %}{{settings}}"
       args:
         chdir: ${HOME}/www/{{project_dir_name}}/
     - name: Restart vassal
       file:
         path: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{branch}}.ini"
-        state: touch
+        state: touch{% endverbatim %}

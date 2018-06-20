@@ -1,6 +1,7 @@
 import os
 
 from {{project_name}}.settings.base import *  # noqa
+from {{project_name}}.settings.secret import *  # noqa
 
 ALLOWED_HOSTS = (f'alpha.{BASE_HOST_URL}',)
 
@@ -13,11 +14,11 @@ TEMPLATES[0]['OPTIONS']['debug'] = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASES_DEFAULT_NAME', '{{ project_name }}_alpha'),
-        'USER': os.environ.get('DATABASES_DEFAULT_USER', '{{ project_name }}'),
-        'PASSWORD': os.environ.get('DATABASES_DEFAULT_PASSWORD', ''),
-        'HOST': os.environ.get('DATABASES_DEFAULT_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('DATABASES_DEFAULT_PORT', '5432',),
+        'NAME': DATABASES_DEFAULT_NAME or '{{project_name}}_alpha',
+        'USER': DATABASES_DEFAULT_USER or '{{project_name}}',
+        'PASSWORD': DATABASES_DEFAULT_PASSWORD or '',
+        'HOST': DATABASES_DEFAULT_HOST or '127.0.0.1',
+        'PORT': DATABASES_DEFAULT_PORT or '5432',
     }
 }
 

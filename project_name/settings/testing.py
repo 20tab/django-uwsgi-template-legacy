@@ -6,11 +6,11 @@ from {{project_name}}.settings.base import *  # noqa
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASES_DEFAULT_NAME', '{{ project_name }}_test'),
-        'USER': os.environ.get('DATABASES_DEFAULT_USER', 'user'),
-        'PASSWORD': os.environ.get('DATABASES_DEFAULT_PASSWORD', 'password'),
-        'HOST': os.environ.get('DATABASES_DEFAULT_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('DATABASES_DEFAULT_PORT', '5432',),
+        'NAME': '{{ project_name }}_test',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 

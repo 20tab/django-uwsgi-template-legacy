@@ -20,14 +20,14 @@ htmlcov/
 clonedigger_output.html
 flake.out
 pep8.out
-coverage.xml
 node_modules/
 __pycache__
 appimage/*
 CACHE/*
-*secret.ini
+*secret.py
 *.vscode/
 dump.rdb
 .prettierrc
 */spyspool/*
 cypress.env.json
+deploy/*

@@ -1,4 +1,5 @@
 from {{project_name}}.settings.base import *  # noqa
+from {{project_name}}.settings.secret import *  # noqa
 
 ALLOWED_HOSTS = ('localhost', '127.0.0.1', '{{project_name}}.local')
 
@@ -8,11 +9,11 @@ ALLOWED_HOSTS = ('localhost', '127.0.0.1', '{{project_name}}.local')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASES_DEFAULT_NAME', '{{ project_name }}'),
-        'USER': os.environ.get('DATABASES_DEFAULT_USER', 'user'),
-        'PASSWORD': os.environ.get('DATABASES_DEFAULT_PASSWORD', 'password'),
-        'HOST': os.environ.get('DATABASES_DEFAULT_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('DATABASES_DEFAULT_PORT', '5432',),
+        'NAME': DATABASES_DEFAULT_NAME or '{{project_name}}',
+        'USER': DATABASES_DEFAULT_USER or '{{project_name}}',
+        'PASSWORD': DATABASES_DEFAULT_PASSWORD or '',
+        'HOST': DATABASES_DEFAULT_HOST or '127.0.0.1',
+        'PORT': DATABASES_DEFAULT_PORT or '5432',
     }
 }
 
