@@ -40,11 +40,12 @@ def init():
         local(f'ln -s {BASE_DIR}/uwsgiconf/locals/{PROJECT_DIRNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
     create_db()
     fastprint('\n\n*** ATTENZIONE ***\n\n')
-    fastprint('a) Controlla il file {{project_name}}.ini e assicurati che sia installato il plugin python corretto\n')
-    fastprint('b) Controlla il file globlal.ini e assicurati che sia installato il plugin python corretto\n')
-    fastprint('c) Configura il file deploy/hosts con i dati del server\n')
-    fastprint('d) Configura il file deploy/alpha.yaml con i dati corretti\n')
-    fastprint('e) Configura il file settings/testing.py con i dati corretti')
+    fastprint('a) Controlla il file uwsgiconf/locals/{{project_name}}.ini e assicurati che sia installato il plugin python corretto\n')
+    fastprint('b) Controlla il file uwsgiconf/remotes/globlal.ini e assicurati che sia installato il plugin python corretto\n')
+    fastprint('c) Controlla il file uwsgiconf/remotes/alpha.ini e assicurati che il nome del dominio sia corretto\n')
+    fastprint('d) Configura il file deploy/hosts con i dati del server\n')
+    fastprint('e) Configura il file deploy/alpha.yaml con i dati corretti\n')
+    fastprint('f) Configura il file {{project_name}}/settings/testing.py con i dati corretti')
 
 
 def create_db():
