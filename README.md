@@ -16,7 +16,7 @@ sudo pip3 install django fabric3
 To start a new project with this template:
 
 ```
-django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master --extension=py,ini,txt,md,yaml,coveragerc -n Makefile,hosts {{project_name}}
+django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master --extension=py,ini,txt,md,yaml,coveragerc,template -n Makefile,hosts {{project_name}}
 ```
 
 ## Configuration
@@ -24,7 +24,13 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 - To configure project with virtualenv and required empty directories: 
   - check `requirements/dev.ini` to customize your virtualenv 
   - check `{{project_name}}.ini` to customize your workarea root and project root
-  - and than execute `fab init` into your project directory
+  - copy `{{project_name}}/settings/secret.py.template` to `{{project_name}}/settings/secret.py.template` and:
+    - set `SECRET_KEY` with
+      ```
+      $  python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+      ```
+    - (optional) set `DATABESE_*` and `EMAIL_*` values
+  - execute `fab init` into your project directory
 
 - To merge your project with git repository execute `fab gitclone:<your_repo_git_url>`
 
@@ -34,55 +40,26 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 
 - Enjoy
 
-## Setup
+## Data Setup
 
-### Enviroment setup
-
-Execute only once.
+Data creation or reset, to execute only first time or if you want reset all data.
 
 ```shell
-mkdir -p ~/venvs
-python3.6 -m venv ~/venvs/{{project_name}}
-cd ~/projects
-git clone {{project_name}}@gitlab.{{project_name}}.com:{{project_name}}/{{project_name}}.git {{project_name}}
-createdb -e -U postgres -O postgres {{project_name}}
+$ fab drop_db
+$ fab create_db
 ```
 
-### Enviroment initialization
+Table and superuser creation.
 
 ```shell
-cd ~/projects/{{project_name}}
-git checkout development
-git pull
-source ~/venvs/{{project_name}}/bin/activate
-pip install -U pip
-pip install -r requirements/dev.txt
-```
-
-### Data creation or reset
-
-Only first time or if you want reset all data
-
-```shell
-dropdb -e -U postgres {{project_name}}
-createdb -e -U postgres -O postgres {{project_name}}
-python manage.py migrate
-python manage.py createsuperuser
+$ python manage.py migrate
+$ python manage.py createsuperuser
 ```
 
 ## Testing
 
-### Enviroment initialization
+Environment initialization, and execution of behave and test with coverage.
 
 ```shell
-cd ~/projects/{{project_name}}
-source ~/venvs/{{project_name}}/bin/activate
-pip install -r requirements/testing.txt
-```
-
-### Testing execution
-
-```shell
-$ python manage.py test --setting={{project_name}}.settings.testing --keepdb --parallel
-$ python manage.py behave --setting={{project_name}}.settings.testing --keepdb
+$ make test
 ```
