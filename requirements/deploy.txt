@@ -20,5 +20,5 @@ pyasn1==0.4.3             # via paramiko
 pycparser==2.18           # via cffi
 pynacl==1.2.1             # via paramiko
 pytz==2018.4
-pyyaml==3.12              # via ansible
+pyyaml==4.1               # via ansible
 six==1.11.0               # via bcrypt, cryptography, pynacl

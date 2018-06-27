@@ -1,12 +1,8 @@
-import os
-
 from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
-ALLOWED_HOSTS = (f'alpha.{BASE_HOST_URL}',)
-
-DEBUG = True
-TEMPLATES[0]['OPTIONS']['debug'] = True
+HOST = f'alpha.{BASE_HOST_URL}'
+ALLOWED_HOSTS = (HOST,)
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -22,20 +18,24 @@ DATABASES = {
     }
 }
 
-
 # Email Settings
 # https://docs.djangoproject.com/en/2.0/topics/email/
 
 EMAIL_HOST = ''
 
+# Debug
+
+DEBUG = True
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
+
+# Assets
+
+# STATIC_DEBUG = True
+
 # Sites
 # https://docs.djangoproject.com/en/2.0/ref/contrib/sites/
 
 # SITE_ID = 3
-
-# ASSETS
-
-# STATIC_DEBUG = True
 
 # Fab commands configuration
 
