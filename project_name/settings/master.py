@@ -1,7 +1,8 @@
 from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
-ALLOWED_HOSTS = (f'{BASE_URL}',)
+HOST = BASE_HOST_URL
+ALLOWED_HOSTS = (HOST,)
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -28,6 +29,27 @@ EMAIL_HOST = EMAIL_HOST or ''
 # EMAIL_USE_SSL = EMAIL_USE_SSL or False
 # EMAIL_USE_TLS = EMAIL_USE_SSL or False
 
+# Debug
+
+DEBUG = False
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
+
+# Assets
+
+# STATIC_DEBUG = False
+
+# Sites
+# https://docs.djangoproject.com/en/2.0/ref/contrib/sites/
+
+# SITE_ID = 1
+
+# Fab commands configuration
+
+WORKING_DIR = "www/{{project_name}}"
+HOST_USER = ""
+HOST_IP = ""
+HOST_PORT = "22"
+
 # Deployment
 
 SECURE_BROWSER_XSS_FILTER = True
@@ -45,10 +67,3 @@ X_FRAME_OPTIONS = 'DENY'  # Default: 'SAMEORIGIN'
 # https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/#performance-optimizations
 
 # CONN_MAX_AGE = None
-
-# Fab commands configuration
-
-WORKING_DIR = "www/{{project_name}}"
-HOST_USER = ""
-HOST_IP = ""
-HOST_PORT = "22"

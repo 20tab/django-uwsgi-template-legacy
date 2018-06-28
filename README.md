@@ -23,13 +23,13 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 
 - To configure project with virtualenv and required empty directories: 
   - check `requirements/dev.ini` to customize your virtualenv 
-  - check `{{project_name}}.ini` to customize your workarea root and project root
-  - copy `{{project_name}}/settings/secret.py.template` to `{{project_name}}/settings/secret.py.template` and:
+  - copy `uwsgiconf/local/{{project_name}}.ini` to `uwsgiconf/local/<username>.ini` and customize your workarea root and project root
+  - copy `{{project_name}}/settings/secret.py.template` to `{{project_name}}/settings/secret.py` and:
     - set `SECRET_KEY` with
       ```
       $  python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
       ```
-    - (optional) set `DATABESE_*` and `EMAIL_*` values
+    - set `DATABESE_*` values
   - execute `fab init` into your project directory
 
 - To merge your project with git repository execute `fab gitclone:<your_repo_git_url>`
@@ -42,17 +42,19 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 
 ## Data Setup
 
-Data creation or reset, to execute only first time or if you want reset all data.
+### Database reset
+
+To execute only if you want reset all data:
 
 ```shell
 $ fab drop_db
 $ fab create_db
+$ python manage.py migrate
 ```
 
-Table and superuser creation.
+### Superuser creation
 
 ```shell
-$ python manage.py migrate
 $ python manage.py createsuperuser
 ```
 

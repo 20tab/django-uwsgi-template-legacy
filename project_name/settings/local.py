@@ -1,7 +1,8 @@
 from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
-ALLOWED_HOSTS = ('localhost', '127.0.0.1', '{{project_name}}.local')
+HOST = 'localhost'
+ALLOWED_HOSTS = (HOST, '127.0.0.1', '{{project_name}}.local')
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -26,8 +27,17 @@ EMAIL_FILE_PATH = '/tmp/app-messages'
 # Debug
 
 DEBUG = True
-if DEBUG:
-    TEMPLATES[0]['OPTIONS']['debug'] = True  # noqa
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
+
+# Assets
+
+STATIC_DEBUG = True
+
+# uWSGI
+
+# UWSGI_ACCESS_LOG_BASE_PATH = f'{BASE_DIR}/{{ project_name }}_access-'
+
+# Debug Toolbar
 
 try:
     import debug_toolbar
@@ -43,11 +53,3 @@ else:
             'debug_toolbar.panels.templates.TemplatesPanel'
         },
     }
-
-# ASSETS
-
-STATIC_DEBUG = True
-
-# uWSGI
-
-UWSGI_ACCESS_LOG_BASE_PATH = f'{BASE_DIR}/{{ project_name }}_access-'
