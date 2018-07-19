@@ -21,7 +21,8 @@ DATABASES = {
 # Email Settings
 # https://docs.djangoproject.com/en/2.0/topics/email/
 
-EMAIL_HOST = ''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = EMAIL_HOST or ''
 
 # Debug
 

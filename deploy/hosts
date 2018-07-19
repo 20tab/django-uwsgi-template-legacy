@@ -2,4 +2,4 @@
 alpha
 
 [alpha]
-host_ip ansible_ssh_user=host_user
+<host_ip> ansible_ssh_user=<host_user>

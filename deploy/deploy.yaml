@@ -17,7 +17,7 @@
         version={{branch}}
     - name: Install requirements
       pip:
-        requirements=${HOME}/www/{{project_dir_name}}/requirements/deploy.txt
+        requirements=${HOME}/www/{{project_dir_name}}/requirements/prod.txt
         virtualenv=${HOME}/venvs/{{project_venv_name}}
     - name: Create vassall
       file:

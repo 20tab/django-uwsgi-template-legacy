@@ -63,5 +63,24 @@ $ python manage.py createsuperuser
 Environment initialization, and execution of behave and test with coverage.
 
 ```shell
+$ source ~/venvs/{{project_name}}/bin/activate
+```
+
+or
+
+```shell
+$ workon {{project_name}}
+```
+
+and
+
+```shell
 $ make test
 ```
+
+after
+
+```shell
+$ make dev
+```
+
