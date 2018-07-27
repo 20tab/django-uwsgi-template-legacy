@@ -8,7 +8,6 @@ backcall==0.1.0           # via ipython
 click==6.7                # via pip-tools
 decorator==4.3.0          # via ipython, traitlets
 django-debug-toolbar==1.9.1
-django-extensions==2.1.0
 django==2.0.7
 first==2.0.1              # via pip-tools
 flake8==3.5.0
@@ -27,13 +26,12 @@ prompt-toolkit==1.0.15    # via ipython
 psycopg2-binary==2.7.5
 ptyprocess==0.6.0         # via pexpect
 pycodestyle==2.3.1        # via flake8
-pydot==1.2.4
 pyflakes==1.6.0           # via flake8
 pygments==2.2.0           # via ipython
 pyparsing==2.2.0          # via pydot
 pytz==2018.5
 simplegeneric==0.8.1      # via ipython
-six==1.11.0               # via django-extensions, pip-tools, prompt-toolkit, traitlets
+six==1.11.0               # via pip-tools, prompt-toolkit, traitlets
 sqlparse==0.2.4           # via django-debug-toolbar
 traitlets==4.3.2          # via ipython
 wcwidth==0.1.7            # via prompt-toolkit
