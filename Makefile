@@ -38,12 +38,13 @@ dev:
 		pip-sync requirements/dev.txt; \
 	)
 
+# to pass optional parameters use as: make pip p='-P requests'
 pip:
 	( \
 		pip install -U pip pip-tools; \
-		pip-compile --output-file requirements/common.txt requirements/common.ini; \
-		pip-compile --output-file requirements/deploy.txt requirements/deploy.ini; \
-		pip-compile --output-file requirements/dev.txt requirements/dev.ini; \
-		pip-compile --output-file requirements/prod.txt requirements/prod.ini; \
-		pip-compile --output-file requirements/tests.txt requirements/tests.ini; \
+		pip-compile $(p) --output-file requirements/common.txt requirements/common.ini; \
+		pip-compile $(p) --output-file requirements/deploy.txt requirements/deploy.ini; \
+		pip-compile $(p) --output-file requirements/dev.txt requirements/dev.ini; \
+		pip-compile $(p) --output-file requirements/prod.txt requirements/prod.ini; \
+		pip-compile $(p) --output-file requirements/tests.txt requirements/tests.ini; \
 	)
