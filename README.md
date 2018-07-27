@@ -22,14 +22,16 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 ## Configuration
 
 - To configure project with virtualenv and required empty directories: 
-  - check `requirements/dev.ini` to customize your virtualenv 
-  - copy `uwsgiconf/local/{{project_name}}.ini` to `uwsgiconf/local/<username>.ini` and customize your workarea root and project root
-  - copy `{{project_name}}/settings/secret.py.template` to `{{project_name}}/settings/secret.py` and:
-    - set `SECRET_KEY` with
+  - check `requirements/dev.ini` to customize your virtualenv and then execute:
       ```
-      $  python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+    $ make pip
+    ````
+  - export your local DB password and execute the setup command:
       ```
-    - set `DATABESE_*` values
+    $ export PASSWORD=<password>
+    $ make setup
+    ````
+  - check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings
   - execute `fab init` into your project directory
 
 - To merge your project with git repository execute `fab gitclone:<your_repo_git_url>`
