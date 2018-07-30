@@ -17,11 +17,11 @@
         version={{branch}}
     - name: Install requirements
       pip:
-        requirements=${HOME}/www/{{project_dir_name}}/requirements/deploy.txt
+        requirements=${HOME}/www/{{project_dir_name}}/requirements/prod.txt
         virtualenv=${HOME}/venvs/{{project_venv_name}}
-    - name: Create vassall
+    - name: Create vassal
       file:
-        src: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{branch}}.ini"
+        src: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{settings}}.ini"
         dest: "${HOME}/vassals/{{project_dir_name}}.ini"
         state: link
     - name: Create database
@@ -33,6 +33,18 @@
         login_password={{db_password}}
       vars:
         ansible_python_interpreter: venvs/{{project_venv_name}}/bin/python
+    - name: Copy secrets settings
+      copy:
+        src: ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py.template
+        dest: ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py
+        mode: 0600
+        remote_src: yes
+    - name: Generate a secret key
+      command: "${HOME}/venvs/{{project_venv_name}}/bin/python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'"
+      register: secretkey
+    - name: Write secrets vars
+      command: sed -i -e "s/secretkey/{{ secretkey.stdout }}/g;s/postgres/{{project_name}}/g;s/password/{{db_password}}/g;" ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py
+      warn: no
     - name: Migrate database
       command: "${HOME}/venvs/{{project_venv_name}}/bin/python manage.py migrate{% endverbatim %} --settings={{project_name}}.settings.{% verbatim %}{{settings}}"
       args:

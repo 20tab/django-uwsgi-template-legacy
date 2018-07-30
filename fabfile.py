@@ -26,8 +26,8 @@ def init():
     py_version = prompt(f'Useremo {PY_VERSION}, oppure specifica un\'altra versione (es: python2.7):') or PY_VERSION
     if not os.path.exists(f'{venvs}/{PROJECT_DIRNAME}'):
         local(f'virtualenv -p {py_version} {venvs}/{PROJECT_DIRNAME}')
-        local(f'{venvs}/{PROJECT_DIRNAME}/bin/pip install -U pip')
-        local(f'{venvs}/{PROJECT_DIRNAME}/bin/pip install -r {BASE_DIR}/requirements/dev.txt')
+        local(f'{venvs}/{PROJECT_DIRNAME}/bin/pip install -U pip pip-tools')
+        local(f'{venvs}/{PROJECT_DIRNAME}/bin/pip-sync {BASE_DIR}/requirements/dev.txt')
     else:
         local(f'. {venvs}/{PROJECT_DIRNAME}/bin/activate')
     if not os.path.exists('templates'):
@@ -40,8 +40,8 @@ def init():
         local(f'ln -s {BASE_DIR}/uwsgiconf/locals/{PROJECT_DIRNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
     create_db()
     fastprint('\n\n*** ATTENZIONE ***\n\n')
-    fastprint('a) Controlla il file uwsgiconf/locals/{{project_name}}.ini e assicurati che sia installato il plugin python corretto\n')
-    fastprint('b) Controlla il file uwsgiconf/remotes/globlal.ini e assicurati che sia installato il plugin python corretto\n')
+    fastprint('a) Controlla uwsgiconf/locals/{{project_name}}.ini e verifica di avere il plugin python corretto\n')
+    fastprint('b) Controlla il file uwsgiconf/remotes/globlal.ini e verifica di avere il plugin python corretto\n')
     fastprint('c) Controlla il file uwsgiconf/remotes/alpha.ini e assicurati che il nome del dominio sia corretto\n')
     fastprint('d) Configura il file deploy/hosts con i dati del server\n')
     fastprint('e) Configura il file deploy/alpha.yaml con i dati corretti\n')

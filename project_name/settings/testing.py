@@ -1,6 +1,9 @@
 from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
+HOST = BASE_HOST_URL
+ALLOWED_HOSTS = (HOST,)
+
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -25,7 +28,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 DEBUG = False
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
-# ASSETS
+# Assets
 
 # STATIC_DEBUG = False
 

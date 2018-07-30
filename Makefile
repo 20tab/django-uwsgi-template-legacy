@@ -1,15 +1,17 @@
-export SETTINGS={{ project_name }}.settings.testing
+SETTINGS := {{ project_name }}.settings.testing
+SECRETKEY := $(shell python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
+USERNAME := $(shell whoami)
 
 ci:
 	( \
 		virtualenv --python=python3.6 ${JENKINSBUILD_DIR}/{{ project_name }}; \
 		source ${JENKINSBUILD_DIR}/{{ project_name }}/bin/activate; \
-		pip install -U pip; \
-		pip install -U -r requirements/tests.txt; \
+		pip install -U pip pip-tools; \
+		pip-sync requirements/tests.txt; \
 		flake8; \
-		coverage run manage.py test --settings=${SETTINGS} --noinput; \
+		coverage run manage.py test --settings=$(SETTINGS) --noinput; \
 		coverage xml; \
-		python manage.py behave --settings=${SETTINGS}; \
+		python manage.py behave --settings=$(SETTINGS) --simple; \
 	)
 
 initalpha:
@@ -26,9 +28,32 @@ alpha:
 
 test:
 	( \
-		pip install -U pip; \
-		pip install -U -r requirements/tests.txt; \
-		coverage run manage.py test --settings=${SETTINGS} --noinput; \
-		coverage xml; \
-		python manage.py behave --settings=${SETTINGS}; \
+		pip install -U pip pip-tools; \
+		pip-sync requirements/tests.txt; \
+		python manage.py test --settings=$(SETTINGS) --noinput --keepdb --parallel; \
+		python manage.py behave --settings=$(SETTINGS) --keepdb; \
+	)
+
+dev:
+	( \
+		pip install -U pip pip-tools; \
+		pip-sync requirements/dev.txt; \
+	)
+
+# to pass optional parameters use as: make pip p='-P requests'
+pip:
+	( \
+		pip install -U pip pip-tools; \
+		pip-compile $(p) --output-file requirements/common.txt requirements/common.ini; \
+		pip-compile $(p) --output-file requirements/deploy.txt requirements/deploy.ini; \
+		pip-compile $(p) --output-file requirements/dev.txt requirements/dev.ini; \
+		pip-compile $(p) --output-file requirements/prod.txt requirements/prod.ini; \
+		pip-compile $(p) --output-file requirements/tests.txt requirements/tests.ini; \
+	)\
+
+setup:
+	( \
+		/bin/cp {{ project_name }}/settings/secret.py.template {{ project_name }}/settings/secret.py; \
+		sed -i -e 's/password/${PASSWORD}/g;s/secretkey/$(SECRETKEY)/g' {{ project_name }}/settings/secret.py; \
+		/bin/cp uwsgiconf/locals/{{ project_name }}.ini uwsgiconf/locals/$(USERNAME).ini; \
 	)
