@@ -8,7 +8,7 @@ This is a [Django](https://www.djangoproject.com/) template with custom configur
 To use this template you need latest Django and Fabric3 version.
 
 ```
-sudo pip3 install django fabric3
+sudo pip3 install -U django fabric3
 ```
 
 ## Installation
