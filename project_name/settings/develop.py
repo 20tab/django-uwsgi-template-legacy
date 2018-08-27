@@ -5,7 +5,7 @@ HOST = f'dev.{BASE_HOST_URL}'
 ALLOWED_HOSTS = (HOST,)
 
 # Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -19,7 +19,7 @@ DATABASES = {
 }
 
 # Email Settings
-# https://docs.djangoproject.com/en/2.0/topics/email/
+# https://docs.djangoproject.com/en/2.1/topics/email/
 
 EMAIL_HOST = ''
 
@@ -33,13 +33,13 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 # STATIC_DEBUG = True
 
 # Sites
-# https://docs.djangoproject.com/en/2.0/ref/contrib/sites/
+# https://docs.djangoproject.com/en/2.1/ref/contrib/sites/
 
 # SITE_ID = 2
 
 # Fab commands configuration
 
-WORKING_DIR = "www/{{project_name}}_dev"
-HOST_USER = ""
-HOST_IP = ""
-HOST_PORT = "22"
+WORKING_DIR = 'www/{{project_name}}_dev'
+HOST_USER = ''
+HOST_IP = ''
+HOST_PORT = '22'

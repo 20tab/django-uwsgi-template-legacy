@@ -5,7 +5,7 @@ HOST = BASE_HOST_URL
 ALLOWED_HOSTS = (HOST,)
 
 # Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -19,7 +19,7 @@ DATABASES = {
 }
 
 # Email Settings
-# https://docs.djangoproject.com/en/2.0/topics/email/
+# https://docs.djangoproject.com/en/2.1/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = EMAIL_HOST or ''
@@ -39,16 +39,16 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 # STATIC_DEBUG = False
 
 # Sites
-# https://docs.djangoproject.com/en/2.0/ref/contrib/sites/
+# https://docs.djangoproject.com/en/2.1/ref/contrib/sites/
 
 # SITE_ID = 1
 
 # Fab commands configuration
 
-WORKING_DIR = "www/{{project_name}}"
-HOST_USER = ""
-HOST_IP = ""
-HOST_PORT = "22"
+WORKING_DIR = 'www/{{project_name}}'
+HOST_USER = ''
+HOST_IP = ''
+HOST_PORT = '22'
 
 # Deployment
 
@@ -64,6 +64,6 @@ X_FRAME_OPTIONS = 'DENY'  # Default: 'SAMEORIGIN'
 # SESSION_COOKIE_SECURE = True
 
 # Performance optimizations
-# https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/#performance-optimizations
+# https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/#performance-optimizations
 
 # CONN_MAX_AGE = None
