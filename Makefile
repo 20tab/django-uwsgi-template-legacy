@@ -1,4 +1,4 @@
-SETTINGS := {{ project_name }}.settings.testing
+export SETTINGS={{ project_name }}.settings.testing
 SECRETKEY := $(shell python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
 USERNAME := $(shell whoami)
 
@@ -6,12 +6,12 @@ ci:
 	( \
 		virtualenv --python=python3.6 ${JENKINSBUILD_DIR}/{{ project_name }}; \
 		source ${JENKINSBUILD_DIR}/{{ project_name }}/bin/activate; \
-		pip install -U pip pip-tools; \
-		pip-sync requirements/tests.txt; \
+		pip install -U pip; \
+		pip install -U -r requirements/tests.txt; \
 		flake8; \
-		coverage run manage.py test --settings=$(SETTINGS) --noinput; \
+		coverage run manage.py test --settings=${SETTINGS} --noinput; \
 		coverage xml; \
-		python manage.py behave --settings=$(SETTINGS) --simple; \
+		python manage.py behave --settings=${SETTINGS} --simple; \
 	)
 
 initalpha:
@@ -30,8 +30,10 @@ test:
 	( \
 		pip install -U pip pip-tools; \
 		pip-sync requirements/tests.txt; \
-		python manage.py test --settings=$(SETTINGS) --noinput --keepdb --parallel; \
-		python manage.py behave --settings=$(SETTINGS) --keepdb; \
+		python manage.py test --settings=${SETTINGS} --noinput --keepdb --parallel; \
+		python manage.py behave --settings=${SETTINGS} --keepdb; \
+		coverage run manage.py test --settings=${SETTINGS} --noinput; \
+		coverage xml; \
 	)
 
 dev:
