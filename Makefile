@@ -30,10 +30,9 @@ test:
 	( \
 		pip install -U pip pip-tools; \
 		pip-sync requirements/tests.txt; \
-		python manage.py test --settings=${SETTINGS} --noinput --keepdb --parallel; \
-		python manage.py behave --settings=${SETTINGS} --keepdb; \
 		coverage run manage.py test --settings=${SETTINGS} --noinput; \
 		coverage xml; \
+		python manage.py behave --settings=${SETTINGS} --keepdb; \
 	)
 
 dev:
