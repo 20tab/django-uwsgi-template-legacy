@@ -52,4 +52,8 @@ else:
             'debug_toolbar.panels.redirects.RedirectsPanel',
             'debug_toolbar.panels.templates.TemplatesPanel'
         },
+        # URL of the copy of jQuery that will be used by the toolbar.
+        # Set it to a locally-hosted version of jQuery for offline development.
+        # Make it empty to rely on a version of jQuery that already exists on every page of your site.
+        'JQUERY_URL': '',
     }
