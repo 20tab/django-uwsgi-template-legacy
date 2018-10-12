@@ -1,6 +1,6 @@
 export SETTINGS={{ project_name }}.settings.testing
-SECRETKEY := $(shell python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
-USERNAME := $(shell whoami)
+export SECRETKEY=$(shell python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
+export USERNAME=$(shell whoami)
 
 ci:
 	( \
@@ -9,9 +9,9 @@ ci:
 		pip install -U pip; \
 		pip install -U -r requirements/tests.txt; \
 		flake8; \
-		coverage run manage.py test --settings=${SETTINGS} --noinput; \
+		coverage run manage.py test --settings=${SETTINGS} --noinput --parallel; \
 		coverage xml; \
-		python manage.py behave --settings=${SETTINGS} --simple; \
+		python manage.py behave --settings=${SETTINGS}; \
 	)
 
 initalpha:
@@ -30,7 +30,7 @@ test:
 	( \
 		pip install -U pip pip-tools; \
 		pip-sync requirements/tests.txt; \
-		coverage run manage.py test --settings=${SETTINGS} --noinput; \
+		coverage run manage.py test --settings=${SETTINGS} --noinput --keepdb --parallel; \
 		coverage xml; \
 		python manage.py behave --settings=${SETTINGS} --keepdb; \
 	)
@@ -55,6 +55,6 @@ pip:
 setup:
 	( \
 		/bin/cp {{ project_name }}/settings/secret.py.template {{ project_name }}/settings/secret.py; \
-		sed -i -e 's/password/${PASSWORD}/g;s/secretkey/$(SECRETKEY)/g' {{ project_name }}/settings/secret.py; \
-		/bin/cp uwsgiconf/locals/{{ project_name }}.ini uwsgiconf/locals/$(USERNAME).ini; \
+		sed -i -e 's/password/${PASSWORD}/g;s/secretkey/${SECRETKEY}/g' {{ project_name }}/settings/secret.py; \
+		/bin/cp uwsgiconf/locals/{{ project_name }}.ini uwsgiconf/locals/${USERNAME}.ini; \
 	)

@@ -26,7 +26,15 @@ EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 # Debug
 
 DEBUG = False
+if DEBUG:
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (  # noqa
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+    REST_FRAMEWORK['DEFAULT_PERMISSION_CLASSES'] = (  # noqa
+        'rest_framework.permissions.AllowAny',
+    )
 
 # Assets
 
@@ -38,5 +46,7 @@ INSTALLED_APPS += ('behave_django',)
 
 # BDD_DEFAULT_BROWSER = 'chrome'
 # BDD_HEADLESS_BROWSER = False
+# BDD_INCOGNITO_BROWSER = True
+# BDD_FULLSCREEN_BROWSER = False
 # BDD_BROWSER_LANGUAGE = 'it-IT'
 # BDD_DEFAULT_WAIT_TIME = 2
