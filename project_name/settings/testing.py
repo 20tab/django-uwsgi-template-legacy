@@ -26,15 +26,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 # Debug
 
 DEBUG = False
-if DEBUG:
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
-    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (  # noqa
-        'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    )
-    REST_FRAMEWORK['DEFAULT_PERMISSION_CLASSES'] = (  # noqa
-        'rest_framework.permissions.AllowAny',
-    )
 
 # Assets
 
