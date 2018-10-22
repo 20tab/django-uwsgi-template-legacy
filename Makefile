@@ -16,13 +16,11 @@ ci:
 
 initalpha:
 	( \
-		@${MAKE} ci; \
 		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --tags "init"; \
 	)
 
 alpha:
 	( \
-		@${MAKE} ci; \
 		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml; \
 	)
 
