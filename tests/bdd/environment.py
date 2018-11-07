@@ -31,7 +31,7 @@ def before_scenario(context, scenario):
             'capabilities': {'moz:webdriverClick': False},
         })
     elif driver_name == 'chrome':
-        load_entry_point('chromedriver-binary==2.42.0', 'console_scripts', 'chromedriver-path')
+        load_entry_point('chromedriver-binary==2.43.0', 'console_scripts', 'chromedriver-path')
         options = Options()
         options.add_experimental_option('prefs', language)
         params.update({

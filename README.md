@@ -21,16 +21,16 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 
 ## Configuration
 
-- To configure project with virtualenv and required empty directories: 
+- To configure project with virtualenv and required empty directories:
   - check `requirements/dev.ini` to customize your virtualenv and then execute:
-      ```
+    ```shell
     $ make pip
-    ````
+    ```
   - export your local DB password and execute the setup command:
-      ```
-    $ export PASSWORD=<password>
+    ```shell
+    $ export PASSWORD=your-database-password
     $ make setup
-    ````
+    ```
   - check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings
   - execute `fab init` into your project directory
 
@@ -85,4 +85,3 @@ after
 ```shell
 $ make dev
 ```
-
