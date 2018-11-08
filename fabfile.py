@@ -1,33 +1,37 @@
+import configparser
 import importlib
 import os
 
+from django.core.management.utils import get_random_secret_key
 from fabric.api import local
 from fabric.contrib.console import confirm
 from fabric.operations import prompt
 from fabric.state import output
 from fabric.utils import fastprint
 
-from {{project_name}}.settings.local import DATABASES as LOCAL_DB
-
 BASE_DIR = os.path.dirname(__file__)
-BASE_DIRENAME = os.path.dirname(BASE_DIR)
+BASE_DIRNAME = os.path.dirname(BASE_DIR)
 PROJECT_DIRNAME = os.path.basename(os.path.dirname(__file__))
-VENVS = f'{BASE_DIRENAME}/venvs'
-VASSALS = f'{BASE_DIRENAME}/vassals'
+VENVS = f'{BASE_DIRNAME}/venvs'
+VASSALS = f'{BASE_DIRNAME}/vassals'
 PY_VERSION = 'python3'
+USERNAME = os.getlogin()
+SECRET_FILE = f'{BASE_DIR}/{PROJECT_DIRNAME}/settings/secret.py'
+SECRET_KEY = get_random_secret_key()
 
 output['everything'] = True
-db_local = LOCAL_DB['default']
 
 
 def init():
-    venvs = prompt(f'Installeremo il virtualenv dentro "{VENVS}", oppure specifica il percorso:') or VENVS
-    vassals = prompt(f'Useremo "{VASSALS}" come directory per i vassals, oppure specifica il percorso:') or VASSALS
-    py_version = prompt(f'Useremo {PY_VERSION}, oppure specifica un\'altra versione (es: python2.7):') or PY_VERSION
+    venvs = prompt(f'We will install the virtualenv inside "{VENVS}", or specify the path:') or VENVS
+    vassals = prompt(f'We will use "{VASSALS}" as the directory for the vassals, or specify the path:') or VASSALS
+    py_version = prompt(f'We will use {PY_VERSION}, or specify another version (ex: python2.7):') or PY_VERSION
+    username = prompt(f'Enter the database user name:')
+    password = prompt(f'Enter the database user password:')
     if not os.path.exists(f'{venvs}/{PROJECT_DIRNAME}'):
         local(f'virtualenv -p {py_version} {venvs}/{PROJECT_DIRNAME}')
-        local(f'{venvs}/{PROJECT_DIRNAME}/bin/pip install -U pip pip-tools')
-        local(f'{venvs}/{PROJECT_DIRNAME}/bin/pip-sync {BASE_DIR}/requirements/dev.txt')
+        local(f'{venvs}/{PROJECT_DIRNAME}/bin/pip install -U pip')
+        local(f'{venvs}/{PROJECT_DIRNAME}/bin/pip install -r {BASE_DIR}/requirements/dev.txt')
     else:
         local(f'. {venvs}/{PROJECT_DIRNAME}/bin/activate')
     if not os.path.exists('templates'):
@@ -36,30 +40,44 @@ def init():
         local('mkdir static')
     if not os.path.exists('media'):
         local('mkdir media')
-    if not os.path.exists('{}/{}.ini'.format(vassals, PROJECT_DIRNAME)):
-        local(f'ln -s {BASE_DIR}/uwsgiconf/locals/{PROJECT_DIRNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
+    if not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
+        local(f'cp {BASE_DIR}/uwsgiconf/locals/{PROJECT_DIRNAME}.ini {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini')
+        local(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
+    if not os.path.exists(f'{SECRET_FILE}'):
+        local(f'cp {SECRET_FILE}.template {SECRET_FILE}')
+        local(f'sed -i -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')
     create_db()
-    fastprint('\n\n*** ATTENZIONE ***\n\n')
-    fastprint('a) Controlla uwsgiconf/locals/{{project_name}}.ini e verifica di avere il plugin python corretto\n')
-    fastprint('b) Controlla il file uwsgiconf/remotes/globlal.ini e verifica di avere il plugin python corretto\n')
-    fastprint('c) Controlla il file uwsgiconf/remotes/alpha.ini e assicurati che il nome del dominio sia corretto\n')
-    fastprint('d) Configura il file deploy/hosts con i dati del server\n')
-    fastprint('e) Configura il file deploy/alpha.yaml con i dati corretti\n')
-    fastprint('f) Configura il file {{project_name}}/settings/testing.py con i dati corretti')
+    fastprint('\n\n*** WARNING ***\n\n')
+    fastprint('a) Check uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin\n')
+    fastprint('b) Check the uwsgiconf/remotes/globlal.ini file and verify that you have the correct python plugin\n')
+    fastprint('c) Check the uwsgiconf/remotes/alpha.ini file and make sure the domain name is correct\n')
+    fastprint('d) Configure the deploy/hosts file with server data\n')
+    fastprint('e) Configure the deploy/alpha.yaml file with the correct data\n')
+    fastprint('f) Configure the file by {PROJECT_DIRNAME}/settings/testing.py with the correct data\n')
+
+
+def get_db():
+        with open(SECRET_FILE, 'r') as f:
+            config_string = '[secret]\n' + f.read()
+        config = configparser.ConfigParser()
+        config.read_string(config_string)
+        db_name = config.get('secret', 'DATABASES_DEFAULT_NAME')
+        db_host = config.get('secret', 'DATABASES_DEFAULT_HOST')
+        db_port = config.get('secret', 'DATABASES_DEFAULT_PORT')
+        db_user = config.get('secret', 'DATABASES_DEFAULT_USER')
+        return db_name, db_host, db_port, db_user
 
 
 def create_db():
-    if confirm("Attenzione, stai creando il db. Sei sicuro di voler procedere?"):
-        if "postgresql" in db_local['ENGINE']:
-            local(f"createdb -h {db_local['HOST']} -p {db_local['PORT']} -U postgres -O postgres {db_local['NAME']}")
-            fastprint(f"- Database {db_local['NAME']} creato.")
+    if confirm('Attention, you are creating the db. Are you sure you want to proceed?'):
+        db_name, db_host, db_port, db_user = get_db()
+        local(f"createdb -e -h {db_host} -p {db_port} -U {db_user} -O {db_user} {db_name}")
 
 
 def drop_db():
-    if confirm("Attenzione, stai cancellando il db. Sei sicuro di voler procedere?"):
-        if "postgresql" in db_local['ENGINE']:
-            local(f"dropdb -h {db_local['HOST']} -p {db_local['PORT']} -U postgres {db_local['NAME']}")
-            fastprint(f"- Database {db_local['NAME']} cancellato.")
+    if confirm('Warning, you are deleting the db. Are you sure you want to proceed?'):
+        db_name, db_host, db_port, db_user = get_db()
+        local(f"dropdb -e -h {db_host} -p {db_port} -U {db_user} {db_name}")
 
 
 def gitclone(repository):
@@ -67,20 +85,20 @@ def gitclone(repository):
     local('flake8 --install-hook git')
     local('git config flake8.strict true')
     local('git add -A')
-    local("git commit -m 'first commit'")
+    local('git commit -m "first commit"')
     local(f'git remote add origin {repository}')
     local('git push -u origin master')
 
 
 def media_from_server(settings='develop'):
     """
-    Copia tutti i file media dal server definito dal settings passato come argomento.
+    Copy all media files from the server defined by the settings passed as an argument.
     """
     server = ServerUtil(settings)
-    if confirm(f'Vuoi sovrascrivere i file locali in /media/ con quelli sul server {settings.upper()}?'):
+    if confirm(f'Do you want to overwrite local files in /media/ with those on the {settings.upper()} server?'):
         server_string = f'{server.user}@{server.ip}:{server.working_dir}'
-        local(f"rsync -av --progress --inplace -e='ssh -p{server.port}' {server_string}/media/ ./media/")
-        fastprint("Ricordati che sincronizzando i file media e' necessario sincronizzare anche il database.")
+        local(f'rsync -av --progress --inplace -e="ssh -p{server.port}" {server_string}/media/ ./media/')
+        fastprint('Remember that synchronizing the media files also requires synchronizing the database.')
 
 
 class ServerUtil(object):
