@@ -10,12 +10,14 @@
       command: virtualenv -p python3.6 ${HOME}/venvs/{% verbatim %}{{project_venv_name}} creates="${HOME}/venvs/{{project_venv_name}}{% endverbatim %}"
       tags: init
     - name: Clone repository
+      tags: update
       git:{% verbatim %}
         repo={{git_repository}}
         dest=www/{{project_dir_name}}
         accept_hostkey=yes
         version={{branch}}
     - name: Install requirements
+      tags: update
       pip:
         requirements=${HOME}/www/{{project_dir_name}}/requirements/prod.txt
         virtualenv=${HOME}/venvs/{{project_venv_name}}
@@ -45,10 +47,12 @@
     - name: Write secrets vars
       command: sed -i -e "s/secretkey/{{ secretkey.stdout }}/g;s/postgres/{{db_user}}/g;s/password/{{db_password}}/g;s/{{project_name}}/{{db_name}}/g;" ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py
     - name: Migrate database
+      tags: update
       command: "${HOME}/venvs/{{project_venv_name}}/bin/python manage.py migrate{% endverbatim %} --settings={{project_name}}.settings.{% verbatim %}{{settings}}"
       args:
         chdir: ${HOME}/www/{{project_dir_name}}/
     - name: Restart vassal
+      tags: update
       file:
         path: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{settings}}.ini"
         state: touch{% endverbatim %}

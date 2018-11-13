@@ -16,12 +16,23 @@ ci:
 
 initalpha:
 	( \
+		pip install -U pip pip-tools; \
+		pip-sync requirements/deploy.txt; \
 		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --tags "init"; \
 	)
 
 alpha:
 	( \
+		pip install -U pip pip-tools; \
+		pip-sync requirements/deploy.txt; \
 		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml; \
+	)
+
+updatealpha:
+	( \
+		pip install -U pip pip-tools; \
+		pip-sync requirements/deploy.txt; \
+		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --tags "update"; \
 	)
 
 test:
