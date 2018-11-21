@@ -28,7 +28,7 @@ test:
 	( \
 		pip install -U pip pip-tools; \
 		pip-sync requirements/tests.txt; \
-		coverage run manage.py test --settings=${SETTINGS} --noinput --keepdb --parallel; \
+		coverage run manage.py test --settings=${SETTINGS} --noinput --keepdb; \
 		coverage xml; \
 		python manage.py behave --settings=${SETTINGS} --keepdb; \
 	)
@@ -44,7 +44,6 @@ pip:
 	( \
 		pip install -U pip pip-tools; \
 		pip-compile $(p) --output-file requirements/common.txt requirements/common.ini; \
-		pip-compile $(p) --output-file requirements/deploy.txt requirements/deploy.ini; \
 		pip-compile $(p) --output-file requirements/dev.txt requirements/dev.ini; \
 		pip-compile $(p) --output-file requirements/prod.txt requirements/prod.ini; \
 		pip-compile $(p) --output-file requirements/tests.txt requirements/tests.ini; \
