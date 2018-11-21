@@ -14,7 +14,7 @@ behave-django==1.1.0
 behave==1.2.6             # via behave-django
 cffi==1.11.5              # via bcrypt, cryptography, pynacl
 chromedriver-binary==2.43.0
-coverage==4.5.1
+coverage==4.5.2
 cryptography==2.4.1       # via ansible, paramiko
 decorator==4.3.0          # via ipython, traitlets
 django-webtest==1.9.4
@@ -54,5 +54,5 @@ traitlets==4.3.2          # via ipython
 urllib3==1.24.1           # via selenium
 waitress==1.1.0           # via webtest
 wcwidth==0.1.7            # via prompt-toolkit
-webob==1.8.3              # via webtest
+webob==1.8.4              # via webtest
 webtest==2.0.32           # via django-webtest
