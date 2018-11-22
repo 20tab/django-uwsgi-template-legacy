@@ -21,6 +21,10 @@
       pip:
         requirements=${HOME}/www/{{project_dir_name}}/requirements/prod.txt
         virtualenv=${HOME}/venvs/{{project_venv_name}}
+    - name: Install webpack
+      shell: npm install
+      args:
+        chdir: ${HOME}/www/{{project_dir_name}}
     - name: Create vassal
       file:
         src: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{settings}}.ini"
@@ -46,6 +50,10 @@
       register: secretkey
     - name: Write secrets vars
       command: sed -i -e "s/secretkey/{{ secretkey.stdout }}/g;s/postgres/{{db_user}}/g;s/password/{{db_password}}/g;s/{{project_name}}/{{db_name}}/g;" ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py
+    - name: Buils statics
+      shell: npm run build
+      args:
+        chdir: ${HOME}/www/{{project_dir_name}}
     - name: Migrate database
       tags: update
       command: "${HOME}/venvs/{{project_venv_name}}/bin/python manage.py migrate{% endverbatim %} --settings={{project_name}}.settings.{% verbatim %}{{settings}}"
