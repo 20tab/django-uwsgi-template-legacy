@@ -3,6 +3,7 @@ project_name: {{project_name}}
 project_dir_name: {{project_name}}_alpha
 project_venv_name: {{project_name}}_alpha
 git_repository: servergit/{{project_name}}.git
+db_name: {{project_name}}_alpha
 db_user: postgres
 db_password: password
 branch: develop

@@ -1,15 +1,11 @@
-import os
-
 from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
-ALLOWED_HOSTS = (f'dev.{BASE_HOST_URL}',)
-
-DEBUG = True
-TEMPLATES[0]['OPTIONS']['debug'] = True
+HOST = f'dev.{BASE_HOST_URL}'
+ALLOWED_HOSTS = (HOST,)
 
 # Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -23,22 +19,27 @@ DATABASES = {
 }
 
 # Email Settings
-# https://docs.djangoproject.com/en/2.0/topics/email/
+# https://docs.djangoproject.com/en/2.1/topics/email/
 
 EMAIL_HOST = ''
 
-# Sites
-# https://docs.djangoproject.com/en/2.0/ref/contrib/sites/
+# Debug
 
-# SITE_ID = 2
+DEBUG = True
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
-# ASSETS
+# Assets
 
 # STATIC_DEBUG = True
 
+# Sites
+# https://docs.djangoproject.com/en/2.1/ref/contrib/sites/
+
+# SITE_ID = 2
+
 # Fab commands configuration
 
-WORKING_DIR = "www/{{project_name}}_dev"
-HOST_USER = ""
-HOST_IP = ""
-HOST_PORT = "22"
+WORKING_DIR = 'www/{{project_name}}_dev'
+HOST_USER = ''
+HOST_IP = ''
+HOST_PORT = '22'

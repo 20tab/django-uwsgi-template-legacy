@@ -1,10 +1,11 @@
 from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
-ALLOWED_HOSTS = (f'{BASE_URL}',)
+HOST = BASE_HOST_URL
+ALLOWED_HOSTS = (HOST,)
 
 # Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -18,7 +19,7 @@ DATABASES = {
 }
 
 # Email Settings
-# https://docs.djangoproject.com/en/2.0/topics/email/
+# https://docs.djangoproject.com/en/2.1/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = EMAIL_HOST or ''
@@ -27,6 +28,27 @@ EMAIL_HOST = EMAIL_HOST or ''
 # EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD or ''
 # EMAIL_USE_SSL = EMAIL_USE_SSL or False
 # EMAIL_USE_TLS = EMAIL_USE_SSL or False
+
+# Debug
+
+DEBUG = False
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
+
+# Assets
+
+# STATIC_DEBUG = False
+
+# Sites
+# https://docs.djangoproject.com/en/2.1/ref/contrib/sites/
+
+# SITE_ID = 1
+
+# Fab commands configuration
+
+WORKING_DIR = 'www/{{project_name}}'
+HOST_USER = ''
+HOST_IP = ''
+HOST_PORT = '22'
 
 # Deployment
 
@@ -42,13 +64,6 @@ X_FRAME_OPTIONS = 'DENY'  # Default: 'SAMEORIGIN'
 # SESSION_COOKIE_SECURE = True
 
 # Performance optimizations
-# https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/#performance-optimizations
+# https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/#performance-optimizations
 
 # CONN_MAX_AGE = None
-
-# Fab commands configuration
-
-WORKING_DIR = "www/{{project_name}}"
-HOST_USER = ""
-HOST_IP = ""
-HOST_PORT = "22"

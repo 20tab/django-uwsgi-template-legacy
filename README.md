@@ -8,7 +8,7 @@ This is a [Django](https://www.djangoproject.com/) template with custom configur
 To use this template you need latest Django and Fabric3 version.
 
 ```
-sudo pip3 install django fabric3
+sudo pip3 install -U django fabric3
 ```
 
 ## Installation
@@ -21,15 +21,17 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 
 ## Configuration
 
-- To configure project with virtualenv and required empty directories: 
-  - check `requirements/dev.ini` to customize your virtualenv 
-  - check `{{project_name}}.ini` to customize your workarea root and project root
-  - copy `{{project_name}}/settings/secret.py.template` to `{{project_name}}/settings/secret.py.template` and:
-    - set `SECRET_KEY` with
-      ```
-      $  python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
-      ```
-    - (optional) set `DATABESE_*` and `EMAIL_*` values
+- To configure project with virtualenv and required empty directories:
+  - check `requirements/dev.ini` to customize your virtualenv and then execute:
+    ```shell
+    $ make pip
+    ```
+  - export your local DB password and execute the setup command:
+    ```shell
+    $ export PASSWORD=your-database-password
+    $ make setup
+    ```
+  - check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings
   - execute `fab init` into your project directory
 
 - To merge your project with git repository execute `fab gitclone:<your_repo_git_url>`
@@ -42,17 +44,19 @@ django-admin.py startproject --template=https://github.com/20tab/twentytab_proje
 
 ## Data Setup
 
-Data creation or reset, to execute only first time or if you want reset all data.
+### Database reset
+
+To execute only if you want reset all data:
 
 ```shell
 $ fab drop_db
 $ fab create_db
+$ python manage.py migrate
 ```
 
-Table and superuser creation.
+### Superuser creation
 
 ```shell
-$ python manage.py migrate
 $ python manage.py createsuperuser
 ```
 
@@ -61,5 +65,23 @@ $ python manage.py createsuperuser
 Environment initialization, and execution of behave and test with coverage.
 
 ```shell
+$ source ~/venvs/{{project_name}}/bin/activate
+```
+
+or
+
+```shell
+$ workon {{project_name}}
+```
+
+and
+
+```shell
 $ make test
+```
+
+after
+
+```shell
+$ make dev
 ```

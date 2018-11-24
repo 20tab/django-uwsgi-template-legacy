@@ -1,10 +1,11 @@
 from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
-ALLOWED_HOSTS = ('localhost', '127.0.0.1', '{{project_name}}.local')
+HOST = 'localhost'
+ALLOWED_HOSTS = (HOST, '127.0.0.1', '{{project_name}}.local')
 
 # Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -18,7 +19,7 @@ DATABASES = {
 }
 
 # Email Settings
-# https://docs.djangoproject.com/en/2.0/topics/email/
+# https://docs.djangoproject.com/en/2.1/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/app-messages'
@@ -26,8 +27,17 @@ EMAIL_FILE_PATH = '/tmp/app-messages'
 # Debug
 
 DEBUG = True
-if DEBUG:
-    TEMPLATES[0]['OPTIONS']['debug'] = True  # noqa
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
+
+# Assets
+
+STATIC_DEBUG = True
+
+# uWSGI
+
+# UWSGI_ACCESS_LOG_BASE_PATH = f'{BASE_DIR}/{{ project_name }}_access-'
+
+# Debug Toolbar
 
 try:
     import debug_toolbar
@@ -42,12 +52,8 @@ else:
             'debug_toolbar.panels.redirects.RedirectsPanel',
             'debug_toolbar.panels.templates.TemplatesPanel'
         },
+        # URL of the copy of jQuery that will be used by the toolbar.
+        # Set it to a locally-hosted version of jQuery for offline development.
+        # Make it empty to rely on a version of jQuery that already exists on every page of your site.
+        'JQUERY_URL': '',
     }
-
-# ASSETS
-
-STATIC_DEBUG = True
-
-# uWSGI
-
-UWSGI_ACCESS_LOG_BASE_PATH = f'{BASE_DIR}/{{ project_name }}_access-'
