@@ -31,3 +31,4 @@ dump.rdb
 */spyspool/*
 cypress.env.json
 deploy/*
+.sass-cache
