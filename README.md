@@ -5,10 +5,27 @@ This is a [Django](https://www.djangoproject.com/) template with custom configur
 
 ## Prerequisite
 
-To use this template you need latest Django and Fabric3 version.
+Set you environment. We kindly suggest updating pip to the lates versione and using virtualenv to wrap all your work.
 
+Eg: update pip and virtualenv, then create an empty virtualenv with the right python version, and activate it
+
+```shell
+    $ sudo pip install -U pip virtualenv
 ```
-sudo pip3 install -U django fabric3
+then
+```shell
+    $ virtualenv --python=python3 path/to/venvs/myvenv
+    $ source path/to/venvs/myvenv/bin/activate
+```
+    or with virtualenvwrapper
+```shell
+    $ mkvirtualenv --python=python3 myvenv
+```
+
+To use this template you need the latest Django and Fabric3 version installed.
+
+```shell
+(myvenv)$ pip install django fabric3
 ```
 
 ## Installation
@@ -16,22 +33,24 @@ sudo pip3 install -U django fabric3
 To start a new project with this template:
 
 ```
-django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master --extension=py,ini,txt,md,yaml,coveragerc,template -n Makefile,hosts {{project_name}}
+(myvenv)$ django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master --extension=py,ini,txt,md,yaml,coveragerc,template -n Makefile,hosts {{project_name}}
 ```
 
 ## Configuration
 
-- To configure project with virtualenv and required empty directories:
-  - check `requirements/dev.ini` to customize your virtualenv and then execute:
+- Enter the root folder of your project
+
+- To configure the project:
+
+  - check `requirements/dev.ini` to customize your virtualenv and `requirements/common.ini` to check the Django versione, then execute:
     ```shell
-    $ make pip
+    (myvenv)$ make setup
     ```
-  - export your local DB password and execute the setup command:
-    ```shell
-    $ export PASSWORD=your-database-password
-    $ make setup
-    ```
-  - check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings
+
+  - check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings; mainly comment and uncomment lines for emperor (plus bonjour or avahi) or stand-alone mode
+
+  - check the default db parameters into {{project_name}}/settings/secret.py.template file
+
   - execute `fab init` into your project directory
 
 - To merge your project with git repository execute `fab gitclone:<your_repo_git_url>`
