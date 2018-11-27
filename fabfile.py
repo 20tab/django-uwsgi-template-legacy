@@ -12,6 +12,7 @@ from fabric.utils import fastprint
 BASE_DIR = os.path.dirname(__file__)
 BASE_DIRNAME = os.path.dirname(BASE_DIR)
 PROJECT_DIRNAME = os.path.basename(os.path.dirname(__file__))
+EMPEROR_MODE = True
 VENVS = f'{BASE_DIRNAME}/venvs'
 VASSALS = f'{BASE_DIRNAME}/vassals'
 PY_VERSION = 'python3'
@@ -23,29 +24,25 @@ output['everything'] = True
 
 
 def init():
-    venvs = prompt(f'We will install the virtualenv inside "{VENVS}", or specify the path:') or VENVS
-    vassals = prompt(f'We will use "{VASSALS}" as the directory for the vassals, or specify the path:') or VASSALS
-    py_version = prompt(f'We will use {PY_VERSION}, or specify another version (ex: python2.7):') or PY_VERSION
+    if not confirm('Is your project virtualenv activated?'):
+        fastprint('Activate your virtualenv and run the fab command again')
+        return
+    EMPEROR_MODE = confirm('Do you want to configure your uWSGI vassal in emperor mode? (no=stand-alone)')
+    if EMPEROR_MODE:
+        vassals = prompt(f'We will use "{VASSALS}" as the directory for the vassals, or specify the path:') or VASSALS
     username = prompt(f'Enter the database user name:')
     password = prompt(f'Enter the database user password:')
-    if not os.path.exists(f'{venvs}/{PROJECT_DIRNAME}'):
-        local(f'virtualenv -p {py_version} {venvs}/{PROJECT_DIRNAME}')
-        local(f'{venvs}/{PROJECT_DIRNAME}/bin/pip install -U pip')
-        local(f'{venvs}/{PROJECT_DIRNAME}/bin/pip install -r {BASE_DIR}/requirements/dev.txt')
-    else:
-        local(f'. {venvs}/{PROJECT_DIRNAME}/bin/activate')
+    local(f'pip install -r {BASE_DIR}/requirements/dev.txt')
     if not os.path.exists('templates'):
         local('mkdir templates')
     if not os.path.exists('static'):
         local('mkdir static')
     if not os.path.exists('media'):
         local('mkdir media')
-    if not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
+    if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
         local(f'cp {BASE_DIR}/uwsgiconf/locals/{PROJECT_DIRNAME}.ini {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini')
         local(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
-    if not os.path.exists(f'{SECRET_FILE}'):
-        local(f'cp {SECRET_FILE}.template {SECRET_FILE}')
-        local(f'sed -i -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')
+    local(f'sed -i -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')
     create_db()
     fastprint('\n\n*** WARNING ***\n\n')
     fastprint('a) Check uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin\n')
@@ -69,7 +66,7 @@ def get_db():
 
 
 def create_db():
-    if confirm('Attention, you are creating the db. Are you sure you want to proceed?'):
+    if confirm('Pay attention, you are creating the Postgresql db. Are you sure you want to proceed?'):
         db_name, db_host, db_port, db_user = get_db()
         local(f"createdb -e -h {db_host} -p {db_port} -U {db_user} -O {db_user} {db_name}")
 
