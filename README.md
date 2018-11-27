@@ -79,7 +79,7 @@ $ python manage.py migrate
 $ python manage.py createsuperuser
 ```
 
-### To update virtualen
+### To update virtualenv
 
 Add the packages on your requirements/\*.ini file
 
