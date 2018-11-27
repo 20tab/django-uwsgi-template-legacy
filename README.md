@@ -79,6 +79,15 @@ $ python manage.py migrate
 $ python manage.py createsuperuser
 ```
 
+### To update virtualen
+
+Add the packages on your requirements/\*.ini file
+
+```shell
+$ make pip
+```
+
+
 ## Testing
 
 Environment initialization, and execution of behave and test with coverage.
