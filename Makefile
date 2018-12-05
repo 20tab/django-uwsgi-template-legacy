@@ -16,29 +16,21 @@ ci:
 
 initalpha:
 	( \
-		pip install -U pip pip-tools; \
-		pip-sync requirements/deploy.txt; \
 		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --tags "init"; \
 	)
 
 alpha:
 	( \
-		pip install -U pip pip-tools; \
-		pip-sync requirements/deploy.txt; \
 		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml; \
 	)
 
 updatealpha:
 	( \
-		pip install -U pip pip-tools; \
-		pip-sync requirements/deploy.txt; \
 		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --tags "update"; \
 	)
 
 test:
 	( \
-		pip install -U pip pip-tools; \
-		pip-sync requirements/tests.txt; \
 		coverage run manage.py test --settings=${SETTINGS} --noinput --keepdb; \
 		coverage xml; \
 		python manage.py behave --settings=${SETTINGS} --keepdb; \
