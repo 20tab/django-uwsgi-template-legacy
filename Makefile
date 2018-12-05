@@ -56,6 +56,6 @@ pip:
 setup_ci:
 	( \
 		/bin/cp {{ project_name }}/settings/secret.py.template {{ project_name }}/settings/secret.py; \
-		sed -i -e 's/password/${PASSWORD}/g;s/secretkey/${SECRETKEY}/g' {{ project_name }}/settings/secret.py;
+		sed -i -e 's/password/${PASSWORD}/g;s/secretkey/${SECRETKEY}/g' {{ project_name }}/settings/secret.py; \
 		/bin/cp uwsgiconf/locals/{{ project_name }}.ini uwsgiconf/locals/${USERNAME}.ini; \
 	)
