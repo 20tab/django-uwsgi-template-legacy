@@ -42,7 +42,9 @@ def init():
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
         local(f'cp {BASE_DIR}/uwsgiconf/locals/{PROJECT_DIRNAME}.ini {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini')
         local(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
-    local(f'sed -i -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')
+    if not os.path.exists(f'{SECRET_FILE}'):
+        local(f'cp {SECRET_FILE}.template {SECRET_FILE}')
+        local(f'sed -i -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')
     create_db()
     fastprint('\n\n*** WARNING ***\n\n')
     fastprint('a) Check uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin\n')
