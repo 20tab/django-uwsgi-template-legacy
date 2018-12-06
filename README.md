@@ -133,3 +133,11 @@ Execute of test and behave with coverage.
 ```shell
 ({{project_name}}_env) $ make test
 ```
+
+# Continuous Integration
+
+To setup the build in a Continuous Integration environment like Jenkins use this code:
+
+```shell
+make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
+```
