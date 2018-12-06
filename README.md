@@ -5,35 +5,43 @@ This is a [Django](https://www.djangoproject.com/) template with custom configur
 
 ## Prerequisite
 
-Set you environment. We kindly suggest updating pip to the lates versione and using virtualenv to wrap all your work.
+Set you environment. We kindly suggest updating pip to the latest version and using a virtualenv  to wrap all your work.
 
-Eg: update pip and virtualenv, then create an empty virtualenv with the right python version, and activate it
+Use one this option to create an empty virtualenv with the right python version, and activate it:
 
-```shell
-    $ sudo pip install -U pip virtualenv
-```
-then
-```shell
-    $ virtualenv --python=python3 path/to/venvs/myvenv
-    $ source path/to/venvs/myvenv/bin/activate
-```
-    or with virtualenvwrapper
-```shell
-    $ mkvirtualenv --python=python3 myvenv
-```
+* use virtualenv for python2:
+  ```shell
+  $ pip install --user -U pip virtualenv
+  $ virtualenv --python=python3 ~/venvs/{{project_name}}_env
+  $ source ~/venvs/{{project_name}}_env/bin/activate
+  ```
+
+* use venv for python3:
+  ```shell
+  $ pip3 install --user -U pip
+  $ python3 -m venv ~/venvs/{{project_name}}_env
+  $ source ~/venvs/{{project_name}}_env/bin/activate
+  ```
+
+* use virtualenvwrapper for an easier workflow:
+  ```shell
+  $ pip install --user -U pip virtualenvwrapper
+  $ mkvirtualenv --python=python3 {{project_name}}_env
+  $ workon {{project_name}}_env
+  ```
 
 To use this template you need the latest Django and Fabric3 version installed.
 
 ```shell
-(myvenv)$ pip install django fabric3
+({{project_name}}_env) $ pip install django fabric3
 ```
 
 ## Installation
 
 To start a new project with this template:
 
-```
-(myvenv)$ django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master --extension=py,ini,txt,md,yaml,coveragerc,template -n Makefile,hosts {{project_name}}
+```shell
+({{project_name}}_env) $ django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master --extension=py,ini,txt,md,yaml,coveragerc,template -n Makefile,hosts {{project_name}}
 ```
 
 ## Configuration
@@ -42,20 +50,27 @@ To start a new project with this template:
 
 - To configure the project:
 
-  - check `requirements/dev.ini` to customize your virtualenv and `requirements/common.ini` to check the Django versione, then execute:
+  - execute fabfile into your project directory:
+
     ```shell
-    (myvenv)$ make setup
+    ({{project_name}}_env) $ fab init
     ```
 
-  - check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings; mainly comment and uncomment lines for emperor (plus bonjour or avahi) or stand-alone mode
+  - check `requirements/dev.ini` to customize your virtualenv and `requirements/common.ini` to check the version of Django, and then execute:
 
-  - check the default db parameters into {{project_name}}/settings/secret.py.template file
+    ```shell
+    ({{project_name}}_env) $ make pip
+    ```
 
-  - execute `fab init` into your project directory
+  - check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings
+  *(mainly comment and uncomment lines for emperor (plus bonjour or avahi) or stand-alone mode)*
 
-- To merge your project with git repository execute `fab gitclone:<your_repo_git_url>`
+  - check the default db parameters into `{{project_name}}/settings/secret.py`
 
-- If you use uwsgi with emperor mode you have to create symbolic link of `{{project_name}}.ini` into vassals directory
+- To merge your project with git repository execute:
+  ```shell
+  ({{project_name}}_env) $ fab gitclone:<your_repo_git_url>
+  ```
 
 - Check settings and urls to configure django applications
 
@@ -68,48 +83,61 @@ To start a new project with this template:
 To execute only if you want reset all data:
 
 ```shell
-$ fab drop_db
-$ fab create_db
-$ python manage.py migrate
+({{project_name}}_env) $ fab drop_db
+({{project_name}}_env) $ fab create_db
+({{project_name}}_env) $ python manage.py migrate
 ```
 
 ### Superuser creation
 
 ```shell
-$ python manage.py createsuperuser
+({{project_name}}_env) $ python manage.py createsuperuser
 ```
 
-### To update virtualenv
+## Requirements
 
-Add the packages on your requirements/\*.ini file
+### Check 
+
+List outdated packages:
 
 ```shell
-$ make pip
+({{project_name}}_env) $ pip list -o
 ```
 
+### Edit
+
+Add or edit packages in your `requirements/*.ini` files and execute:
+
+```shell
+({{project_name}}_env) $ make pip
+```
+
+To update sub-dependencies in all generated requirements use 'p' option:
+
+```shell
+({{project_name}}_env) $ make pip p='-P pytz'
+```
+
+### Update
+
+Install the updated requirements in your virtualenv:
+
+```shell
+({{project_name}}_env) $ make dev
+```
 
 ## Testing
 
-Environment initialization, and execution of behave and test with coverage.
+Execute of test and behave with coverage.
 
 ```shell
-$ source ~/venvs/{{project_name}}/bin/activate
+({{project_name}}_env) $ make test
 ```
 
-or
+# Continuous Integration
+
+To setup the build in a Continuous Integration environment like Jenkins use this code:
 
 ```shell
-$ workon {{project_name}}
-```
-
-and
-
-```shell
-$ make test
-```
-
-after
-
-```shell
-$ make dev
+make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
 ```
