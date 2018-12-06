@@ -51,11 +51,13 @@ To start a new project with this template:
 - To configure the project:
 
   - execute fabfile into your project directory:
+
     ```shell
     ({{project_name}}_env) $ fab init
     ```
 
   - check `requirements/dev.ini` to customize your virtualenv and `requirements/common.ini` to check the version of Django, and then execute:
+
     ```shell
     ({{project_name}}_env) $ make pip
     ```
