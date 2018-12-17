@@ -4,15 +4,15 @@
 #
 #    pip-compile --output-file requirements/dev.txt requirements/dev.ini
 #
-ansible==2.7.4
+ansible==2.7.5
 asn1crypto==0.24.0        # via cryptography
 backcall==0.1.0           # via ipython
-bcrypt==3.1.4             # via paramiko
+bcrypt==3.1.5             # via paramiko
 beautifulsoup4==4.6.3     # via webtest
 behave-django==1.1.0
 behave==1.2.6             # via behave-django
 cffi==1.11.5              # via bcrypt, cryptography, pynacl
-chromedriver-binary==2.44.0
+chromedriver-binary==2.45.0
 click==7.0                # via pip-tools
 coverage==4.5.2
 cryptography==2.4.2       # via ansible, paramiko
@@ -26,7 +26,7 @@ ipdb==0.11
 ipython-genutils==0.2.0   # via traitlets
 ipython==7.2.0            # via ipdb
 isort==4.3.4
-jedi==0.13.1              # via ipython
+jedi==0.13.2              # via ipython
 jinja2==2.10              # via ansible
 markupsafe==1.1.0         # via jinja2
 mccabe==0.6.1             # via flake8
@@ -45,12 +45,12 @@ pyasn1==0.4.4             # via paramiko
 pycodestyle==2.4.0        # via flake8
 pycparser==2.19           # via cffi
 pyflakes==2.0.0           # via flake8
-pygments==2.3.0           # via ipython
+pygments==2.3.1           # via ipython
 pynacl==1.3.0             # via paramiko
 pytz==2018.7              # via django
 pyyaml==3.13              # via ansible
 selenium==3.141.0         # via splinter
-six==1.11.0               # via bcrypt, behave, cryptography, parse-type, pip-tools, prompt-toolkit, pynacl, traitlets, webtest
+six==1.12.0               # via bcrypt, behave, cryptography, parse-type, pip-tools, prompt-toolkit, pynacl, traitlets, webtest
 splinter==0.10.0
 sqlparse==0.2.4           # via django-debug-toolbar
 tblib==1.3.2
