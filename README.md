@@ -54,33 +54,34 @@ To start a new project with this template:
 
 2. To configure the project:
 
-  1. execute **fabfile** and answer all questions:
+   1. execute **fabfile** and answer all questions:
 
-    ```shell
-    ({{project_name}}_env) $ fab init
-    ```
+      ```shell
+      ({{project_name}}_env) $ fab init
+      ```
 
-  2. add python packages or edit their versions in `requirements/common.ini` *(es: django)* and in `requirements/dev.ini` *(es: django-debug-toolbar)* and then execute:
+   2. add python packages or edit their versions in `requirements/common.ini` *(es: django)* and in `requirements/dev.ini` *(es: django-debug-toolbar)* and then execute:
 
-    ```shell
-    ({{project_name}}_env) $ make pip
-    ```
+      ```shell
+      ({{project_name}}_env) $ make pip
+      ```
     
-  3. to install all the updated packages in `requirements/dev.txt` execute:
+   3. to install all the updated packages in `requirements/dev.txt` execute:
 
-    ```shell
-    ({{project_name}}_env) $ make dev
-    ```
+      ```shell
+      ({{project_name}}_env) $ make dev
+      ```
 
-  4. check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings
-     *(mainly comment and uncomment lines for emperor (plus bonjour or avahi) or stand-alone mode)*
+   4. check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings
+      *(mainly comment and uncomment lines for emperor (plus bonjour or avahi) or stand-alone mode)*
 
-  5. check the default database parameters in `{{project_name}}/settings/secret.py`
+   5. check the default database parameters in `{{project_name}}/settings/secret.py`
 
 3. To merge your project with git repository execute:
-  ```shell
-  ({{project_name}}_env) $ fab gitclone:<your_repo_git_url>
-  ```
+
+   ```shell
+   ({{project_name}}_env) $ fab gitclone:<your_repo_git_url>
+   ```
 
 4. Check `{{project_name}}/settings/*.py` and `{{project_name}}/urls.py` to configure your project
 
