@@ -1,13 +1,15 @@
 {{project_name}}
 ================
 
-This is a [Django](https://www.djangoproject.com/) template with custom configuration. It requires [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server.
+This is a [Django](https://docs.djangoproject.com/en/{{ docs_version }}/) template with custom configuration. It requires [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server.
 
 ## Prerequisite
 
 Set you environment. We kindly suggest updating pip to the latest version and using a virtualenv  to wrap all your work.
 
-Use one this option to create an empty virtualenv with the right python version, and activate it:
+### Virtualenv
+
+Use one this options to create an empty virtualenv with the right python version, and activate it:
 
 * use virtualenv for python2:
   ```shell
@@ -30,10 +32,12 @@ Use one this option to create an empty virtualenv with the right python version,
   $ workon {{project_name}}_env
   ```
 
+### Packages
+
 To use this template you need the latest Django and Fabric3 version installed.
 
 ```shell
-({{project_name}}_env) $ pip install django fabric3
+({{project_name}}_env) $ pip install -U django fabric3
 ```
 
 ## Installation
@@ -41,40 +45,46 @@ To use this template you need the latest Django and Fabric3 version installed.
 To start a new project with this template:
 
 ```shell
-({{project_name}}_env) $ django-admin.py startproject --template=https://github.com/20tab/twentytab_project/zipball/master --extension=py,ini,txt,md,yaml,coveragerc,template -n Makefile,hosts {{project_name}}
+({{project_name}}_env) $ django-admin.py startproject --template https://github.com/20tab/twentytab_project/zipball/master -e py,ini,txt,md,yaml,coveragerc,template -n Makefile,hosts {{project_name}}
 ```
 
 ## Configuration
 
-- Enter the root folder of your project
+1. Enter the folder of your **project** *(es: ~/projects/{{project_name}})*
 
-- To configure the project:
+2. To configure the project:
 
-  - execute fabfile into your project directory:
+  1. execute **fabfile** and answer all questions:
 
     ```shell
     ({{project_name}}_env) $ fab init
     ```
 
-  - check `requirements/dev.ini` to customize your virtualenv and `requirements/common.ini` to check the version of Django, and then execute:
+  2. add python packages or edit their versions in `requirements/common.ini` *(es: django)* and in `requirements/dev.ini` *(es: django-debug-toolbar)* and then execute:
 
     ```shell
     ({{project_name}}_env) $ make pip
     ```
+    
+  3. to install all the updated packages in `requirements/dev.txt` execute:
 
-  - check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings
-  *(mainly comment and uncomment lines for emperor (plus bonjour or avahi) or stand-alone mode)*
+    ```shell
+    ({{project_name}}_env) $ make dev
+    ```
 
-  - check the default db parameters into `{{project_name}}/settings/secret.py`
+  4. check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings
+     *(mainly comment and uncomment lines for emperor (plus bonjour or avahi) or stand-alone mode)*
 
-- To merge your project with git repository execute:
+  5. check the default database parameters in `{{project_name}}/settings/secret.py`
+
+3. To merge your project with git repository execute:
   ```shell
   ({{project_name}}_env) $ fab gitclone:<your_repo_git_url>
   ```
 
-- Check settings and urls to configure django applications
+4. Check `{{project_name}}/settings/*.py` and `{{project_name}}/urls.py` to configure your project
 
-- Enjoy
+5. Enjoy
 
 ## Data Setup
 
@@ -90,6 +100,8 @@ To execute only if you want reset all data:
 
 ### Superuser creation
 
+Execute after the first installation if you need a super user for your admin
+
 ```shell
 ({{project_name}}_env) $ python manage.py createsuperuser
 ```
@@ -98,7 +110,7 @@ To execute only if you want reset all data:
 
 ### Check 
 
-List outdated packages:
+To list all outdated installed packages execute:
 
 ```shell
 ({{project_name}}_env) $ pip list -o
@@ -106,13 +118,13 @@ List outdated packages:
 
 ### Edit
 
-Add or edit packages in your `requirements/*.ini` files and execute:
+To add/remove packages or modify their versions edit `requirements/*.ini` files and to update all related `requirements/*.txt` execute:
 
 ```shell
 ({{project_name}}_env) $ make pip
 ```
 
-To update sub-dependencies in all generated requirements use 'p' option:
+To update sub-dependencies *(es: packages listed in `install_requires`)* use 'p' option as below:
 
 ```shell
 ({{project_name}}_env) $ make pip p='-P pytz'
@@ -120,7 +132,7 @@ To update sub-dependencies in all generated requirements use 'p' option:
 
 ### Update
 
-Install the updated requirements in your virtualenv:
+To install the updated `requirements/dev.txt` in your local virtualenv execute:
 
 ```shell
 ({{project_name}}_env) $ make dev
@@ -128,15 +140,15 @@ Install the updated requirements in your virtualenv:
 
 ## Testing
 
-Execute of test and behave with coverage.
+To run test and behave with coverage execute:
 
 ```shell
 ({{project_name}}_env) $ make test
 ```
 
-# Continuous Integration
+## Continuous Integration
 
-To setup the build in a Continuous Integration environment like Jenkins use this code:
+To setup the build in a Continuous Integration environment *(es: jenkins)* use this code:
 
 ```shell
 make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
