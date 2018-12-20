@@ -39,7 +39,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
 # Behave
 
-INSTALLED_APPS += ('behave_django',)
+# INSTALLED_APPS += ('behave_django',)
 
 # BDD_DEFAULT_BROWSER = 'chrome'
 # BDD_HEADLESS_BROWSER = False
