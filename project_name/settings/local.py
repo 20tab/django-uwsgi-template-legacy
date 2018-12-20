@@ -6,7 +6,7 @@ ALLOWED_HOSTS = (HOST, '127.0.0.1', '{{project_name}}.local')
 
 
 # Database
-# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
+# https://docs.djangoproject.com/en/{{docs_version}}/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -21,7 +21,7 @@ DATABASES = {
 
 
 # Email Settings
-# https://docs.djangoproject.com/en/{{ docs_version }}/topics/email/
+# https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/app-messages'

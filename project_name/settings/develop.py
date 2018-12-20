@@ -6,7 +6,7 @@ ALLOWED_HOSTS = (HOST,)
 
 
 # Database
-# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
+# https://docs.djangoproject.com/en/{{docs_version}}/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -21,7 +21,7 @@ DATABASES = {
 
 
 # Email Settings
-# https://docs.djangoproject.com/en/{{ docs_version }}/topics/email/
+# https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
 EMAIL_HOST = ''
 
@@ -38,7 +38,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
 
 # Sites
-# https://docs.djangoproject.com/en/{{ docs_version }}/ref/contrib/sites/
+# https://docs.djangoproject.com/en/{{docs_version}}/ref/contrib/sites/
 
 # SITE_ID = 2
 

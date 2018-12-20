@@ -6,7 +6,7 @@ ALLOWED_HOSTS = (HOST,)
 
 
 # Database
-# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
+# https://docs.djangoproject.com/en/{{docs_version}}/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -21,7 +21,7 @@ DATABASES = {
 
 
 # Email Settings
-# https://docs.djangoproject.com/en/{{ docs_version }}/topics/email/
+# https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = EMAIL_HOST or ''
@@ -44,7 +44,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
 
 # Sites
-# https://docs.djangoproject.com/en/{{ docs_version }}/ref/contrib/sites/
+# https://docs.djangoproject.com/en/{{docs_version}}/ref/contrib/sites/
 
 # SITE_ID = 1
 
@@ -58,7 +58,7 @@ HOST_PORT = '22'
 
 
 # Deployment
-# https://docs.djangoproject.com/en/{{ docs_version }}/howto/deployment/checklist/
+# https://docs.djangoproject.com/en/{{docs_version}}/howto/deployment/checklist/
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True

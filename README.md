@@ -1,7 +1,7 @@
 {{project_name}}
 ================
 
-This is a [Django](https://docs.djangoproject.com/en/{{ docs_version }}/) template with custom configuration. It requires [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server.
+This is a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) template with custom configuration. It requires [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server.
 
 ## Prerequisite
 
