@@ -1,6 +1,7 @@
 import configparser
+import getpass
 import importlib
-import os, getpass
+import os
 
 from django.core.management.utils import get_random_secret_key
 from fabric.api import local

@@ -4,8 +4,9 @@ from {{project_name}}.settings.secret import *  # noqa
 HOST = BASE_HOST_URL
 ALLOWED_HOSTS = (HOST,)
 
+
 # Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+# https://docs.djangoproject.com/en/{{docs_version}}/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -18,8 +19,9 @@ DATABASES = {
     }
 }
 
+
 # Email Settings
-# https://docs.djangoproject.com/en/2.1/topics/email/
+# https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = EMAIL_HOST or ''
@@ -29,19 +31,23 @@ EMAIL_HOST = EMAIL_HOST or ''
 # EMAIL_USE_SSL = EMAIL_USE_SSL or False
 # EMAIL_USE_TLS = EMAIL_USE_SSL or False
 
+
 # Debug
 
 DEBUG = False
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
+
 # Assets
 
 # STATIC_DEBUG = False
 
+
 # Sites
-# https://docs.djangoproject.com/en/2.1/ref/contrib/sites/
+# https://docs.djangoproject.com/en/{{docs_version}}/ref/contrib/sites/
 
 # SITE_ID = 1
+
 
 # Fab commands configuration
 
@@ -50,20 +56,16 @@ HOST_USER = ''
 HOST_IP = ''
 HOST_PORT = '22'
 
+
 # Deployment
+# https://docs.djangoproject.com/en/{{docs_version}}/howto/deployment/checklist/
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'  # Default: 'SAMEORIGIN'
 
-# HTTPS
-# https://docs.djangoproject.com/en/dev/howto/deployment/checklist/#https
-
 # CSRF_COOKIE_SECURE = True
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
-
-# Performance optimizations
-# https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/#performance-optimizations
 
 # CONN_MAX_AGE = None

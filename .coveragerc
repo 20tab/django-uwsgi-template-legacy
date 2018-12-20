@@ -5,11 +5,7 @@ source = .
 omit =  **/__init__.py
         **/migrations/**
         **/tests/**
-        **/settings/master.py
-        **/settings/develop.py
-        **/settings/alpha.py
-        **/settings/local.py
-        **/settings/secret.py
+        **/settings/*.py
         **/wsgi.py
         **/urls.py
         manage.py

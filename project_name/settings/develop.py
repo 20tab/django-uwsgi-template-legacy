@@ -4,8 +4,9 @@ from {{project_name}}.settings.secret import *  # noqa
 HOST = f'dev.{BASE_HOST_URL}'
 ALLOWED_HOSTS = (HOST,)
 
+
 # Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+# https://docs.djangoproject.com/en/{{docs_version}}/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -18,24 +19,29 @@ DATABASES = {
     }
 }
 
+
 # Email Settings
-# https://docs.djangoproject.com/en/2.1/topics/email/
+# https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
 EMAIL_HOST = ''
+
 
 # Debug
 
 DEBUG = True
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
+
 # Assets
 
 # STATIC_DEBUG = True
 
+
 # Sites
-# https://docs.djangoproject.com/en/2.1/ref/contrib/sites/
+# https://docs.djangoproject.com/en/{{docs_version}}/ref/contrib/sites/
 
 # SITE_ID = 2
+
 
 # Fab commands configuration
 

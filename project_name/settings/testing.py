@@ -4,8 +4,9 @@ from {{project_name}}.settings.secret import *  # noqa
 HOST = BASE_HOST_URL
 ALLOWED_HOSTS = (HOST,)
 
+
 # Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+# https://docs.djangoproject.com/en/{{docs_version}}/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -18,23 +19,27 @@ DATABASES = {
     }
 }
 
+
 # Email Settings
-# https://docs.djangoproject.com/en/2.1/topics/email/
+# https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
 
 # Debug
 
 DEBUG = False
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
+
 # Assets
 
 # STATIC_DEBUG = False
 
+
 # Behave
 
-INSTALLED_APPS += ('behave_django',)
+# INSTALLED_APPS += ('behave_django',)
 
 # BDD_DEFAULT_BROWSER = 'chrome'
 # BDD_HEADLESS_BROWSER = False
