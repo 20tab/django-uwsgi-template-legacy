@@ -46,6 +46,8 @@ def init():
     if not os.path.exists(f'{SECRET_FILE}'):
         local(f'cp {SECRET_FILE}.template {SECRET_FILE}')
         local(f'sed -i -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')
+    else:
+        local(f'sed -i -e "s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}')
     create_db()
     fastprint('\n\n*** WARNING ***\n\n')
     fastprint('a) Check uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin\n')
