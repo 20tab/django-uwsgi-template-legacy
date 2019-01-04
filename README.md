@@ -34,10 +34,10 @@ Use one this options to create an empty virtualenv with the right python version
 
 ### Packages
 
-To use this template you need the latest Django and Fabric3 version installed.
+To use this template you need the latest Django and Fabric version installed.
 
 ```shell
-({{project_name}}_env) $ pip install -U django fabric3
+({{project_name}}_env) $ pip install -U django fabric
 ```
 
 ## Installation
