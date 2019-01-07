@@ -45,7 +45,7 @@ To use this template you need the latest Django and Fabric version installed.
 To start a new project with this template:
 
 ```shell
-({{project_name}}_env) $ django-admin.py startproject --template https://github.com/20tab/twentytab_project/zipball/master -e py,ini,txt,md,yaml,coveragerc,template -n Makefile,hosts {{project_name}}
+({{project_name}}_env) $ django-admin.py startproject --template https://github.com/20tab/twentytab_project/zipball/master -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
 ```
 
 ## Configuration
