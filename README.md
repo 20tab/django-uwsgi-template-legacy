@@ -45,7 +45,7 @@ To use this template you need the latest Django and Fabric version installed.
 To start a new project with this template:
 
 ```shell
-({{project_name}}_env) $ django-admin.py startproject --template https://github.com/20tab/twentytab_project/zipball/master -e py,ini,txt,md,yaml,coveragerc,template -n Makefile,hosts {{project_name}}
+({{project_name}}_env) $ django-admin.py startproject --template https://github.com/20tab/twentytab_project/zipball/master -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
 ```
 
 ## Configuration
@@ -153,4 +153,21 @@ To setup the build in a Continuous Integration environment *(es: jenkins)* use t
 
 ```shell
 make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
+```
+
+## Deploy
+
+To deploy your project in the alpha instance you need to rename the deploy/*.template file and edit with your correct credentials.
+
+To initialize the alpha instance you have to execute the next two commands:
+
+```shell
+({{project_name}}_env) $ make initalpha
+({{project_name}}_env) $ make alpha
+```
+
+To update your alpha instance after some code updates you have to execute the next command only:
+
+```shell
+({{project_name}}_env) $ make updatealpha
 ```
