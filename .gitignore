@@ -30,5 +30,5 @@ dump.rdb
 .prettierrc
 */spyspool/*
 cypress.env.json
-deploy/*
+requirements/*.txt
 .sass-cache
