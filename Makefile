@@ -11,6 +11,8 @@ ci:
 		source ${JENKINSBUILD_DIR}/{{project_name}}/bin/activate; \
 		pip install -U pip; \
 		pip install -U -r requirements/tests.txt; \
+		npm install; \
+		npm run build; \
 		flake8; \
 		COVERAGE_FILE=.coverage.test coverage run manage.py test --settings=${SETTINGS} --noinput --parallel; \
 		COVERAGE_FILE=.coverage.behave coverage run manage.py behave --settings=${SETTINGS}; \
@@ -26,11 +28,6 @@ initalpha:
 alpha:
 	( \
 		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml; \
-	)
-
-updatealpha:
-	( \
-		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --tags "update"; \
 	)
 
 test:

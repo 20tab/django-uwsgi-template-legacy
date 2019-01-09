@@ -34,10 +34,10 @@ Use one this options to create an empty virtualenv with the right python version
 
 ### Packages
 
-To use this template you need the latest Django and Fabric version installed.
+To use this template you need the latest Django and Invoke version installed.
 
 ```shell
-({{project_name}}_env) $ pip install -U django fabric
+({{project_name}}_env) $ pip install -U django invoke
 ```
 
 ## Installation
@@ -54,10 +54,10 @@ To start a new project with this template:
 
 2. To configure the project:
 
-   1. execute **fabfile** and answer all questions:
+   1. execute **init task** and answer all questions:
 
       ```shell
-      ({{project_name}}_env) $ fab init
+      ({{project_name}}_env) $ inv init
       ```
 
    2. add python packages or edit their versions in `requirements/common.ini` *(es: django)* and in `requirements/dev.ini` *(es: django-debug-toolbar)* and then execute:
@@ -80,7 +80,7 @@ To start a new project with this template:
 3. To merge your project with git repository execute:
 
    ```shell
-   ({{project_name}}_env) $ fab gitclone:<your_repo_git_url>
+   ({{project_name}}_env) $ inv gitclone <your_repo_git_url>
    ```
 
 4. Check `{{project_name}}/settings/*.py` and `{{project_name}}/urls.py` to configure your project
@@ -94,8 +94,8 @@ To start a new project with this template:
 To execute only if you want reset all data:
 
 ```shell
-({{project_name}}_env) $ fab drop_db
-({{project_name}}_env) $ fab create_db
+({{project_name}}_env) $ inv drop_db
+({{project_name}}_env) $ inv create_db
 ({{project_name}}_env) $ python manage.py migrate
 ```
 
@@ -157,7 +157,10 @@ make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
 
 ## Deploy
 
-To deploy your project in the alpha instance you need to rename the deploy/*.template file and edit with your correct credentials.
+To deploy your project in the alpha instance you need to rename the deploy/alpha.yaml.template and hosts.template file 
+and edit with your correct credentials.
+
+Both the remote server and the ci system need node.js to build static files.
 
 To initialize the alpha instance you have to execute the next two commands:
 
@@ -169,5 +172,5 @@ To initialize the alpha instance you have to execute the next two commands:
 To update your alpha instance after some code updates you have to execute the next command only:
 
 ```shell
-({{project_name}}_env) $ make updatealpha
+({{project_name}}_env) $ make alpha
 ```

@@ -10,14 +10,12 @@
       command: virtualenv -p python3.6 ${HOME}/venvs/{% verbatim %}{{project_venv_name}} creates="${HOME}/venvs/{{project_venv_name}}{% endverbatim %}"
       tags: init
     - name: Clone repository
-      tags: update
       git:{% verbatim %}
         repo={{git_repository}}
         dest=www/{{project_dir_name}}
         accept_hostkey=yes
         version={{branch}}
     - name: Install requirements
-      tags: update
       pip:
         requirements=${HOME}/www/{{project_dir_name}}/requirements/prod.txt
         virtualenv=${HOME}/venvs/{{project_venv_name}}
@@ -31,6 +29,7 @@
         dest: "${HOME}/vassals/{{project_dir_name}}.ini"
         state: link
     - name: Create database
+      tags: init
       postgresql_db:
         name={{project_dir_name}}
         encoding=UTF-8
@@ -40,27 +39,28 @@
       vars:
         ansible_python_interpreter: venvs/{{project_venv_name}}/bin/python
     - name: Copy secrets settings
+      tags: init
       copy:
         src: ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py.template
         dest: ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py
         mode: 0600
         remote_src: yes
     - name: Generate a secret key
+      tags: init
       command: "${HOME}/venvs/{{project_venv_name}}/bin/python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'"
       register: secretkey
     - name: Write secrets vars
+      tags: init
       command: sed -i -e "s/secretkey/{{ secretkey.stdout }}/g;s/postgres/{{db_user}}/g;s/password/{{db_password}}/g;s/{{project_name}}/{{db_name}}/g;" ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py
     - name: Buils statics
       shell: npm run build
       args:
         chdir: ${HOME}/www/{{project_dir_name}}
     - name: Migrate database
-      tags: update
       command: "${HOME}/venvs/{{project_venv_name}}/bin/python manage.py migrate{% endverbatim %} --settings={{project_name}}.settings.{% verbatim %}{{settings}}"
       args:
         chdir: ${HOME}/www/{{project_dir_name}}/
     - name: Restart vassal
-      tags: update
       file:
         path: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{settings}}.ini"
         state: touch{% endverbatim %}
