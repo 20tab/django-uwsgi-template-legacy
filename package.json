@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "styles": "compass compile ./client",
-    "styles:watch": "compass watch ./client"
+    "build": "echo \"build script must be implemented\""
   },
   "author": "",
   "license": "ISC"
