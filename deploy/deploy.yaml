@@ -51,7 +51,7 @@
       register: secretkey
     - name: Write secrets vars
       tags: init
-      command: sed -i -e "s/secretkey/{{ secretkey.stdout }}/g;s/postgres/{{db_user}}/g;s/password/{{db_password}}/g;s/{{project_name}}/{{db_name}}/g;" ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py
+      command: sed "s/secretkey/{{ secretkey.stdout }}/g;s/postgres/{{db_user}}/g;s/password/{{db_password}}/g;s/{{project_name}}/{{db_name}}/g;" ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py.template > ${HOME}/www/{{project_dir_name}}/{{project_name}}/settings/secret.py
     - name: Buils statics
       shell: npm run build
       args:

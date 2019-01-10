@@ -38,14 +38,17 @@ def init(c):
     if not os.path.exists('media'):
         c.run('mkdir media')
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
-        c.run(f'cp {BASE_DIR}/uwsgiconf/locals/{PROJECT_DIRNAME}.ini {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini')
+        ini_dir = f'{BASE_DIR}/uwsgiconf/locals'
+        python_plugin = input(
+            f'Specify python plugin to configure uwsgi or blank to use default value (python3):') or "python3"
+        c.run(
+            f'sed "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{PROJECT_DIRNAME}.ini > {ini_dir}/{USERNAME}.ini')
         c.run(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
     if not os.path.exists(f'{SECRET_FILE}'):
-        c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
-        c.run(f'sed -i -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')
+        c.run(f'sed "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}.template > {SECRET_FILE}')
     else:
-        c.run(f'sed -i -e "s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}')
-    create_db(c)
+        c.run(f'sed "s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}.template > {SECRET_FILE}')
+    createdb(c)
     print('\n\n*** WARNING ***\n\n')
     print('a) Check uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin\n')
     print('b) Check the uwsgiconf/remotes/globlal.ini file and verify that you have the correct python plugin\n')
@@ -55,27 +58,15 @@ def init(c):
     print('f) Configure the file by {PROJECT_DIRNAME}/settings/testing.py with the correct data\n')
 
 
-def get_db():
-    with open(SECRET_FILE, 'r') as f:
-        config_string = '[secret]\n' + f.read()
-    config = configparser.ConfigParser()
-    config.read_string(config_string)
-    db_name = config.get('secret', 'DATABASES_DEFAULT_NAME')
-    db_host = config.get('secret', 'DATABASES_DEFAULT_HOST')
-    db_port = config.get('secret', 'DATABASES_DEFAULT_PORT')
-    db_user = config.get('secret', 'DATABASES_DEFAULT_USER')
-    return db_name, db_host, db_port, db_user
-
-
 @task
-def create_db(c):
+def createdb(c):
     if confirm('Pay attention, you are creating the Postgresql db. Are you sure you want to proceed?'):
         db_name, db_host, db_port, db_user = get_db()
         c.run(f"createdb -e -h {db_host} -p {db_port} -U {db_user} -O {db_user} {db_name}")
 
 
 @task
-def drop_db(c):
+def dropdb(c):
     if confirm('Warning, you are deleting the db. Are you sure you want to proceed?'):
         db_name, db_host, db_port, db_user = get_db()
         c.run(f"dropdb -e -h {db_host} -p {db_port} -U {db_user} {db_name}")
@@ -102,6 +93,18 @@ def media_from_server(c, settings='develop'):
         server_string = f'{server.user}@{server.ip}:{server.working_dir}'
         c.run(f'rsync -av --progress --inplace -e="ssh -p{server.port}" {server_string}/media/ ./media/')
         print('Remember that synchronizing the media files also requires synchronizing the database.')
+
+
+def get_db():
+    with open(SECRET_FILE, 'r') as f:
+        config_string = '[secret]\n' + f.read()
+    config = configparser.ConfigParser()
+    config.read_string(config_string)
+    db_name = config.get('secret', 'DATABASES_DEFAULT_NAME')
+    db_host = config.get('secret', 'DATABASES_DEFAULT_HOST')
+    db_port = config.get('secret', 'DATABASES_DEFAULT_PORT')
+    db_user = config.get('secret', 'DATABASES_DEFAULT_USER')
+    return db_name, db_host, db_port, db_user
 
 
 class ServerUtil(object):

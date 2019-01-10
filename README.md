@@ -72,8 +72,8 @@ To start a new project with this template:
       ({{project_name}}_env) $ make dev
       ```
 
-   4. check `uwsgiconf/local/<username>.ini` to customize your local uWSGI settings
-      *(mainly comment and uncomment lines for emperor (plus bonjour or avahi) or stand-alone mode)*
+   4. check `uwsgiconf/local/<username>.ini` to verify that you have the **correct python plugin** and to customize your local uWSGI settings 
+      *(mainly comment and uncomment lines for emperor, plus bonjour or avahi, or stand-alone mode)*
 
    5. check the default database parameters in `{{project_name}}/settings/secret.py`
 
