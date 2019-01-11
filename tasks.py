@@ -25,10 +25,15 @@ def init(c):
         print('Activate your virtualenv and run the fab command again')
         return
     EMPEROR_MODE = confirm('Do you want to configure your uWSGI vassal in emperor mode? (no=stand-alone)')
+
     if EMPEROR_MODE:
         vassals = input(f'We will use "{VASSALS}" as the directory for the vassals, or specify the path:') or VASSALS
+
+    python_plugin = input(
+        f'Specify python plugin to configure uwsgi or blank to use default value (python3):') or "python3"
     username = input(f'Enter the database user name:')
     password = getpass.getpass(f'Enter the database user password:')
+
     c.run('make pip')
     c.run(f'pip install -r {BASE_DIR}/requirements/dev.txt')
     if not os.path.exists('templates'):
@@ -37,15 +42,20 @@ def init(c):
         c.run('mkdir static')
     if not os.path.exists('media'):
         c.run('mkdir media')
-    if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
-        ini_dir = f'{BASE_DIR}/uwsgiconf/locals'
 
-        python_plugin = input(
-            f'Specify python plugin to configure uwsgi or blank to use default value (python3):') or "python3"
-        c.run(f'cp {ini_dir}/{PROJECT_DIRNAME}.ini {ini_dir}/{USERNAME}.ini')
+    ini_dir = f'{BASE_DIR}/uwsgiconf/locals'
+    WORKAREA_ROOT = BASE_DIRNAME.replace("/", "\/")
+    if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
+        c.run(f'cp {ini_dir}/emperor.ini.template {ini_dir}/{USERNAME}.ini')
         c.run(
             f'sed -i ".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
+        c.run(f'sed -i ".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
         c.run(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
+    else:
+        c.run(f'cp {ini_dir}/stand_alone.ini.template {ini_dir}/{USERNAME}.ini')
+        c.run(
+            f'sed -i ".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
+        c.run(f'sed -i ".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
     if not os.path.exists(f'{SECRET_FILE}'):
         c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
         c.run(f'sed -i ".bak" -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')
@@ -53,7 +63,7 @@ def init(c):
         c.run(f'sed -i ".bak" -e "s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}')
     createdb(c)
     print('\n\n*** WARNING ***\n\n')
-    print('a) Check uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin\n')
+    print('a) Check the uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin\n')
     print('b) Check the uwsgiconf/remotes/globlal.ini file and verify that you have the correct python plugin\n')
     print('c) Check the uwsgiconf/remotes/alpha.ini file and make sure the domain name is correct\n')
     print('d) Configure the deploy/hosts file with server data\n')

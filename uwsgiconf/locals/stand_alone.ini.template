@@ -1,0 +1,21 @@
+[uwsgi]
+
+project_name = {{project_name}}
+venv_name = {{project_name}}
+py_version = 3.6
+
+workarea_root = WORKAREA_ROOT
+
+project_root = %(workarea_root)/%(project_name)
+venvs_dir = venvs
+
+ini = %d/global.ini
+ini = %d/static.ini
+
+# not required only if uwsgi was installed with pip
+plugin = python3
+
+http = :8080
+
+processes = 1
+threads = 1

@@ -4,25 +4,18 @@ project_name = {{project_name}}
 venv_name = {{project_name}}
 py_version = 3.6
 
-# if emperor
-workarea_root = %d..
-# if stand-alone
-; workarea_root = $(HOME)
+
+workarea_root = WORKAREA_ROOT
 
 project_root = %(workarea_root)/%(project_name)
 venvs_dir = venvs
 
-# if emperor
-ini = %d../{{project_name}}/uwsgiconf/locals/global.ini
-ini = %d../{{project_name}}/uwsgiconf/locals/static.ini
-# if stand-alone
-; ini = %d/global.ini
-; ini = %d/static.ini
+ini = WORKAREA_ROOT/{{project_name}}/uwsgiconf/locals/global.ini
+ini = WORKAREA_ROOT/{{project_name}}/uwsgiconf/locals/static.ini
 
 # not required only if uwsgi was installed with pip
 plugin = python3
 
-# if emperor
 socket = 127.0.0.1:0
 subscribe-to = 127.0.0.1:5005:%(project_name).local
 logto=%(project_root)/%(project_name).log
@@ -35,5 +28,5 @@ bonjour-register = name=%(project_name).local,cname=localhost
 ;plugin = avahi
 ;avahi-register = %(project_name).local
 
-# if stand-alone
-;http = :8080
+processes = 1
+threads = 1
