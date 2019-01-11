@@ -163,3 +163,6 @@ deploy/beta.yaml
 deploy/deploy.retry
 deploy/production.yaml
 deploy/hosts
+
+# Others
+*.bak

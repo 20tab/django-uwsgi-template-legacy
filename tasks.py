@@ -39,15 +39,18 @@ def init(c):
         c.run('mkdir media')
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
         ini_dir = f'{BASE_DIR}/uwsgiconf/locals'
+
         python_plugin = input(
             f'Specify python plugin to configure uwsgi or blank to use default value (python3):') or "python3"
+        c.run(f'cp {ini_dir}/{PROJECT_DIRNAME}.ini {ini_dir}/{USERNAME}.ini')
         c.run(
-            f'sed "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{PROJECT_DIRNAME}.ini > {ini_dir}/{USERNAME}.ini')
+            f'sed -i ".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
         c.run(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
     if not os.path.exists(f'{SECRET_FILE}'):
-        c.run(f'sed "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}.template > {SECRET_FILE}')
+        c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
+        c.run(f'sed -i ".bak" -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')
     else:
-        c.run(f'sed "s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}.template > {SECRET_FILE}')
+        c.run(f'sed -i ".bak" -e "s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}')
     createdb(c)
     print('\n\n*** WARNING ***\n\n')
     print('a) Check uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin\n')
