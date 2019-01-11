@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "styles": "compass compile ./client",
-    "styles:watch": "compass watch ./client"
+    "build": "NODE_ENV=development"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
 }
