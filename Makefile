@@ -21,12 +21,12 @@ ci:
 
 initalpha:
 	( \
-		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --tags "init"; \
+		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml; \
 	)
 
 alpha:
 	( \
-		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml; \
+		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --skip-tags "init"; \
 	)
 
 test:
