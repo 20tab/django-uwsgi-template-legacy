@@ -149,7 +149,7 @@ To run test and behave with coverage execute:
 
 ## Continuous Integration
 
-To setup the build in a Continuous Integration environment *(es: jenkins)* use this code:
+To setup the build in a Continuous Integration environment *(eg: jenkins)* use this code:
 
 ```shell
 make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
@@ -157,10 +157,14 @@ make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
 
 ## Deploy
 
-To deploy your project in the alpha instance you need to rename the deploy/alpha.yaml.template and hosts.template file 
+To deploy your project in the alpha instance you need to rename the deploy/alpha.yaml.template and deploy/hosts.template file 
 and edit with your correct credentials.
 
-Both the remote server and the ci system need node.js to build static files.
+"alpha" environment is just an example. For every environment you need, you can duplicate alpha configurations to other 
+files (eg. beta.yaml or production.yaml) and correspondent Makefile commands. 
+
+Both the remote server and the ci system need node.js to build static files by default. If you don't need any module bundler
+you can modify Makefile ci command and deploy/deploy.yaml deleting useless commands.
 
 To initialize the alpha instance you have to execute the next two commands:
 
