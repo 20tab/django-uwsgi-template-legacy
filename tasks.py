@@ -27,6 +27,7 @@ def init(c):
     EMPEROR_MODE = confirm('Do you want to configure your uWSGI vassal in emperor mode? (no=stand-alone)')
     if EMPEROR_MODE:
         vassals = input(f'We will use "{VASSALS}" as the directory for the vassals, or specify the path: ') or VASSALS
+    venvs = input(f'We will use "{VENVS}" as the directory for the virtualenv, or specify the path: ') or VENVS
     python_plugin = input(
         f'Specify python plugin to configure uwsgi or blank to use default value (python3): ') or "python3"
     username = input(f'Enter the database user name: ')
@@ -40,18 +41,20 @@ def init(c):
     if not os.path.exists('media'):
         c.run('mkdir media')
     ini_dir = f'{BASE_DIR}/uwsgiconf/locals'
-    WORKAREA_ROOT = BASE_DIRNAME.replace("/", "\/")
+    WORKAREA_ROOT = BASE_DIRNAME.replace("/", "\/")  # noqa
+    VENV_ROOT = venvs.replace("/", "\/")  # noqa
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
         c.run(f'cp {ini_dir}/emperor.ini.template {ini_dir}/{USERNAME}.ini')
-        c.run(
-            f'sed -i".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
+        c.run(f'sed -i".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
         c.run(f'sed -i".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
+        c.run(f'sed -i".bak" -e "s/USERNAME/{USERNAME}/g;" {ini_dir}/{USERNAME}.ini')
         c.run(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
     else:
         c.run(f'cp {ini_dir}/standalone.ini.template {ini_dir}/{USERNAME}.ini')
         c.run(
             f'sed -i".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
         c.run(f'sed -i ".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
+    c.run(f'sed -i".bak" -e "s/VENV_ROOT/{VENV_ROOT}/g;" {ini_dir}/global.ini')
     if not os.path.exists(f'{SECRET_FILE}'):
         c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
         c.run((
