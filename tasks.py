@@ -13,7 +13,6 @@ PROJECT_DIRNAME = os.path.basename(os.path.dirname(__file__))
 EMPEROR_MODE = True
 VENVS = f'{BASE_DIRNAME}/venvs'
 VASSALS = f'{BASE_DIRNAME}/vassals'
-PY_VERSION = 'python3'
 USERNAME = os.getlogin()
 SECRET_FILE = f'{BASE_DIR}/{PROJECT_DIRNAME}/settings/secret.py'
 SECRET_KEY = get_random_secret_key()
@@ -45,17 +44,20 @@ def init(c):
 
     ini_dir = f'{BASE_DIR}/uwsgiconf/locals'
     WORKAREA_ROOT = BASE_DIRNAME.replace("/", "\/")
+    PYVERSION = f"{sys.version_info[0]}.{sys.version_info[1]}"
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
         c.run(f'cp {ini_dir}/emperor.ini.template {ini_dir}/{USERNAME}.ini')
         c.run(
             f'sed -i".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
         c.run(f'sed -i".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
+        c.run(f'sed -i".bak" -e "s/PYVERSION/{PYVERSION}/g;" {ini_dir}/{USERNAME}.ini')
         c.run(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
     else:
         c.run(f'cp {ini_dir}/standalone.ini.template {ini_dir}/{USERNAME}.ini')
         c.run(
             f'sed -i".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
         c.run(f'sed -i ".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
+        c.run(f'sed -i".bak" -e "s/PYVERSION/{PYVERSION}/g;" {ini_dir}/{USERNAME}.ini')
     if not os.path.exists(f'{SECRET_FILE}'):
         c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
         c.run(f'sed -i".bak" -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')

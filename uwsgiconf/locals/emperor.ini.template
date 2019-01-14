@@ -2,7 +2,7 @@
 
 project_name = {{project_name}}
 venv_name = {{project_name}}
-py_version = 3.6
+py_version = PYVERSION
 
 
 workarea_root = WORKAREA_ROOT
