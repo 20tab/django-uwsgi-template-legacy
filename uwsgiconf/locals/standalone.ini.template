@@ -7,7 +7,6 @@ py_version = 3.6
 workarea_root = WORKAREA_ROOT
 
 project_root = %(workarea_root)/%(project_name)
-venvs_dir = venvs
 
 ini = %d/global.ini
 ini = %d/static.ini
