@@ -19,7 +19,7 @@ from django.views.debug import default_urlconf
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', default_urlconf),  # Change this row to edit your home page
+    path('', default_urlconf),  # Change this row to return your homepage
 ]
 
 try:

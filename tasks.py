@@ -72,6 +72,8 @@ def init(c):
     print('d) Configure the deploy/hosts file with server data')
     print('e) Configure the deploy/alpha.yaml file with the correct data')
     print(f'f) Configure the file by {PROJECT_DIRNAME}/settings/testing.py with the correct data')
+    if EMPEROR_MODE:
+        c.run(f"python -m webbrowser -t http://{PROJECT_DIRNAME}.local/")
 
 
 @task
