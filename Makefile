@@ -4,52 +4,52 @@ export USERNAME=$(shell whoami)
 
 # use this command in continuous integration environment (es: jenkins)
 ci:
-    ( \
-        bin/cp {{project_name}}/settings/secret.py.template {{project_name}}/settings/secret.py; \
-        sed -i'.bak' -e 's/password/${PASSWORD}/g;s/secretkey/${SECRETKEY}/g;s/username/postgres/g' {{project_name}}/settings/secret.py; \
-        virtualenv --python=python3.6 ${JENKINSBUILD_DIR}/{{project_name}}; \
-        source ${JENKINSBUILD_DIR}/{{project_name}}/bin/activate; \
-        pip install -U pip; \
-        pip install -U -r requirements/tests.txt; \
-        npm install; \
-        npm run build; \
-        flake8; \
-        COVERAGE_FILE=.coverage.test coverage run manage.py test --settings=${SETTINGS} --noinput --parallel; \
-        COVERAGE_FILE=.coverage.behave coverage run manage.py behave --settings=${SETTINGS}; \
-        coverage combine; \
-        coverage xml; \
-    )
+	( \
+		bin/cp {{project_name}}/settings/secret.py.template {{project_name}}/settings/secret.py; \
+		sed -i'.bak' -e 's/password/${PASSWORD}/g;s/secretkey/${SECRETKEY}/g;s/username/postgres/g' {{project_name}}/settings/secret.py; \
+		virtualenv --python=python3.6 ${JENKINSBUILD_DIR}/{{project_name}}; \
+		source ${JENKINSBUILD_DIR}/{{project_name}}/bin/activate; \
+		pip install -U pip; \
+		pip install -U -r requirements/tests.txt; \
+		npm install; \
+		npm run build; \
+		flake8; \
+		COVERAGE_FILE=.coverage.test coverage run manage.py test --settings=${SETTINGS} --noinput --parallel; \
+		COVERAGE_FILE=.coverage.behave coverage run manage.py behave --settings=${SETTINGS}; \
+		coverage combine; \
+		coverage xml; \
+	)
 
 initalpha:
-    ( \
-        cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml; \
-    )
+	( \
+		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml; \
+	)
 
 alpha:
-    ( \
-        cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --skip-tags "init"; \
-    )
+	( \
+		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --skip-tags "init"; \
+	)
 
 test:
-    ( \
-        COVERAGE_FILE=.coverage.test coverage run manage.py test --settings=${SETTINGS} --noinput --keepdb; \
-        COVERAGE_FILE=.coverage.behave coverage run manage.py behave --settings=${SETTINGS} --keepdb; \
-        coverage combine; \
-        coverage html; \
-    )
+	( \
+		COVERAGE_FILE=.coverage.test coverage run manage.py test --settings=${SETTINGS} --noinput --keepdb; \
+		COVERAGE_FILE=.coverage.behave coverage run manage.py behave --settings=${SETTINGS} --keepdb; \
+		coverage combine; \
+		coverage html; \
+	)
 
 dev:
-    ( \
-        pip install -U pip pip-tools; \
-        pip-sync requirements/dev.txt; \
-    )
+	( \
+		pip install -U pip pip-tools; \
+		pip-sync requirements/dev.txt; \
+	)
 
 # to pass optional parameters use as: make pip p='-P requests'
 pip:
-    ( \
-        pip install -U pip pip-tools; \
-        pip-compile $(p) --output-file requirements/common.txt requirements/common.ini; \
-        pip-compile $(p) --output-file requirements/dev.txt requirements/dev.ini; \
-        pip-compile $(p) --output-file requirements/prod.txt requirements/prod.ini; \
-        pip-compile $(p) --output-file requirements/tests.txt requirements/tests.ini; \
-    )\
+	( \
+		pip install -U pip pip-tools; \
+		pip-compile $(p) --output-file requirements/common.txt requirements/common.ini; \
+		pip-compile $(p) --output-file requirements/dev.txt requirements/dev.ini; \
+		pip-compile $(p) --output-file requirements/prod.txt requirements/prod.ini; \
+		pip-compile $(p) --output-file requirements/tests.txt requirements/tests.ini; \
+	)\

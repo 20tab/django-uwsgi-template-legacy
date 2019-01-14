@@ -3,12 +3,12 @@
 project_name = {{project_name}}
 venv_name = {{project_name}}
 py_version = 3.6
-
+uid = USERNAME
+gid = USERNAME
 
 workarea_root = WORKAREA_ROOT
 
 project_root = %(workarea_root)/%(project_name)
-venvs_dir = venvs
 
 ini = WORKAREA_ROOT/{{project_name}}/uwsgiconf/locals/global.ini
 ini = WORKAREA_ROOT/{{project_name}}/uwsgiconf/locals/static.ini
@@ -19,6 +19,7 @@ plugin = python3
 socket = 127.0.0.1:0
 subscribe-to = 127.0.0.1:5005:%(project_name).local
 logto=%(project_root)/%(project_name).log
+logfile-chown = %U:%G
 
 # if bonjour
 plugin = bonjour
