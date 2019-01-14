@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.debug import default_urlconf
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('accounts/', include('django.contrib.auth.urls')),
+    path('', default_urlconf),  # Change this row to edit your home page
 ]
 
 try:
