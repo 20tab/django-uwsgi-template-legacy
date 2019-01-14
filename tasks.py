@@ -52,7 +52,7 @@ def init(c):
         c.run(f'sed -i".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
         c.run(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
     else:
-        c.run(f'cp {ini_dir}/stand_alone.ini.template {ini_dir}/{USERNAME}.ini')
+        c.run(f'cp {ini_dir}/standalone.ini.template {ini_dir}/{USERNAME}.ini')
         c.run(
             f'sed -i".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
         c.run(f'sed -i ".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
