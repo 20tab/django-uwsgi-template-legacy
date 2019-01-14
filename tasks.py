@@ -27,7 +27,7 @@ def init(c):
     EMPEROR_MODE = confirm('Do you want to configure your uWSGI vassal in emperor mode? (no=stand-alone)')
     if EMPEROR_MODE:
         vassals = input(f'We will use "{VASSALS}" as the directory for the vassals, or specify the path: ') or VASSALS
-    venvs = input(f'We will use "{VENVS}" as the directory for the virtualenv, or specify the path: ') or VENVS
+    venvs = input(f'We will use "{VENVS}" as the directory for the virtualenv, or specify the absolute path:') or VENVS
     python_plugin = input(
         f'Specify python plugin to configure uwsgi or blank to use default value (python3): ') or "python3"
     username = input(f'Enter the database user name: ')
