@@ -14,7 +14,7 @@ ini = %d/static.ini
 # not required only if uwsgi was installed with pip
 plugin = python3
 
-http = :8080
+http-socket = :8080
 
 processes = 1
 threads = 1
