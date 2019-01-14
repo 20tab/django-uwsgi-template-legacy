@@ -4,8 +4,8 @@ import importlib
 import os
 import sys
 
-from invoke import task
 from django.core.management.utils import get_random_secret_key
+from invoke import task
 
 BASE_DIR = os.path.dirname(__file__)
 BASE_DIRNAME = os.path.dirname(BASE_DIR)
@@ -25,24 +25,20 @@ def init(c):
         print('Activate your virtualenv and run the fab command again')
         return
     EMPEROR_MODE = confirm('Do you want to configure your uWSGI vassal in emperor mode? (no=stand-alone)')
-
     if EMPEROR_MODE:
-        vassals = input(f'We will use "{VASSALS}" as the directory for the vassals, or specify the path:') or VASSALS
-
+        vassals = input(f'We will use "{VASSALS}" as the directory for the vassals, or specify the path: ') or VASSALS
     python_plugin = input(
-        f'Specify python plugin to configure uwsgi or blank to use default value (python3):') or "python3"
-    username = input(f'Enter the database user name:')
-    password = getpass.getpass(f'Enter the database user password:')
-
+        f'Specify python plugin to configure uwsgi or blank to use default value (python3): ') or "python3"
+    username = input(f'Enter the database user name: ')
+    password = getpass.getpass(f'Enter the database user password: ')
     c.run('make pip')
-    c.run(f'pip install -r {BASE_DIR}/requirements/dev.txt')
+    c.run('make dev')
     if not os.path.exists('templates'):
         c.run('mkdir templates')
     if not os.path.exists('static'):
         c.run('mkdir static')
     if not os.path.exists('media'):
         c.run('mkdir media')
-
     ini_dir = f'{BASE_DIR}/uwsgiconf/locals'
     WORKAREA_ROOT = BASE_DIRNAME.replace("/", "\/")
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
@@ -58,17 +54,20 @@ def init(c):
         c.run(f'sed -i ".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
     if not os.path.exists(f'{SECRET_FILE}'):
         c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
-        c.run(f'sed -i".bak" -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g" {SECRET_FILE}')
+        c.run((
+            f'sed -i".bak" -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g"'
+            ' {SECRET_FILE}'
+        ))
     else:
         c.run(f'sed -i".bak" -e "s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}')
     createdb(c)
-    print('\n\n*** WARNING ***\n\n')
-    print('a) Check the uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin\n')
-    print('b) Check the uwsgiconf/remotes/globlal.ini file and verify that you have the correct python plugin\n')
-    print('c) Check the uwsgiconf/remotes/alpha.ini file and make sure the domain name is correct\n')
-    print('d) Configure the deploy/hosts file with server data\n')
-    print('e) Configure the deploy/alpha.yaml file with the correct data\n')
-    print('f) Configure the file by {PROJECT_DIRNAME}/settings/testing.py with the correct data\n')
+    print('*** Next steps ***')
+    print(f'a) Check the uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin')
+    print('b) Check the uwsgiconf/remotes/globlal.ini file and verify that you have the correct python plugin')
+    print('c) Check the uwsgiconf/remotes/alpha.ini file and make sure the domain name is correct')
+    print('d) Configure the deploy/hosts file with server data')
+    print('e) Configure the deploy/alpha.yaml file with the correct data')
+    print(f'f) Configure the file by {PROJECT_DIRNAME}/settings/testing.py with the correct data')
 
 
 @task
