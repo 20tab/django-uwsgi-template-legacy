@@ -11,25 +11,27 @@ Set you environment. We kindly suggest updating pip to the latest version and us
 
 Use one this options to create an empty virtualenv with the right python version, and activate it:
 
+> **NOTE** : replace `venvs` with your actual virtualenv directory
+
 * use virtualenv for python2:
   ```shell
   $ pip install --user -U pip virtualenv
-  $ virtualenv --python=python3 ~/venvs/{{project_name}}_env
-  $ source ~/venvs/{{project_name}}_env/bin/activate
+  $ virtualenv --python=python3 ~/venvs/{{project_name}}
+  $ source ~/venvs/{{project_name}}/bin/activate
   ```
 
 * use venv for python3:
   ```shell
   $ pip3 install --user -U pip
-  $ python3 -m venv ~/venvs/{{project_name}}_env
-  $ source ~/venvs/{{project_name}}_env/bin/activate
+  $ python3 -m venv ~/venvs/{{project_name}}
+  $ source ~/venvs/{{project_name}}/bin/activate
   ```
 
 * use virtualenvwrapper for an easier workflow:
   ```shell
   $ pip install --user -U pip virtualenvwrapper
-  $ mkvirtualenv --python=python3 {{project_name}}_env
-  $ workon {{project_name}}_env
+  $ mkvirtualenv --python=python3 {{project_name}}
+  $ workon {{project_name}}
   ```
 
 ### Packages
@@ -37,7 +39,7 @@ Use one this options to create an empty virtualenv with the right python version
 To use this template you need the latest Django and Invoke version installed.
 
 ```shell
-({{project_name}}_env) $ pip install -U django invoke
+({{project_name}}) $ pip install -U django invoke
 ```
 
 ## Installation
@@ -45,7 +47,7 @@ To use this template you need the latest Django and Invoke version installed.
 To start a new project with this template:
 
 ```shell
-({{project_name}}_env) $ django-admin.py startproject --template https://github.com/20tab/django-uwsgi-template/zipball/master -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
+({{project_name}}) $ django-admin.py startproject --template https://github.com/20tab/django-uwsgi-template/zipball/master -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
 ```
 
 ## Configuration
@@ -55,13 +57,13 @@ To start a new project with this template:
 2. To configure the project execute **init task** and answer all questions:
 
     ```shell
-    ({{project_name}}_env) $ inv init
+    ({{project_name}}) $ inv init
     ```
 
 3. To merge your project with git repository execute:
 
    ```shell
-   ({{project_name}}_env) $ inv gitclone <your_repo_git_url>
+   ({{project_name}}) $ inv gitclone <your_repo_git_url>
    ```
 
 4. Check `{{project_name}}/settings/*.py` and `{{project_name}}/urls.py` to configure your project
@@ -75,9 +77,9 @@ To start a new project with this template:
 To execute only if you want reset all data:
 
 ```shell
-({{project_name}}_env) $ inv drop_db
-({{project_name}}_env) $ inv create_db
-({{project_name}}_env) $ python manage.py migrate
+({{project_name}}) $ inv drop_db
+({{project_name}}) $ inv create_db
+({{project_name}}) $ python manage.py migrate
 ```
 
 ### Superuser creation
@@ -85,7 +87,7 @@ To execute only if you want reset all data:
 Execute after the first installation if you need a super user for your admin
 
 ```shell
-({{project_name}}_env) $ python manage.py createsuperuser
+({{project_name}}) $ python manage.py createsuperuser
 ```
 
 ## Requirements
@@ -95,7 +97,7 @@ Execute after the first installation if you need a super user for your admin
 To list all outdated installed packages execute:
 
 ```shell
-({{project_name}}_env) $ pip list -o
+({{project_name}}) $ pip list -o
 ```
 
 ### Edit
@@ -103,13 +105,13 @@ To list all outdated installed packages execute:
 To add/remove packages or modify their versions edit `requirements/*.ini` files and to update all related `requirements/*.txt` execute:
 
 ```shell
-({{project_name}}_env) $ make pip
+({{project_name}}) $ make pip
 ```
 
 To update sub-dependencies *(es: packages listed in `install_requires`)* use 'p' option as below:
 
 ```shell
-({{project_name}}_env) $ make pip p='-P pytz'
+({{project_name}}) $ make pip p='-P pytz'
 ```
 
 ### Update
@@ -117,7 +119,7 @@ To update sub-dependencies *(es: packages listed in `install_requires`)* use 'p'
 To install the updated `requirements/dev.txt` in your local virtualenv execute:
 
 ```shell
-({{project_name}}_env) $ make dev
+({{project_name}}) $ make dev
 ```
 
 ## Testing
@@ -125,7 +127,7 @@ To install the updated `requirements/dev.txt` in your local virtualenv execute:
 To run test and behave with coverage execute:
 
 ```shell
-({{project_name}}_env) $ make test
+({{project_name}}) $ make test
 ```
 
 ## Continuous Integration
@@ -150,12 +152,12 @@ you can modify Makefile ci command and deploy/deploy.yaml deleting useless comma
 To initialize the alpha instance you have to execute the next two commands:
 
 ```shell
-({{project_name}}_env) $ make initalpha
-({{project_name}}_env) $ make alpha
+({{project_name}}) $ make initalpha
+({{project_name}}) $ make alpha
 ```
 
 To update your alpha instance after some code updates you have to execute the next command only:
 
 ```shell
-({{project_name}}_env) $ make alpha
+({{project_name}}) $ make alpha
 ```
