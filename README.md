@@ -52,30 +52,11 @@ To start a new project with this template:
 
 1. Enter the folder of your **project** *(es: ~/projects/{{project_name}})*
 
-2. To configure the project:
+2. To configure the project execute **init task** and answer all questions:
 
-   1. execute **init task** and answer all questions:
-
-      ```shell
-      ({{project_name}}_env) $ inv init
-      ```
-
-   2. add python packages or edit their versions in `requirements/common.ini` *(es: django)* and in `requirements/dev.ini` *(es: django-debug-toolbar)* and then execute:
-
-      ```shell
-      ({{project_name}}_env) $ make pip
-      ```
-    
-   3. to install all the updated packages in `requirements/dev.txt` execute:
-
-      ```shell
-      ({{project_name}}_env) $ make dev
-      ```
-
-   4. check `uwsgiconf/local/<username>.ini` to verify that you have the **correct python plugin** and to customize your local uWSGI settings 
-      *(mainly comment and uncomment lines for emperor, plus bonjour or avahi, or stand-alone mode)*
-
-   5. check the default database parameters in `{{project_name}}/settings/secret.py`
+    ```shell
+    ({{project_name}}_env) $ inv init
+    ```
 
 3. To merge your project with git repository execute:
 
