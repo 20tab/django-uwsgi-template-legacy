@@ -54,7 +54,7 @@ def init(c):
     c.run(f'sed -i".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
     c.run(f'sed -i".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
     c.run(f'sed -i".bak" -e "s/PYVERSION/{PYVERSION}/g;" {ini_dir}/{USERNAME}.ini')
-    c.run(f'sed -i".bak" -e "s/VENV_ROOT/{VENV_ROOT}/g;" {ini_dir}/global.ini')
+    c.run(f'sed -i".bak" -e "s/VENV_ROOT/{VENV_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
 
     if not os.path.exists(f'{SECRET_FILE}'):
         c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
