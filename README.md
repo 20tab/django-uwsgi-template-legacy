@@ -130,6 +130,14 @@ To run test and behave with coverage execute:
 ({{project_name}}) $ make test
 ```
 
+## Frontend building
+
+To run npm instal and build execute:
+
+```shell
+({{project_name}}) $ make npm
+```
+
 ## Continuous Integration
 
 To setup the build in a Continuous Integration environment *(eg: jenkins)* use this code:
