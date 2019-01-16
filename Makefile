@@ -53,3 +53,10 @@ pip:
 		pip-compile $(p) --output-file requirements/prod.txt requirements/prod.ini; \
 		pip-compile $(p) --output-file requirements/tests.txt requirements/tests.ini; \
 	)\
+
+npm:
+	( \
+		npm install; \
+		npm run build; \
+	)
+
