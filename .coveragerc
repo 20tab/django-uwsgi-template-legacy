@@ -9,4 +9,4 @@ omit =  **/__init__.py
         **/wsgi.py
         **/urls.py
         manage.py
-        fabfile.py
+        tasks.py
