@@ -132,7 +132,7 @@ To run test and behave with coverage execute:
 
 ## Frontend building
 
-To run npm instal and build execute:
+The command installs dependencies and compiles the frontend code into static files that are used in the views.
 
 ```shell
 ({{project_name}}) $ make npm
