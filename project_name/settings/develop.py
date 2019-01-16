@@ -43,7 +43,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 # SITE_ID = 2
 
 
-# Fab commands configuration
+# Invoke commands configuration
 
 WORKING_DIR = 'www/{{project_name}}_dev'
 HOST_USER = ''

@@ -21,7 +21,7 @@ SECRET_KEY = get_random_secret_key()
 @task
 def init(c):
     if not confirm('Is your project virtualenv activated?'):
-        print('Activate your virtualenv and run the fab command again')
+        print('Activate your virtualenv and run the inv command again')
         return
     EMPEROR_MODE = confirm('Do you want to configure your uWSGI vassal in emperor mode? (no=stand-alone)')
     if EMPEROR_MODE:
