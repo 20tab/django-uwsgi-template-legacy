@@ -1,7 +1,7 @@
 {{project_name}}
 ================
 
-This is a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) template with custom configuration. It requires [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server.
+This is a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) template with custom configuration. It requires [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server (check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server with emperor).
 
 ## Prerequisite
 
@@ -129,6 +129,8 @@ To run test and behave with coverage execute:
 ```shell
 ({{project_name}}) $ make test
 ```
+
+(Check [django-bdd-toolkit](https://github.com/20tab/django-bdd-toolkit) to use behave in a regular django project)
 
 ## Frontend building
 
