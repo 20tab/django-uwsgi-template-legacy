@@ -1,7 +1,8 @@
 {{project_name}}
 ================
 
-This is a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) template with custom configuration. It requires [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server (check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server with emperor).
+This is a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) template with custom configuration. It requires [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server 
+> **NOTE** : for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server with emperor.
 
 ## Prerequisite
 
@@ -47,7 +48,7 @@ To use this template you need the latest Django and Invoke version installed.
 To start a new project with this template:
 
 ```shell
-({{project_name}}) $ django-admin.py startproject --template https://github.com/20tab/django-uwsgi-template/zipball/master -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
+({{project_name}}) $ django-admin.py startproject --template https://20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
 ```
 
 ## Configuration
@@ -130,7 +131,7 @@ To run test and behave with coverage execute:
 ({{project_name}}) $ make test
 ```
 
-(Check [django-bdd-toolkit](https://github.com/20tab/django-bdd-toolkit) to use behave in a regular django project)
+> **NOTE** : [django-bdd-toolkit](https://github.com/20tab/django-bdd-toolkit) to use behave in a regular django project.
 
 ## Frontend building
 
