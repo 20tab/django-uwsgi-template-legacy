@@ -48,7 +48,7 @@ To use this template you need the latest Django and Invoke version installed.
 To start a new project with this template:
 
 ```shell
-({{project_name}}) $ django-admin.py startproject --template https://github.com/20tab/django-uwsgi-template/zipball/master -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
+({{project_name}}) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
 ```
 
 ## Configuration
@@ -78,8 +78,8 @@ To start a new project with this template:
 To execute only if you want reset all data:
 
 ```shell
-({{project_name}}) $ inv drop_db
-({{project_name}}) $ inv create_db
+({{project_name}}) $ inv dropdb
+({{project_name}}) $ inv createdb
 ({{project_name}}) $ python manage.py migrate
 ```
 
