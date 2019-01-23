@@ -78,8 +78,8 @@ To start a new project with this template:
 To execute only if you want reset all data:
 
 ```shell
-({{project_name}}) $ inv drop_db
-({{project_name}}) $ inv create_db
+({{project_name}}) $ inv dropdb
+({{project_name}}) $ inv createdb
 ({{project_name}}) $ python manage.py migrate
 ```
 
