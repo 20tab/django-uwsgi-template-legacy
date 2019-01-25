@@ -40,14 +40,14 @@ test:
 
 dev:
 	( \
-		pip install -U pip==18.1 pip-tools; \
+		pip install -U pip pip-tools; \
 		pip-sync requirements/dev.txt; \
 	)
 
 # to pass optional parameters use as: make pip p='-P requests'
 pip:
 	( \
-		pip install -U pip==18.1 pip-tools; \
+		pip install -U pip pip-tools; \
 		pip-compile $(p) --output-file requirements/common.txt requirements/common.ini; \
 		pip-compile $(p) --output-file requirements/dev.txt requirements/dev.ini; \
 		pip-compile $(p) --output-file requirements/prod.txt requirements/prod.ini; \
