@@ -19,7 +19,11 @@ plugin = python3
 
 socket = 127.0.0.1:0
 subscribe-to = 127.0.0.1:5005:%(project_name).local
-logto=%(project_root)/%(project_name).log
+
+# logs
+plugin = logfile
+logger = file:/%(project_root)/%(project_name).log
+req-logger = file:/%(project_root)/%(project_name)_access.log
 logfile-chown = %U:%G
 
 # if bonjour
