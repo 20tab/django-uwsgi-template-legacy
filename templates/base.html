@@ -3,7 +3,9 @@
 <html lang="{{LANGUAGE_CODE}}">
 <head>
 <title>{% block title %}{% endblock %}</title>
-<meta charset="{% block content_type %}{% endblock content_type %}" />
+<meta charset="{% block content_type %}utf-8{% endblock content_type %}" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 {% block head_meta %}
 <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 {% endblock head_meta %}
