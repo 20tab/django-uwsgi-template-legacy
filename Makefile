@@ -40,18 +40,18 @@ test:
 
 dev:
 	( \
-		pip install -U pip pip-tools; \
-		pip-sync requirements/dev.txt; \
+		pip install -q -U pip pip-tools; \
+		pip-sync -q requirements/dev.txt; \
 	)
 
 # to pass optional parameters use as: make pip p='-P requests'
 pip:
 	( \
-		pip install -U pip pip-tools; \
-		pip-compile $(p) --output-file requirements/common.txt requirements/common.ini; \
-		pip-compile $(p) --output-file requirements/dev.txt requirements/dev.ini; \
-		pip-compile $(p) --output-file requirements/prod.txt requirements/prod.ini; \
-		pip-compile $(p) --output-file requirements/tests.txt requirements/tests.ini; \
+		pip install -q -U pip pip-tools; \
+		pip-compile $(p) requirements/common.ini > requirements/common.txt; \
+		pip-compile $(p) requirements/dev.ini > requirements/dev.txt; \
+		pip-compile $(p) requirements/prod.ini > requirements/prod.txt; \
+		pip-compile $(p) requirements/tests.ini > requirements/tests.txt; \
 	)\
 
 npm:
