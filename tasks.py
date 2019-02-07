@@ -113,6 +113,11 @@ def media_from_server(c, settings='develop'):
         print('Remember that synchronizing the media files also requires synchronizing the database.')
 
 
+@task
+def restart(c):
+    c.run(f"touch uwsgiconf/locals/{USERNAME}.ini")
+
+
 def get_db():
     with open(SECRET_FILE, 'r') as f:
         config_string = '[secret]\n' + f.read()
