@@ -60,7 +60,7 @@ def init(c):
         c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
         c.run((
             f'sed -i".bak" -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g"'
-            ' {SECRET_FILE}'
+            f' {SECRET_FILE}'
         ))
     else:
         c.run(f'sed -i".bak" -e "s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}')
