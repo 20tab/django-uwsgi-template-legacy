@@ -43,12 +43,22 @@ To use this template you need the latest Django and Invoke version installed.
 ({{project_name}}) $ pip install -U django invoke
 ```
 
-## Installation
+## Project
+
+### New
 
 To start a new project with this template:
 
 ```shell
 ({{project_name}}) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
+```
+
+### Clone
+
+To clone an existing project created with this template:
+
+```shell
+({{project_name}}) $ git clone https://example.com/{{project_name}}.git
 ```
 
 ## Configuration
