@@ -26,13 +26,9 @@ logger = file:/%(project_root)/%(project_name).log
 req-logger = file:/%(project_root)/%(project_name)_access.log
 logfile-chown = %U:%G
 
-# if bonjour
-plugin = bonjour
-bonjour-register = name=%(project_name).local,cname=localhost
-
-# if avahi
-;plugin = avahi
-;avahi-register = %(project_name).local
+# zeroconf
+plugin = ZEROCONF
+ZEROCONF-register = ZEROOPTS
 
 processes = 1
 threads = 1

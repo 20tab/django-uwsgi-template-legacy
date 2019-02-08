@@ -11,6 +11,8 @@ BASE_DIR = os.path.dirname(__file__)
 BASE_DIRNAME = os.path.dirname(BASE_DIR)
 PROJECT_DIRNAME = os.path.basename(os.path.dirname(__file__))
 EMPEROR_MODE = True
+ZEROCONF = 'avahi'
+ZEROOPTS = '%(project_name)'
 VENVS = f'{BASE_DIRNAME}/venvs'
 VASSALS = f'{BASE_DIRNAME}/vassals'
 USERNAME = os.getlogin()
@@ -26,6 +28,10 @@ def init(c):
     EMPEROR_MODE = confirm('Do you want to configure your uWSGI vassal in emperor mode? (no=stand-alone)')
     if EMPEROR_MODE:
         vassals = input(f'We will use "{VASSALS}" as the directory for the vassals, or specify the path: ') or VASSALS
+        bonjour = confirm('Do you want to use Bonjour for OSX (Yes) or Avahi for Linux (No)? ')
+        if bonjour:
+            ZEROCONF = 'bonjour'
+            ZEROOPTS = 'name=%(project_name).local,cname=localhost'
     venvs = input(f'We will use "{VENVS}" as the directory for the virtualenv, or specify the absolute path:') or VENVS
     python_plugin = input(
         f'Specify python plugin to configure uwsgi or blank to use default value (python3): ') or "python3"
@@ -46,7 +52,9 @@ def init(c):
 
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
         c.run(f'cp {ini_dir}/emperor.ini.template {ini_dir}/{USERNAME}.ini')
-        c.run(f'sed -i".bak" -e "s/USERNAME/{USERNAME}/g;" {ini_dir}/{USERNAME}.ini')
+        c.run((
+            f'sed -i".bak" -e "s/USERNAME/{USERNAME}/g;s/ZEROCONF/{ZEROCONF}/g;s/ZEROOPTS/{ZEROOPTS}/g;" {ini_dir}/'
+            f'{USERNAME}.ini'))
         c.run(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
     else:
         c.run(f'cp {ini_dir}/standalone.ini.template {ini_dir}/{USERNAME}.ini')
