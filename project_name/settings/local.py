@@ -48,13 +48,3 @@ else:
     INTERNAL_IPS = ['127.0.0.1', 'localhost']
     INSTALLED_APPS.append('debug_toolbar')  # noqa
     MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')  # noqa
-    DEBUG_TOOLBAR_CONFIG = {
-        'DISABLE_PANELS': {
-            'debug_toolbar.panels.redirects.RedirectsPanel',
-            'debug_toolbar.panels.templates.TemplatesPanel'
-        },
-        # URL of the copy of jQuery that will be used by the toolbar.
-        # Set it to a locally-hosted version of jQuery for offline development.
-        # Make it empty to rely on a version of jQuery that already exists on every page of your site.
-        'JQUERY_URL': '',
-    }
