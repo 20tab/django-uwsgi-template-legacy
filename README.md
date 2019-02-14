@@ -61,6 +61,8 @@ To clone an existing project created with this template:
 ({{project_name}}) $ git clone https://example.com/{{project_name}}.git
 ```
 
+> **NOTE** : If you're cloning an existing project, make sure you go to the correct branch (e.g. `git checkout develop`)
+
 ## Configuration
 
 1. Enter the folder of your **project** *(es: ~/projects/{{project_name}})*
