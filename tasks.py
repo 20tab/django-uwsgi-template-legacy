@@ -37,19 +37,24 @@ def init(c):
         f'Specify python plugin to configure uwsgi or blank to use default value (python3): ') or "python3"
     username = input(f'Enter the database user name: ')
     password = getpass.getpass(f'Enter the database user password: ')
+    print('Compiling pip file in requirements')
     c.run('make pip')
+    print('Installing libraries in requirements')
     c.run('make dev')
     if not os.path.exists('templates'):
+        print('Making templates directory')
         c.run('mkdir templates')
     if not os.path.exists('static'):
+        print('Making static directory')
         c.run('mkdir static')
     if not os.path.exists('media'):
+        print('Making media directory')
         c.run('mkdir media')
     ini_dir = f'{BASE_DIR}/uwsgiconf/locals'
     PYVERSION = f"{sys.version_info[0]}.{sys.version_info[1]}"
     WORKAREA_ROOT = BASE_DIRNAME.replace("/", "\/")  # noqa
     VENV_ROOT = venvs.replace("/", "\/")  # noqa
-
+    print('Generating uwsgi user file')
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
         c.run(f'cp {ini_dir}/emperor.ini.template {ini_dir}/{USERNAME}.ini')
         c.run((
@@ -58,12 +63,11 @@ def init(c):
         c.run(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
     else:
         c.run(f'cp {ini_dir}/standalone.ini.template {ini_dir}/{USERNAME}.ini')
-
     c.run(f'sed -i".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
     c.run(f'sed -i".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
     c.run(f'sed -i".bak" -e "s/PYVERSION/{PYVERSION}/g;" {ini_dir}/{USERNAME}.ini')
     c.run(f'sed -i".bak" -e "s/VENV_ROOT/{VENV_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
-
+    print('Installing secret fiel in settings')
     if not os.path.exists(f'{SECRET_FILE}'):
         c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
         c.run((
