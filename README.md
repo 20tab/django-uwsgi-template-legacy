@@ -1,8 +1,7 @@
 {% comment "This comment section will be deleted in the generated project" %}
-
 # Django uWSGI template
 
-This is a a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) template project using [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server.
+This is a [Django](https://docs.djangoproject.com) project template using [uWSGI](https://uwsgi-docs.readthedocs.io) as application server.
 
 > **NOTE** : for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server with emperor.
 
@@ -14,7 +13,7 @@ We suggest updating pip to the latest version and using a virtual environment to
 
 Choose one of these options to create an empty virtual environment, with the right python version, and activate it:
 
-> **NOTE** : replace `venvs` with your actual virtual environments directory and replace `project_name` with your actual project name
+> **NOTE** : replace `venvs` with your actual virtual environments directory and `project_name` with your actual project name.
 
 #### Python 2
 
@@ -57,18 +56,16 @@ Change directory and start a new project with this template:
 
 ```shell
 (project_name) $ cd ~/projects/
-(project_name) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile 
+(project_name) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile project_name
 ```
 
 Rest of this README will be copied to the generated project.
 
 --------------------------------------------------------------------------------------------
 
-{% endcomment %}
+{% endcomment %}# {{project_name}}
 
-# {{project_name}}
-
-This is a a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) project using [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server.
+This is a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) project using [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server.
 
 > **NOTE** : for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server in emperor mode.
 
