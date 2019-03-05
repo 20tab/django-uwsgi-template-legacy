@@ -111,7 +111,7 @@ def gitinit(c, git_repository_url):
     c.run('git add -A')
     c.run('git commit -m "Initial commit"')
     c.run(f'git remote add origin {git_repository_url}')
-    # c.run('git push -u origin master')
+    c.run('git push -u origin master')
 
 
 @task
