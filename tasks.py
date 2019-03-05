@@ -2,6 +2,7 @@ import configparser
 import getpass
 import importlib
 import os
+import pathlib
 import sys
 
 from django.core.management.utils import get_random_secret_key
@@ -11,9 +12,6 @@ BASE_DIR = os.path.dirname(__file__)
 BASE_DIRNAME = os.path.dirname(BASE_DIR)
 PROJECT_DIRNAME = os.path.basename(os.path.dirname(__file__))
 EMPEROR_MODE = True
-ZEROCONF = 'avahi'
-ZEROOPTS = '%(project_name)'
-VENVS = f'{BASE_DIRNAME}/venvs'
 VASSALS = f'{BASE_DIRNAME}/vassals'
 USERNAME = os.getlogin()
 SECRET_FILE = f'{BASE_DIR}/{PROJECT_DIRNAME}/settings/secret.py'
@@ -22,7 +20,9 @@ SECRET_KEY = get_random_secret_key()
 
 @task
 def init(c):
-    if not confirm('Is your project virtualenv activated?'):
+    try:
+        VENV_ROOT = str(pathlib.Path(os.environ['VIRTUAL_ENV']).parent).replace("/", "\/")  # noqa
+    except KeyError:
         print('Activate your virtualenv and run the inv command again')
         return
     EMPEROR_MODE = confirm('Do you want to configure your uWSGI vassal in emperor mode? (no=stand-alone)')
@@ -32,7 +32,9 @@ def init(c):
         if bonjour:
             ZEROCONF = 'bonjour'
             ZEROOPTS = 'name=%(project_name).local,cname=localhost'
-    venvs = input(f'We will use "{VENVS}" as the directory for the virtualenv, or specify the absolute path:') or VENVS
+        else:
+            ZEROCONF = 'avahi'
+            ZEROOPTS = '%(project_name).local'
     python_plugin = input(
         f'Specify python plugin to configure uwsgi or blank to use default value (python3): ') or "python3"
     username = input(f'Enter the database user name: ')
@@ -53,7 +55,6 @@ def init(c):
     ini_dir = f'{BASE_DIR}/uwsgiconf/locals'
     PYVERSION = f"{sys.version_info[0]}.{sys.version_info[1]}"
     WORKAREA_ROOT = BASE_DIRNAME.replace("/", "\/")  # noqa
-    VENV_ROOT = venvs.replace("/", "\/")  # noqa
     print('Generating uwsgi user file')
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
         c.run(f'cp {ini_dir}/emperor.ini.template {ini_dir}/{USERNAME}.ini')
