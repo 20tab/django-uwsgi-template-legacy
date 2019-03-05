@@ -59,6 +59,17 @@ Change directory and start a new project with this template:
 (project_name) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile project_name
 ```
 
+### Git initialization
+
+In order to initialize git and sync the project with an existing repository:
+
+> **NOTE** : replace `git_repository_url` with your actual git repository url.
+
+```shell
+(project_name) $ cd ~/projects/project_name
+(project_name) $ inv gitinit git_repository_url
+```
+
 Rest of this README will be copied to the generated project.
 
 --------------------------------------------------------------------------------------------
@@ -120,8 +131,10 @@ Change directory and clone the project repository:
 
 ```shell
 ({{project_name}}) $ cd ~/projects/
-({{project_name}}) $ git clone https://example.com/{{project_name}}.git
+({{project_name}}) $ git clone git_repository_url {{project_name}}
 ```
+
+> **NOTE** : If you're cloning an existing project, make sure you go to the correct branch (e.g. `git checkout develop`)
 
 ### Initialization
 

@@ -103,14 +103,15 @@ def dropdb(c):
 
 
 @task
-def gitclone(c, repository):
+def gitinit(c, git_repository_url):
+    c.run(f'sed -i".bak" -e "s/git_repository_url/{git_repository_url}/g;" README.md')
     c.run('git init')
     c.run('flake8 --install-hook git')
     c.run('git config flake8.strict true')
     c.run('git add -A')
-    c.run('git commit -m "first commit"')
-    c.run(f'git remote add origin {repository}')
-    c.run('git push -u origin master')
+    c.run('git commit -m "Initial commit"')
+    c.run(f'git remote add origin {git_repository_url}')
+    # c.run('git push -u origin master')
 
 
 @task
