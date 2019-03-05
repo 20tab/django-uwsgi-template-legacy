@@ -1,93 +1,147 @@
-{{project_name}}
-================
+{% comment "This comment section will be deleted in the generated project" %}
+# Django uWSGI template
 
-This is a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) template with custom configuration. It requires [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server 
+This is a [Django](https://docs.djangoproject.com) project template using [uWSGI](https://uwsgi-docs.readthedocs.io) as application server.
+
 > **NOTE** : for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server with emperor.
 
-## Prerequisite
+## Setup
 
-Set you environment. We kindly suggest updating pip to the latest version and using a virtualenv  to wrap all your work.
+We suggest updating pip to the latest version and using a virtual environment to wrap all your libraries.
 
-### Virtualenv
+### Virtual environment
 
-Use one this options to create an empty virtualenv with the right python version, and activate it:
+Choose one of these options to create an empty virtual environment, with the right python version, and activate it:
 
-> **NOTE** : replace `venvs` with your actual virtualenv directory
+> **NOTE** : replace `venvs` with your actual virtual environments directory and `project_name` with your actual project name.
 
-* use virtualenv for python2:
-  ```shell
-  $ pip install --user -U pip virtualenv
-  $ virtualenv --python=python3 ~/venvs/{{project_name}}
-  $ source ~/venvs/{{project_name}}/bin/activate
-  ```
+#### Python 2
 
-* use venv for python3:
-  ```shell
-  $ pip3 install --user -U pip
-  $ python3 -m venv ~/venvs/{{project_name}}
-  $ source ~/venvs/{{project_name}}/bin/activate
-  ```
+```shell
+$ pip install --user -U pip virtualenv
+$ virtualenv --python=python3 ~/venvs/project_name
+$ source ~/venvs/project_name/bin/activate
+```
 
-* use virtualenvwrapper for an easier workflow:
-  ```shell
-  $ pip install --user -U pip virtualenvwrapper
-  $ mkvirtualenv --python=python3 {{project_name}}
-  $ workon {{project_name}}
-  ```
+#### Python 3
+```shell
+$ pip3 install --user -U pip
+$ python3 -m venv ~/venvs/project_name
+$ source ~/venvs/project_name/bin/activate
+```
 
-### Packages
+#### Virtualenvwrapper
 
-To use this template you need the latest Django and Invoke version installed.
+Alternatively, use [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/stable/) for an easier workflow.
+
+```shell
+$ pip install --user -U pip virtualenvwrapper
+$ mkvirtualenv --python=python3 project_name
+$ workon project_name
+```
+
+### Basic requirements
+
+Django and Invoke must be installed before initializing the project.
+
+```shell
+(project_name) $ pip install -U django invoke
+```
+
+### Start Project
+
+Change directory and start a new project with this template:
+
+> **NOTE** : replace `projects` with your actual projects directory.
+
+```shell
+(project_name) $ cd ~/projects/
+(project_name) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile project_name
+```
+
+Rest of this README will be copied to the generated project.
+
+--------------------------------------------------------------------------------------------
+
+{% endcomment %}# {{project_name}}
+
+This is a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) project using [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server.
+
+> **NOTE** : for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server in emperor mode.
+
+## Setup
+
+We suggest updating pip to the latest version and using a virtual environment to wrap all your libraries.
+
+### Virtual environment
+
+Choose one of these options to create an empty virtual environment, with the right python version, and activate it:
+
+> **NOTE** : replace `venvs` with your actual virtual environments directory.
+
+#### Python 2
+
+```shell
+$ pip install --user -U pip virtualenv
+$ virtualenv --python=python3 ~/venvs/{{project_name}}
+$ source ~/venvs/{{project_name}}/bin/activate
+```
+
+#### Python 3
+```shell
+$ pip3 install --user -U pip
+$ python3 -m venv ~/venvs/{{project_name}}
+$ source ~/venvs/{{project_name}}/bin/activate
+```
+
+#### Virtualenvwrapper
+
+Alternatively, use [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/stable/) for an easier workflow.
+
+```shell
+$ pip install --user -U pip virtualenvwrapper
+$ mkvirtualenv --python=python3 {{project_name}}
+$ workon {{project_name}}
+```
+
+### Basic requirements
+
+Django and Invoke must be installed before initializing the project.
 
 ```shell
 ({{project_name}}) $ pip install -U django invoke
 ```
 
-## Project
+### Clone Project
 
-### New
+Change directory and clone the project repository:
 
-To start a new project with this template:
-
-```shell
-({{project_name}}) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
-```
-
-### Clone
-
-To clone an existing project created with this template:
+> **NOTE** : replace `projects` with your actual projects directory.
 
 ```shell
+({{project_name}}) $ cd ~/projects/
 ({{project_name}}) $ git clone https://example.com/{{project_name}}.git
 ```
 
-> **NOTE** : If you're cloning an existing project, make sure you go to the correct branch (e.g. `git checkout develop`)
+### Initialization
 
-## Configuration
+Enter the newly created **project** directory:
 
-1. Enter the folder of your **project** *(es: ~/projects/{{project_name}})*
+```shell
+({{project_name}}) $ cd ~/projects/{{project_name}}
+```
 
-2. To configure the project execute **init task** and answer all questions:
+Invoke init and follow instructions, to configure the project:
 
-    ```shell
-    ({{project_name}}) $ inv init
-    ```
+```shell
+({{project_name}}) $ inv init
+```
 
-3. To merge your project with git repository execute:
-
-   ```shell
-   ({{project_name}}) $ inv gitclone <your_repo_git_url>
-   ```
-
-4. Check `{{project_name}}/settings/*.py` and `{{project_name}}/urls.py` to configure your project
-
-5. Enjoy
-
-## Data Setup
+## Usage
 
 ### Database reset
 
-To execute only if you want reset all data:
+To reset database execute (beware all data will be lost):
 
 ```shell
 ({{project_name}}) $ inv dropdb
@@ -97,39 +151,41 @@ To execute only if you want reset all data:
 
 ### Superuser creation
 
-Execute after the first installation if you need a super user for your admin
+Create a user with full privileges (e.g. admin access):
 
 ```shell
 ({{project_name}}) $ python manage.py createsuperuser
 ```
 
-## Requirements
+### Add or Update libraries
 
-### Check 
+#### List outdated libraries
 
-To list all outdated installed packages execute:
+To list all outdated installed libraries:
 
 ```shell
 ({{project_name}}) $ pip list -o
 ```
 
-### Edit
+#### Edit and Compile requirements files
 
-To add/remove packages or modify their versions edit `requirements/*.ini` files and to update all related `requirements/*.txt` execute:
+Edit the appropriate .ini requirements file, to add/remove pinned libraries or modify their versions.
+
+To update the compiled requirements files (`requirements/*.txt`), execute:
 
 ```shell
 ({{project_name}}) $ make pip
 ```
 
-To update sub-dependencies *(es: packages listed in `install_requires`)* use 'p' option as below:
-
+Alternatively, in order to update specific dependent libraries to the latest version (e.g. urllib3), execute:
+￼
 ```shell
-({{project_name}}) $ make pip p='-P pytz'
+({{project_name}}) $ make pip p='-P urllib3'
 ```
 
-### Update
+### Install libraries
 
-To install the updated `requirements/dev.txt` in your local virtualenv execute:
+To install the just updated requirements (e.g. `requirements/dev.txt`), execute:
 
 ```shell
 ({{project_name}}) $ make dev
@@ -137,17 +193,17 @@ To install the updated `requirements/dev.txt` in your local virtualenv execute:
 
 ## Testing
 
-To run test and behave with coverage execute:
+To run the full test suite (including `behave` tests), with coverage calculation, execute:
 
 ```shell
 ({{project_name}}) $ make test
 ```
 
-> **NOTE** : [django-bdd-toolkit](https://github.com/20tab/django-bdd-toolkit) to use behave in a regular django project.
+> **NOTE** :  check [django-bdd-toolkit](https://github.com/20tab/django-bdd-toolkit) for instructions on how to write BDD tests
 
-## Frontend building
+## Frontend build
 
-The command installs dependencies and compiles the frontend code into static files that are used in the views.
+In order to install `node` dependencies and compile the frontend code, execute:
 
 ```shell
 ({{project_name}}) $ make npm
@@ -155,7 +211,7 @@ The command installs dependencies and compiles the frontend code into static fil
 
 ## Continuous Integration
 
-To setup the build in a Continuous Integration environment *(eg: jenkins)* use this code:
+Use the following command as a shortcut to configure a continuous integration (e.g. Jenkins) build:
 
 ```shell
 make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
@@ -163,23 +219,21 @@ make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
 
 ## Deploy
 
-To deploy your project in the alpha instance you need to rename the deploy/alpha.yaml.template and deploy/hosts.template file 
-and edit with your correct credentials.
+The project is partially configured to use Ansible to deploy the project. For each instance to deploy (e.g. "alpha"), there must be a config file (e.g. `deploy/alpha.yaml`) and an item in the hosts file .
 
-"alpha" environment is just an example. For every environment you need, you can duplicate alpha configurations to other 
-files (eg. beta.yaml or production.yaml) and correspondent Makefile commands. 
+Use provided `deploy/alpha.yaml.template` and `deploy/hosts.template` as templates for, respectively, the configuration and the hosts files. Rename them removing the `.template` suffix. The obtained files will not be versioned.
 
-Both the remote server and the ci system need node.js to build static files by default. If you don't need any module bundler
-you can modify Makefile ci command and deploy/deploy.yaml deleting useless commands.
+This project contains makefile commands for "alpha". If needed, duplicate those and use them as templates for additional instances (e.g. "beta" or "prod").
 
-To initialize the alpha instance you have to execute the next two commands:
+Both the remote server and the continuous integration system need `node.js`, in order to automatically build static files. If such module bundler is not necessary, remove unused commands from the Makefile `ci` command and from `deploy/deploy.yaml`.
+
+Each instance (e.g. "alpha") should be initialized, executing only **once**:
 
 ```shell
 ({{project_name}}) $ make initalpha
-({{project_name}}) $ make alpha
 ```
 
-To update your alpha instance after some code updates you have to execute the next command only:
+To deploy a specific instance (e.g. "alpha"), execute:
 
 ```shell
 ({{project_name}}) $ make alpha
