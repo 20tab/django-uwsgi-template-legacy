@@ -4,9 +4,9 @@ This is a [Django](https://docs.djangoproject.com) project template using [uWSGI
 
 > **NOTE** : for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server with emperor.
 
-##Documentation
+## Documentation
 
-* [Workspace initialization](#Workspace initialization)
+* [Workspace initialization](#workspace-initialization)
 
 ## Workspace initialization
 
