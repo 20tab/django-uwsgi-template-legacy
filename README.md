@@ -1,44 +1,22 @@
-{% comment "This comment section will be deleted in the generated project" %}
 # Django uWSGI template
 
 This is a [Django](https://docs.djangoproject.com) project template using [uWSGI](https://uwsgi-docs.readthedocs.io) as application server.
 
 > **NOTE** : for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server with emperor.
 
-## Setup
+##Documentation
+
+* [Workspace initialization](#Workspace initialization)
+
+## Workspace initialization
 
 We suggest updating pip to the latest version and using a virtual environment to wrap all your libraries.
 
 ### Virtual environment
 
-Choose one of these options to create an empty virtual environment, with the right python version, and activate it:
+Please, create an empty virtual environment, with the right python version, and activate it. 
+To install and use virtualenv, please, visit [the official documentation](https://virtualenv.pypa.io/en/latest/)
 
-> **NOTE** : replace `venvs` with your actual virtual environments directory and `project_name` with your actual project name.
-
-#### Python 2
-
-```shell
-$ pip install --user -U pip virtualenv
-$ virtualenv --python=python3 ~/venvs/project_name
-$ source ~/venvs/project_name/bin/activate
-```
-
-#### Python 3
-```shell
-$ pip3 install --user -U pip
-$ python3 -m venv ~/venvs/project_name
-$ source ~/venvs/project_name/bin/activate
-```
-
-#### Virtualenvwrapper
-
-Alternatively, use [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/stable/) for an easier workflow.
-
-```shell
-$ pip install --user -U pip virtualenvwrapper
-$ mkvirtualenv --python=python3 project_name
-$ workon project_name
-```
 
 ### Basic requirements
 
@@ -48,11 +26,15 @@ Django and Invoke must be installed before initializing the project.
 (project_name) $ pip install -U django invoke
 ```
 
+## Setup a new project
+
+This section explains the first steps when you need to create a new project.
+
 ### Start Project
 
 Change directory and start a new project with this template:
 
-> **NOTE** : replace `projects` with your actual projects directory.
+> **NOTE** : replace `projects` with your actual projects directory and `project_name` with your chosen project name.
 
 ```shell
 (project_name) $ cd ~/projects/
@@ -70,58 +52,12 @@ In order to initialize git and sync the project with an existing repository:
 (project_name) $ inv gitinit git_repository_url
 ```
 
-Rest of this README will be copied to the generated project.
 
 --------------------------------------------------------------------------------------------
 
-{% endcomment %}# {{project_name}}
+## Clone and start {{project_name}}
 
-This is a [Django](https://docs.djangoproject.com/en/{{docs_version}}/) project using [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) as application server.
-
-> **NOTE** : for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server in emperor mode.
-
-## Setup
-
-We suggest updating pip to the latest version and using a virtual environment to wrap all your libraries.
-
-### Virtual environment
-
-Choose one of these options to create an empty virtual environment, with the right python version, and activate it:
-
-> **NOTE** : replace `venvs` with your actual virtual environments directory.
-
-#### Python 2
-
-```shell
-$ pip install --user -U pip virtualenv
-$ virtualenv --python=python3 ~/venvs/{{project_name}}
-$ source ~/venvs/{{project_name}}/bin/activate
-```
-
-#### Python 3
-```shell
-$ pip3 install --user -U pip
-$ python3 -m venv ~/venvs/{{project_name}}
-$ source ~/venvs/{{project_name}}/bin/activate
-```
-
-#### Virtualenvwrapper
-
-Alternatively, use [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/stable/) for an easier workflow.
-
-```shell
-$ pip install --user -U pip virtualenvwrapper
-$ mkvirtualenv --python=python3 {{project_name}}
-$ workon {{project_name}}
-```
-
-### Basic requirements
-
-Django and Invoke must be installed before initializing the project.
-
-```shell
-({{project_name}}) $ pip install -U django invoke
-```
+This section explains the steps when you need to clone an existing project.
 
 ### Clone Project
 
