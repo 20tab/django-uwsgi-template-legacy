@@ -7,6 +7,14 @@ This is a [Django](https://docs.djangoproject.com) project template using [uWSGI
 ## Documentation
 
 * [Workspace initialization](#workspace-initialization)
+    * [Virtual environment](#virtual-environment)
+    * [Basic requirements](#basic-requirements)
+* [Setup a new project](#setup-a-new-project)
+    * [Start Project](#start-project)
+    * [Git initialization](#git-initialization)
+* [Clone and start {{project_name}} (existing project)](#git-initialization)
+
+    
 
 ## Workspace initialization
 
@@ -55,7 +63,7 @@ In order to initialize git and sync the project with an existing repository:
 
 --------------------------------------------------------------------------------------------
 
-## Clone and start {{project_name}}
+## Clone and start {{project_name}} (existing project)
 
 This section explains the steps when you need to clone an existing project.
 
