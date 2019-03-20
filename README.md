@@ -77,6 +77,9 @@ In order to initialize git and sync the project with an existing repository:
 
 ### First initialization
 
+Go to the [initialization](#initialization) section
+ 
+ 
 --------------------------------------------------------------------------------------------
 
 ## Clone and start {{project_name}} (existing project)
