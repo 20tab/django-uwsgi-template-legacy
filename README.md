@@ -12,7 +12,21 @@ This is a [Django](https://docs.djangoproject.com) project template using [uWSGI
 * [Setup a new project](#setup-a-new-project)
     * [Start Project](#start-project)
     * [Git initialization](#git-initialization)
-* [Clone and start {{project_name}} (existing project)](#git-initialization)
+* [Clone and start {{project_name}} (existing project)](#clone-and-start-project_name-existing-project)
+    * [Clone Project](#clone-project)
+    * [Initialization](#initialization)
+* [Usage](#usage)
+    * [Database reset](#database-reset)
+    * [Superuser creation](#superuser-creation)
+    * [Add or Update libraries](#add-or-update-libraries)
+        * [List outdated libraries](#list-outdated-libraries)
+        * [Edit and Compile requirements files](#edit-and-compile-requirements-files)
+    * [Install libraries](#install-libraries)
+* [Testing](#testing)
+* [Frontend build](#frontend-build)
+* [Continuous Integration](#continuous-integration)
+* [Deploy](#deploy)
+    
 
     
 
