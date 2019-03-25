@@ -12,6 +12,7 @@ This is a [Django](https://docs.djangoproject.com) project template using [uWSGI
 * [Setup a new project](#setup-a-new-project)
     * [Start Project](#start-project)
     * [Git initialization](#git-initialization)
+    * [Initialization](#first-initialization)
 * [Clone and start {{project_name}} (existing project)](#clone-and-start-project_name-existing-project)
     * [Clone Project](#clone-project)
     * [Initialization](#initialization)
@@ -36,7 +37,7 @@ We suggest updating pip to the latest version and using a virtual environment to
 
 ### Virtual environment
 
-Please, create an empty virtual environment, with the right python version, and activate it. 
+**IMPORTANT**: Please, create an empty virtual environment, with the right python version, and activate it. 
 To install and use virtualenv, please, visit [the official documentation](https://virtualenv.pypa.io/en/latest/)
 
 
@@ -74,7 +75,11 @@ In order to initialize git and sync the project with an existing repository:
 (project_name) $ inv gitinit git_repository_url
 ```
 
+### First initialization
 
+Go to the [initialization](#initialization) section
+ 
+ 
 --------------------------------------------------------------------------------------------
 
 ## Clone and start {{project_name}} (existing project)
