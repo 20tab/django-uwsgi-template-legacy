@@ -1,4 +1,5 @@
-# Django uWSGI template
+# <!-- {% comment %} -->Django uWSGI template
+<!-- {% endcomment %}--> {{project_name}}
 
 This is a [Django](https://docs.djangoproject.com) project template using [uWSGI](https://uwsgi-docs.readthedocs.io) as application server.
 
@@ -9,11 +10,13 @@ This is a [Django](https://docs.djangoproject.com) project template using [uWSGI
 * [Workspace initialization](#workspace-initialization)
     * [Virtual environment](#virtual-environment)
     * [Basic requirements](#basic-requirements)
+<!-- {% comment %} -->
 * [Setup a new project](#setup-a-new-project)
     * [Start Project](#start-project)
     * [Git initialization](#git-initialization)
     * [Initialization](#first-initialization)
-* [Clone and start {{project_name}} (existing project)](#clone-and-start-project_name-existing-project)
+<!-- {% endcomment %} -->
+* [Clone and start the existing project](#clone-and-start-the-existing-project)
     * [Clone Project](#clone-project)
     * [Initialization](#initialization)
 * [Usage](#usage)
@@ -27,9 +30,6 @@ This is a [Django](https://docs.djangoproject.com) project template using [uWSGI
 * [Frontend build](#frontend-build)
 * [Continuous Integration](#continuous-integration)
 * [Deploy](#deploy)
-    
-
-    
 
 ## Workspace initialization
 
@@ -37,9 +37,8 @@ We suggest updating pip to the latest version and using a virtual environment to
 
 ### Virtual environment
 
-**IMPORTANT**: Please, create an empty virtual environment, with the right python version, and activate it. 
+**IMPORTANT**: Please, create an empty virtual environment, with the right python version, and activate it.
 To install and use virtualenv, please, visit [the official documentation](https://virtualenv.pypa.io/en/latest/)
-
 
 ### Basic requirements
 
@@ -49,6 +48,7 @@ Django and Invoke must be installed before initializing the project.
 (project_name) $ pip install -U django invoke
 ```
 
+<!-- {% comment %} -->
 ## Setup a new project
 
 This section explains the first steps when you need to create a new project.
@@ -78,11 +78,9 @@ In order to initialize git and sync the project with an existing repository:
 ### First initialization
 
 Go to the [initialization](#initialization) section
- 
- 
---------------------------------------------------------------------------------------------
+<!-- {% endcomment %} -->
 
-## Clone and start {{project_name}} (existing project)
+## Clone and start the existing project
 
 This section explains the steps when you need to clone an existing project.
 
