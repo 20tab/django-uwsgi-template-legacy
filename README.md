@@ -3,10 +3,11 @@
 
 This is a [Django](https://docs.djangoproject.com) project template using [uWSGI](https://uwsgi-docs.readthedocs.io) as application server.
 
-> **NOTE** : for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server with emperor.
+> **NOTE**: for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server with emperor.
 
 ## Documentation
 
+* [Conventions](#conventions)
 * [Workspace initialization](#workspace-initialization)
     * [Virtual environment](#virtual-environment)
     * [Basic requirements](#basic-requirements)
@@ -31,6 +32,14 @@ This is a [Django](https://docs.djangoproject.com) project template using [uWSGI
 * [Continuous Integration](#continuous-integration)
 * [Deploy](#deploy)
 
+## Conventions
+
+- replace `projects` with your actual projects directory
+
+- replace `project_name` with your chosen project name
+
+- replace `git_repository_url` with your actual git repository url
+
 ## Workspace initialization
 
 We suggest updating pip to the latest version and using a virtual environment to wrap all your libraries.
@@ -38,14 +47,14 @@ We suggest updating pip to the latest version and using a virtual environment to
 ### Virtual environment
 
 **IMPORTANT**: Please, create an empty virtual environment, with the right python version, and activate it.
-To install and use virtualenv, please, visit [the official documentation](https://virtualenv.pypa.io/en/latest/)
+To install and use virtualenv, please, visit [the official documentation](https://virtualenv.pypa.io)
 
 ### Basic requirements
 
-Django and Invoke must be installed before initializing the project.
+**Django** and **Invoke** must be installed before initializing the project.
 
 ```shell
-(project_name) $ pip install -U django invoke
+({{project_name}}) $ pip install -U django invoke
 ```
 
 <!-- {% comment %} -->
@@ -57,22 +66,18 @@ This section explains the first steps when you need to create a new project.
 
 Change directory and start a new project with this template:
 
-> **NOTE** : replace `projects` with your actual projects directory and `project_name` with your chosen project name.
-
 ```shell
-(project_name) $ cd ~/projects/
-(project_name) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile project_name
+({{project_name}}) $ cd ~/projects/
+({{project_name}}) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
 ```
 
 ### Git initialization
 
 In order to initialize git and sync the project with an existing repository:
 
-> **NOTE** : replace `git_repository_url` with your actual git repository url.
-
 ```shell
-(project_name) $ cd ~/projects/project_name
-(project_name) $ inv gitinit git_repository_url
+({{project_name}}) $ cd ~/projects/{{project_name}}
+({{project_name}}) $ inv gitinit <git_repository_url>
 ```
 
 ### First initialization
@@ -88,11 +93,9 @@ This section explains the steps when you need to clone an existing project.
 
 Change directory and clone the project repository:
 
-> **NOTE** : replace `projects` with your actual projects directory.
-
 ```shell
 ({{project_name}}) $ cd ~/projects/
-({{project_name}}) $ git clone git_repository_url {{project_name}}
+({{project_name}}) $ git clone <git_repository_url> {{project_name}}
 ```
 
 > **NOTE** : If you're cloning an existing project, make sure you go to the correct branch (e.g. `git checkout develop`)
@@ -173,7 +176,7 @@ To run the full test suite (including `behave` tests), with coverage calculation
 ({{project_name}}) $ make test
 ```
 
-> **NOTE** :  check [django-bdd-toolkit](https://github.com/20tab/django-bdd-toolkit) for instructions on how to write BDD tests
+> **NOTE**:  check [django-bdd-toolkit](https://github.com/20tab/django-bdd-toolkit) for instructions on how to write BDD tests
 
 ## Frontend build
 
@@ -193,7 +196,7 @@ make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
 
 ## Deploy
 
-The project is partially configured to use Ansible to deploy the project. For each instance to deploy (e.g. "alpha"), there must be a config file (e.g. `deploy/alpha.yaml`) and an item in the hosts file .
+The project is partially configured to use Ansible to deploy the project. For each instance to deploy (e.g. "alpha"), there must be a config file (e.g. `deploy/alpha.yaml`) and an item in the hosts file.
 
 Use provided `deploy/alpha.yaml.template` and `deploy/hosts.template` as templates for, respectively, the configuration and the hosts files. Rename them removing the `.template` suffix. The obtained files will not be versioned.
 
