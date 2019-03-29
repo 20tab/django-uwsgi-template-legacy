@@ -1,7 +1,7 @@
 from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
-HOST = f'dev.{BASE_HOST_URL}'
+HOST = f'beta.{BASE_HOST_URL}'
 ALLOWED_HOSTS = (HOST,)
 
 
@@ -11,7 +11,7 @@ ALLOWED_HOSTS = (HOST,)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DATABASES_DEFAULT_NAME or '{{project_name}}_dev',
+        'NAME': DATABASES_DEFAULT_NAME or '{{project_name}}_beta',
         'USER': DATABASES_DEFAULT_USER or '{{project_name}}',
         'PASSWORD': DATABASES_DEFAULT_PASSWORD or '',
         'HOST': DATABASES_DEFAULT_HOST or '127.0.0.1',
@@ -45,7 +45,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
 # Invoke commands configuration
 
-WORKING_DIR = 'www/{{project_name}}_dev'
+WORKING_DIR = 'www/{{project_name}}_beta'
 HOST_USER = ''
 HOST_IP = ''
 HOST_PORT = '22'
