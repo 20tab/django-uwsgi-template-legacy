@@ -2,6 +2,7 @@ from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
 HOST = BASE_HOST_URL
+
 ALLOWED_HOSTS = (HOST,)
 
 
@@ -29,6 +30,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 # Debug
 
 DEBUG = False
+
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
 
@@ -42,8 +44,13 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 INSTALLED_APPS += ('behave_django',)
 
 # BDD_DEFAULT_BROWSER = 'chrome'
+
 # BDD_HEADLESS_BROWSER = False
+
 # BDD_INCOGNITO_BROWSER = True
+
 # BDD_FULLSCREEN_BROWSER = False
+
 # BDD_BROWSER_LANGUAGE = 'it-IT'
+
 # BDD_DEFAULT_WAIT_TIME = 2

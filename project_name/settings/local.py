@@ -2,6 +2,7 @@ from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
 HOST = 'localhost'
+
 ALLOWED_HOSTS = (HOST, '127.0.0.1', '{{project_name}}.local')
 
 
@@ -24,12 +25,14 @@ DATABASES = {
 # https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
 EMAIL_FILE_PATH = '/tmp/app-messages'
 
 
 # Debug
 
 DEBUG = True
+
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
 
