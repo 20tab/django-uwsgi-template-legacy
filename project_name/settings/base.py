@@ -11,12 +11,9 @@ https://docs.djangoproject.com/en/{{docs_version}}/ref/settings/
 """
 
 import os
-from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-HOME_DIR = str(Path.home())
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,7 +23,7 @@ HOME_DIR = str(Path.home())
 SECRET_KEY = 'secretkey-to-change-in-secret-py'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -35,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    # 'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -46,13 +42,11 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = '{{project_name}}.urls'
@@ -67,13 +61,8 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.i18n',
-                'django.template.context_processors.media',
-                'django.template.context_processors.static',
-                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'debug': False,
         },
     },
 ]
@@ -114,15 +103,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/{{docs_version}}/topics/i18n/
 
-LANGUAGE_CODE = 'it_IT'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Europe/Rome'
+TIME_ZONE = 'UTC'  # 'Europe/Rome'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -140,7 +129,6 @@ MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
 
 
 # Sites
-# https://docs.djangoproject.com/en/{{docs_version}}/ref/contrib/sites/
 
 DEFAULT_NAME = '{{project_name}}'
 
@@ -150,7 +138,6 @@ BASE_URL = f'www.{BASE_HOST_URL}'
 
 BASE_DOMAIN_URL = f'http://{BASE_URL}'
 
-# SITE_ID = 1
 
 # Email Settings
 # https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
@@ -176,8 +163,8 @@ ADMINS = MANAGERS
 # https://docs.djangoproject.com/en/{{docs_version}}/topics/i18n/translation/
 
 # LANGUAGES = (
-#     ('it', 'Italiano'),
 #     ('en', 'English'),
+#     ('it', 'Italiano'),
 # )
 
 # LOCALE_PATHS = (os.path.abspath(os.path.join(BASE_DIR, 'locale')),)
@@ -197,12 +184,3 @@ ADMINS = MANAGERS
 # LOGIN_REDIRECT_URL = 'home'
 
 # LOGOUT_REDIRECT_URL = 'home'
-
-
-# Assets
-
-PACKAGE_FILENAME = 'package.json'
-
-STATIC_DEBUG = False
-
-STATIC_PATH = {True: 'dev', False: 'dist'}

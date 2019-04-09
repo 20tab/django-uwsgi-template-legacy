@@ -28,44 +28,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = EMAIL_HOST or ''
 
-# EMAIL_PORT = EMAIL_PORT or 465
-
-# EMAIL_HOST_USER = EMAIL_HOST_USER or ''
-
-# EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD or ''
-
-# EMAIL_USE_SSL = EMAIL_USE_SSL or False
-
-# EMAIL_USE_TLS = EMAIL_USE_SSL or False
-
 
 # Debug
 
 DEBUG = False
 
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
-
-
-# Assets
-
-# STATIC_DEBUG = False
-
-
-# Sites
-# https://docs.djangoproject.com/en/{{docs_version}}/ref/contrib/sites/
-
-# SITE_ID = 1
-
-
-# Invoke commands configuration
-
-WORKING_DIR = 'www/{{project_name}}'
-
-HOST_USER = ''
-
-HOST_IP = ''
-
-HOST_PORT = '22'
 
 
 # Deployment

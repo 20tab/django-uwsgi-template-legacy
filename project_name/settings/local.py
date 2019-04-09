@@ -1,9 +1,9 @@
 from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
-HOST = 'localhost'
+HOST = '{{project_name}}.local'
 
-ALLOWED_HOSTS = (HOST, '127.0.0.1', '{{project_name}}.local')
+ALLOWED_HOSTS = (HOST, '127.0.0.1', 'localhost')
 
 
 # Database
@@ -34,11 +34,6 @@ EMAIL_FILE_PATH = '/tmp/app-messages'
 DEBUG = True
 
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
-
-
-# Assets
-
-STATIC_DEBUG = True
 
 
 # Debug Toolbar

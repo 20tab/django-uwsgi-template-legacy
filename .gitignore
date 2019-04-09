@@ -166,3 +166,4 @@ deploy/hosts
 
 # Others
 *.bak
+package-lock.json
