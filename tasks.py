@@ -1,6 +1,5 @@
 import configparser
 import getpass
-import importlib
 import os
 import pathlib
 import sys
@@ -116,18 +115,6 @@ def gitinit(c, git_repository_url):
 
 
 @task
-def media_from_server(c, settings='develop'):
-    """
-    Copy all media files from the server defined by the settings passed as an argument.
-    """
-    server = ServerUtil(settings)
-    if confirm(f'Do you want to overwrite local files in /media/ with those on the {settings.upper()} server?'):
-        server_string = f'{server.user}@{server.ip}:{server.working_dir}'
-        c.run(f'rsync -av --progress --inplace -e="ssh -p{server.port}" {server_string}/media/ ./media/')
-        print('Remember that synchronizing the media files also requires synchronizing the database.')
-
-
-@task
 def restart(c):
     c.run(f'touch uwsgiconf/locals/{USERNAME}.ini')
 
@@ -142,19 +129,6 @@ def get_db():
     db_port = config.get('secret', 'DATABASES_DEFAULT_PORT')
     db_user = config.get('secret', 'DATABASES_DEFAULT_USER')
     return db_name, db_host, db_port, db_user
-
-
-class ServerUtil(object):
-
-    def __init__(self, settings):
-        self.settings = settings
-        self.conf = importlib.import_module(f'pyromatest.settings.{settings}')
-        self.user = self.conf.HOST_USER
-        self.ip = self.conf.HOST_IP
-        self.port = self.conf.HOST_PORT
-        self.host = f'{self.user}@{self.ip}:{self.port}'
-        self.working_dir = self.conf.WORKING_DIR
-        self.db = self.conf.DATABASES['default']
 
 
 # NOTE: originally cribbed from fab 1's contrib.console.confirm

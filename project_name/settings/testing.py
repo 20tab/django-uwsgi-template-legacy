@@ -34,11 +34,6 @@ DEBUG = False
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
 
-# Assets
-
-# STATIC_DEBUG = False
-
-
 # Behave
 
 INSTALLED_APPS += ('behave_django',)
