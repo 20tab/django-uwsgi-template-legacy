@@ -30,6 +30,28 @@ alpha:
 		cd deploy && TARGET=alpha ansible-playbook -vv deploy.yaml --skip-tags "init"; \
 	)
 
+initbeta:
+	( \
+		cd deploy && TARGET=beta ansible-playbook -vv deploy.yaml; \
+	)
+
+beta:
+	( \
+		cd deploy && TARGET=beta ansible-playbook -vv deploy.yaml --skip-tags "init"; \
+	)
+
+
+initproduction:
+	( \
+		cd deploy && TARGET=production ansible-playbook -vv deploy.yaml; \
+	)
+
+production:
+	( \
+		cd deploy && TARGET=production ansible-playbook -vv deploy.yaml --skip-tags "init"; \
+	)
+
+
 test:
 	( \
 		COVERAGE_FILE=.coverage.test coverage run manage.py test --settings=${SETTINGS} --noinput --keepdb; \
@@ -59,4 +81,3 @@ npm:
 		npm install; \
 		npm run build; \
 	)
-

@@ -34,25 +34,3 @@ EMAIL_HOST = EMAIL_HOST or ''
 DEBUG = True
 
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
-
-
-# Assets
-
-# STATIC_DEBUG = True
-
-
-# Sites
-# https://docs.djangoproject.com/en/{{docs_version}}/ref/contrib/sites/
-
-# SITE_ID = 3
-
-
-# Invoke commands configuration
-
-WORKING_DIR = 'www/{{project_name}}_alpha'
-
-HOST_USER = ''
-
-HOST_IP = ''
-
-HOST_PORT = '22'

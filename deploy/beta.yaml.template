@@ -1,0 +1,9 @@
+settings: beta
+project_name: {{project_name}}
+project_dir_name: {{project_name}}_beta
+project_venv_name: {{project_name}}_beta
+git_repository: servergit/{{project_name}}.git
+db_name: {{project_name}}_beta
+db_user: postgres
+db_password: password
+branch: develop

@@ -24,7 +24,9 @@ DATABASES = {
 # Email Settings
 # https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
-EMAIL_HOST = ''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = EMAIL_HOST or ''
 
 
 # Debug
@@ -32,25 +34,3 @@ EMAIL_HOST = ''
 DEBUG = True
 
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
-
-
-# Assets
-
-# STATIC_DEBUG = True
-
-
-# Sites
-# https://docs.djangoproject.com/en/{{docs_version}}/ref/contrib/sites/
-
-# SITE_ID = 2
-
-
-# Invoke commands configuration
-
-WORKING_DIR = 'www/{{project_name}}_beta'
-
-HOST_USER = ''
-
-HOST_IP = ''
-
-HOST_PORT = '22'
