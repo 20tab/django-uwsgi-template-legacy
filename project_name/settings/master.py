@@ -2,6 +2,7 @@ from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
 HOST = BASE_HOST_URL
+
 ALLOWED_HOSTS = (HOST,)
 
 
@@ -24,17 +25,24 @@ DATABASES = {
 # https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 EMAIL_HOST = EMAIL_HOST or ''
+
 # EMAIL_PORT = EMAIL_PORT or 465
+
 # EMAIL_HOST_USER = EMAIL_HOST_USER or ''
+
 # EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD or ''
+
 # EMAIL_USE_SSL = EMAIL_USE_SSL or False
+
 # EMAIL_USE_TLS = EMAIL_USE_SSL or False
 
 
 # Debug
 
 DEBUG = False
+
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
 
@@ -52,8 +60,11 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 # Invoke commands configuration
 
 WORKING_DIR = 'www/{{project_name}}'
+
 HOST_USER = ''
+
 HOST_IP = ''
+
 HOST_PORT = '22'
 
 
@@ -61,11 +72,15 @@ HOST_PORT = '22'
 # https://docs.djangoproject.com/en/{{docs_version}}/howto/deployment/checklist/
 
 SECURE_BROWSER_XSS_FILTER = True
+
 SECURE_CONTENT_TYPE_NOSNIFF = True
+
 X_FRAME_OPTIONS = 'DENY'  # Default: 'SAMEORIGIN'
 
 # CSRF_COOKIE_SECURE = True
+
 # SECURE_SSL_REDIRECT = True
+
 # SESSION_COOKIE_SECURE = True
 
 # CONN_MAX_AGE = None

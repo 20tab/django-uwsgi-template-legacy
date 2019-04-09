@@ -15,6 +15,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 HOME_DIR = str(Path.home())
 
 
@@ -128,9 +129,11 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/{{docs_version}}/howto/static-files/
 
 STATIC_URL = '/static/'
+
 MEDIA_URL = '/media/'
 
 # STATIC_ROOT = None  # to use only with collectstatic workflow
+
 STATICFILES_DIRS = (os.path.abspath(os.path.join(BASE_DIR, 'static')),)
 
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
@@ -140,8 +143,11 @@ MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
 # https://docs.djangoproject.com/en/{{docs_version}}/ref/contrib/sites/
 
 DEFAULT_NAME = '{{project_name}}'
+
 BASE_HOST_URL = '{{project_name}}.com'
+
 BASE_URL = f'www.{BASE_HOST_URL}'
+
 BASE_DOMAIN_URL = f'http://{BASE_URL}'
 
 # SITE_ID = 1
@@ -150,13 +156,19 @@ BASE_DOMAIN_URL = f'http://{BASE_URL}'
 # https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
 SERVER_EMAIL = f'info@{BASE_HOST_URL}'
+
 DEFAULT_FROM_EMAIL = f'{DEFAULT_NAME} <{SERVER_EMAIL}>'
+
 EMAIL_SUBJECT_PREFIX = f'[{DEFAULT_NAME}] '
+
 EMAIL_USE_LOCALTIME = True
+
 ERROR_EMAIL = f'errors@{BASE_HOST_URL}'
+
 EMAIL_SIGNATURE = f'\n-- \n{DEFAULT_FROM_EMAIL}'
 
 MANAGERS = ((DEFAULT_NAME, ERROR_EMAIL),)
+
 ADMINS = MANAGERS
 
 
@@ -167,6 +179,7 @@ ADMINS = MANAGERS
 #     ('it', 'Italiano'),
 #     ('en', 'English'),
 # )
+
 # LOCALE_PATHS = (os.path.abspath(os.path.join(BASE_DIR, 'locale')),)
 
 
@@ -176,14 +189,20 @@ ADMINS = MANAGERS
 # AUTH_USER_MODEL = 'users.User'
 
 # LOGIN_URL = 'login'
+
 # LOGOUT_URL = 'logout'
+
 # LOGIN_ERROR_URL = 'home'
+
 # LOGIN_REDIRECT_URL = 'home'
+
 # LOGOUT_REDIRECT_URL = 'home'
 
 
 # Assets
 
 PACKAGE_FILENAME = 'package.json'
+
 STATIC_DEBUG = False
+
 STATIC_PATH = {True: 'dev', False: 'dist'}

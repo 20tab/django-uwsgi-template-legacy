@@ -2,6 +2,7 @@ from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
 HOST = f'alpha.{BASE_HOST_URL}'
+
 ALLOWED_HOSTS = (HOST,)
 
 
@@ -24,12 +25,14 @@ DATABASES = {
 # https://docs.djangoproject.com/en/{{docs_version}}/topics/email/
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 EMAIL_HOST = EMAIL_HOST or ''
 
 
 # Debug
 
 DEBUG = True
+
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
 
@@ -47,6 +50,9 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 # Invoke commands configuration
 
 WORKING_DIR = 'www/{{project_name}}_alpha'
+
 HOST_USER = ''
+
 HOST_IP = ''
+
 HOST_PORT = '22'

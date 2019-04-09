@@ -2,6 +2,7 @@ from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
 HOST = f'beta.{BASE_HOST_URL}'
+
 ALLOWED_HOSTS = (HOST,)
 
 
@@ -29,6 +30,7 @@ EMAIL_HOST = ''
 # Debug
 
 DEBUG = True
+
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 
 
@@ -46,6 +48,9 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 # Invoke commands configuration
 
 WORKING_DIR = 'www/{{project_name}}_beta'
+
 HOST_USER = ''
+
 HOST_IP = ''
+
 HOST_PORT = '22'
