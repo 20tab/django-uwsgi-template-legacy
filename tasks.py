@@ -68,7 +68,7 @@ def init(c):
     c.run(f'sed -i".bak" -e "s/WORKAREA_ROOT/{WORKAREA_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
     c.run(f'sed -i".bak" -e "s/PYVERSION/{PYVERSION}/g;" {ini_dir}/{USERNAME}.ini')
     c.run(f'sed -i".bak" -e "s/VENV_ROOT/{VENV_ROOT}/g;" {ini_dir}/{USERNAME}.ini')
-    print('Installing secret fiel in settings')
+    print('Installing secret file in settings')
     if not os.path.exists(f'{SECRET_FILE}'):
         c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
         c.run((
@@ -129,7 +129,7 @@ def media_from_server(c, settings='develop'):
 
 @task
 def restart(c):
-    c.run(f"touch uwsgiconf/locals/{USERNAME}.ini")
+    c.run(f'touch uwsgiconf/locals/{USERNAME}.ini')
 
 
 def get_db():
@@ -183,24 +183,24 @@ def confirm(question, assume_yes=True):
     """
     # Set up suffix
     if assume_yes:
-        suffix = "Y/n"
+        suffix = 'Y/n'
     else:
-        suffix = "y/N"
+        suffix = 'y/N'
     # Loop till we get something we like
     # TODO: maybe don't do this? It can be annoying. Turn into 'q'-for-quit?
     while True:
         # TODO: ensure that this is Ctrl-C friendly, ISTR issues with
         # raw_input/input on some Python versions blocking KeyboardInterrupt.
-        response = input("{0} [{1}] ".format(question, suffix))
+        response = input('{0} [{1}] '.format(question, suffix))
         response = response.lower().strip()  # Normalize
         # Default
         if not response:
             return assume_yes
         # Yes
-        if response in ["y", "yes"]:
+        if response in ['y', 'yes']:
             return True
         # No
-        if response in ["n", "no"]:
+        if response in ['n', 'no']:
             return False
         # Didn't get empty, yes or no, so complain and loop
         err = "I didn't understand you. Please specify '(y)es' or '(n)o'."
