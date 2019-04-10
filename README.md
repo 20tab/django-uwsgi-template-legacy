@@ -68,7 +68,7 @@ Change directory and start a new project with this template:
 
 ```shell
 ({{project_name}}) $ cd ~/projects/
-({{project_name}}) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,md,py,yaml,template -n Makefile {{project_name}}
+({{project_name}}) $ django-admin.py startproject --template https://www.20tab.com/template/ -e cfg,ini,json,md,py,yaml,template -n Makefile {{project_name}}
 ```
 
 ### Git initialization
