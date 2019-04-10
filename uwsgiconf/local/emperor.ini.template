@@ -14,19 +14,19 @@ venvs_dir = VENV_ROOT
 ini = WORKAREA_ROOT/{{project_name}}/uwsgiconf/local/global.ini
 ini = WORKAREA_ROOT/{{project_name}}/uwsgiconf/local/static.ini
 
-# not required only if uwsgi was installed with pip
+# Not required if uwsgi was installed using pip
 plugin = python3
 
 socket = 127.0.0.1:0
 subscribe-to = 127.0.0.1:5005:%(project_name).local
 
-# logs
+# Logging
 plugin = logfile
 logger = file:/%(project_root)/%(project_name).log
 req-logger = file:/%(project_root)/%(project_name)_access.log
 logfile-chown = %U:%G
 
-# zeroconf
+# Zeroconf
 plugin = ZEROCONF
 ZEROCONF-register = ZEROOPTS
 

@@ -12,7 +12,7 @@ venvs_dir = VENV_ROOT
 ini = %d/global.ini
 ini = %d/static.ini
 
-# not required only if uwsgi was installed with pip
+# Not required if uwsgi was installed with pip
 plugin = python3
 
 http-socket = :8080
