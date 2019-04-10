@@ -51,7 +51,7 @@ def init(c):
     if not os.path.exists('media'):
         print('Making media directory')
         c.run('mkdir media')
-    ini_dir = f'{BASE_DIR}/uwsgiconf/locals'
+    ini_dir = f'{BASE_DIR}/uwsgiconf/local'
     PYVERSION = f"{sys.version_info[0]}.{sys.version_info[1]}"
     WORKAREA_ROOT = BASE_DIRNAME.replace("/", "\/")  # noqa
     print('Generating uwsgi user file')
@@ -60,7 +60,7 @@ def init(c):
         c.run((
             f'sed -i".bak" -e "s/USERNAME/{USERNAME}/g;s/ZEROCONF/{ZEROCONF}/g;s/ZEROOPTS/{ZEROOPTS}/g;" {ini_dir}/'
             f'{USERNAME}.ini'))
-        c.run(f'ln -s {BASE_DIR}/uwsgiconf/locals/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
+        c.run(f'ln -s {BASE_DIR}/uwsgiconf/local/{USERNAME}.ini {vassals}/{PROJECT_DIRNAME}.ini')
     else:
         c.run(f'cp {ini_dir}/standalone.ini.template {ini_dir}/{USERNAME}.ini')
     c.run(f'sed -i".bak" -e "s/plugin = python3/plugin = {python_plugin}/g;" {ini_dir}/{USERNAME}.ini')
@@ -78,9 +78,9 @@ def init(c):
         c.run(f'sed -i".bak" -e "s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}')
     createdb(c)
     print('*** Next steps ***')
-    print(f'a) Check the uwsgiconf/locals/{USERNAME}.ini and verify that you have the correct python plugin')
-    print('b) Check the uwsgiconf/remotes/globlal.ini file and verify that you have the correct python plugin')
-    print('c) Check the uwsgiconf/remotes/alpha.ini file and make sure the domain name is correct')
+    print(f'a) Check the uwsgiconf/local/{USERNAME}.ini and verify that you have the correct python plugin')
+    print('b) Check the uwsgiconf/remote/globlal.ini file and verify that you have the correct python plugin')
+    print('c) Check the uwsgiconf/remote/alpha.ini file and make sure the domain name is correct')
     print('d) Configure the deploy/hosts file with server data')
     print('e) Configure the deploy/alpha.yaml file with the correct data')
     print(f'f) Configure the file by {PROJECT_DIRNAME}/settings/testing.py with the correct data')
@@ -116,7 +116,7 @@ def gitinit(c, git_repository_url):
 
 @task
 def restart(c):
-    c.run(f'touch uwsgiconf/locals/{USERNAME}.ini')
+    c.run(f'touch uwsgiconf/local/{USERNAME}.ini')
 
 
 def get_db():
