@@ -1,3 +1,5 @@
+"""Django settings for {{project_name}} project."""
+
 import os
 
 SETTINGS = os.environ.get('SETTINGS', '')

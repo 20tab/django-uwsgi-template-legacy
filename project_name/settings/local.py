@@ -1,3 +1,5 @@
+"""Django settings for local environment."""
+
 from {{project_name}}.settings.base import *  # noqa
 from {{project_name}}.settings.secret import *  # noqa
 
@@ -12,11 +14,11 @@ ALLOWED_HOSTS = (HOST, '127.0.0.1', 'localhost')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DATABASES_DEFAULT_NAME or '{{project_name}}',
-        'USER': DATABASES_DEFAULT_USER or '{{project_name}}',
-        'PASSWORD': DATABASES_DEFAULT_PASSWORD or '',
-        'HOST': DATABASES_DEFAULT_HOST or '127.0.0.1',
-        'PORT': DATABASES_DEFAULT_PORT or '5432',
+        'NAME': DATABASES_DEFAULT_NAME or '{{project_name}}',  # noqa
+        'USER': DATABASES_DEFAULT_USER or '{{project_name}}',  # noqa
+        'PASSWORD': DATABASES_DEFAULT_PASSWORD or '',  # noqa
+        'HOST': DATABASES_DEFAULT_HOST or '127.0.0.1',  # noqa
+        'PORT': DATABASES_DEFAULT_PORT or '5432',  # noqa
     }
 }
 
@@ -39,7 +41,7 @@ TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # noqa
 # Debug Toolbar
 
 try:
-    import debug_toolbar
+    import debug_toolbar  # noqa
 except ModuleNotFoundError:
     pass
 else:
