@@ -11,8 +11,8 @@ workarea_root = WORKAREA_ROOT
 project_root = %(workarea_root)/%(project_name)
 venvs_dir = VENV_ROOT
 
-ini = WORKAREA_ROOT/{{project_name}}/uwsgiconf/locals/global.ini
-ini = WORKAREA_ROOT/{{project_name}}/uwsgiconf/locals/static.ini
+ini = WORKAREA_ROOT/{{project_name}}/uwsgiconf/local/global.ini
+ini = WORKAREA_ROOT/{{project_name}}/uwsgiconf/local/static.ini
 
 # not required only if uwsgi was installed with pip
 plugin = python3
