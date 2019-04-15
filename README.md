@@ -160,7 +160,7 @@ Alternatively, in order to update specific dependent libraries to the latest ver
 ({{project_name}}) $ make pip p='-P urllib3'
 ```
 
-### Install libraries
+### Install libraries for development
 
 To install the just updated requirements (e.g. `requirements/dev.txt`), execute:
 

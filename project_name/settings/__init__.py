@@ -1,3 +1,5 @@
+"""Django settings for {{project_name}} project."""
+
 import os
 
 SETTINGS = os.environ.get('SETTINGS', '')
@@ -9,6 +11,6 @@ elif 'www/{{project_name}}_alpha' in os.getcwd():
 elif 'www/{{project_name}}_beta' in os.getcwd():
     from {{project_name}}.settings.beta import *   # noqa
 elif 'www/{{project_name}}' in os.getcwd():
-    from {{project_name}}.settings.master import *   # noqa
+    from {{project_name}}.settings.production import *   # noqa
 else:
     from {{project_name}}.settings.local import *   # noqa

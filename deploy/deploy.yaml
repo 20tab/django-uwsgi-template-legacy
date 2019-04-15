@@ -25,7 +25,7 @@
         chdir: ${HOME}/www/{{project_dir_name}}
     - name: Create vassal
       file:
-        src: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{settings}}.ini"
+        src: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remote/{{settings}}.ini"
         dest: "${HOME}/vassals/{{project_dir_name}}.ini"
         state: link
     - name: Create database
@@ -62,5 +62,5 @@
         chdir: ${HOME}/www/{{project_dir_name}}/
     - name: Restart vassal
       file:
-        path: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remotes/{{settings}}.ini"
+        path: "${HOME}/www/{{project_dir_name}}/uwsgiconf/remote/{{settings}}.ini"
         state: touch{% endverbatim %}
