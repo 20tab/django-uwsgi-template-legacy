@@ -36,6 +36,7 @@ def init(c):
             ZEROOPTS = '%(project_name).local'
     python_plugin = input(
         f'Specify python plugin to configure uwsgi or blank to use default value (python3): ') or "python3"
+    database = input(f'We will use "{PROJECT_DIRNAME}" as database name, or specify another name: ') or PROJECT_DIRNAME
     username = input(f'Enter the database user name: ')
     password = getpass.getpass(f'Enter the database user password: ')
     print('Compiling pip file in requirements')
@@ -71,11 +72,14 @@ def init(c):
     if not os.path.exists(f'{SECRET_FILE}'):
         c.run(f'cp {SECRET_FILE}.template {SECRET_FILE}')
         c.run((
-            f'sed -i".bak" -e "s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g"'
+            f'sed -i".bak" -e '
+            f'"s/database/{database}/g;s/password/{password}/g;s/secretkey/{SECRET_KEY}/g;s/username/{username}/g"'
             f' {SECRET_FILE}'
         ))
     else:
-        c.run(f'sed -i".bak" -e "s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}')
+        c.run(
+            f'sed -i".bak" -e "s/database/{database}/g;s/password/{password}/g;s/username/{username}/g" {SECRET_FILE}'
+        )
     createdb(c)
     print('*** Next steps ***')
     print(f'a) Check the uwsgiconf/local/{USERNAME}.ini and verify that you have the correct python plugin')
