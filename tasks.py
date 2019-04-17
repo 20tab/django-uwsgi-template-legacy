@@ -1,3 +1,5 @@
+"""Define invoke tasks."""
+
 import configparser
 import getpass
 import os
@@ -19,6 +21,7 @@ SECRET_KEY = get_random_secret_key()
 
 @task
 def init(c):
+    """Initialize project."""
     try:
         VENV_ROOT = str(pathlib.Path(os.environ['VIRTUAL_ENV']).parent).replace("/", "\/")  # noqa
     except KeyError:
@@ -57,7 +60,7 @@ def init(c):
     WORKAREA_ROOT = BASE_DIRNAME.replace("/", "\/")  # noqa
     print('Generating uwsgi user file')
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
-        c.run(f'cp {ini_dir}/emperor.ini.template {ini_dir}/{USERNAME}.ini')
+        c.run(f'cp {ini_dir}/vassal.ini.template {ini_dir}/{USERNAME}.ini')
         c.run((
             f'sed -i".bak" -e "s/USERNAME/{USERNAME}/g;s/ZEROCONF/{ZEROCONF}/g;s/ZEROOPTS/{ZEROOPTS}/g;" {ini_dir}/'
             f'{USERNAME}.ini'))
@@ -94,6 +97,7 @@ def init(c):
 
 @task
 def createdb(c):
+    """Create database."""
     if confirm('Pay attention, you are creating the Postgresql db. Are you sure you want to proceed?'):
         db_name, db_host, db_port, db_user = get_db()
         c.run(f"createdb -e -h {db_host} -p {db_port} -U {db_user} -O {db_user} {db_name}")
@@ -101,6 +105,7 @@ def createdb(c):
 
 @task
 def dropdb(c):
+    """Drop database."""
     if confirm('Warning, you are deleting the db. Are you sure you want to proceed?'):
         db_name, db_host, db_port, db_user = get_db()
         c.run(f"dropdb -e -h {db_host} -p {db_port} -U {db_user} {db_name}")
@@ -108,6 +113,7 @@ def dropdb(c):
 
 @task
 def gitinit(c, git_repository_url):
+    """Initialize git repository."""
     c.run(f'sed -i".bak" -e "s/<git_repository_url>/{git_repository_url}/g;" README.md')
     c.run('git init')
     c.run('flake8 --install-hook git')
@@ -120,10 +126,12 @@ def gitinit(c, git_repository_url):
 
 @task
 def restart(c):
+    """Restart uWSGI instance."""
     c.run(f'touch uwsgiconf/local/{USERNAME}.ini')
 
 
 def get_db():
+    """Fetch database credentials."""
     with open(SECRET_FILE, 'r') as f:
         config_string = '[secret]\n' + f.read()
     config = configparser.ConfigParser()
