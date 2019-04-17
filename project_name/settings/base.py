@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'  # 'Europe/Rome'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -119,11 +119,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/media/'
-
-# STATIC_ROOT = None  # to use only with collectstatic workflow
+# STATIC_ROOT = None  # NOTE: to use only with collectstatic workflow
 
 STATICFILES_DIRS = (os.path.abspath(os.path.join(BASE_DIR, 'static')),)
+
+# Stored files
+# https://docs.djangoproject.com/en/{{docs_version}}/topics/files/
+
+MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'media'))
 

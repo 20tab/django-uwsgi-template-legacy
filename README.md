@@ -1,7 +1,7 @@
 # <!-- {% comment %} -->Django uWSGI template
 <!-- {% endcomment %}--> {{project_name}}
 
-This is a [Django](https://docs.djangoproject.com) project template using [uWSGI](https://uwsgi-docs.readthedocs.io) as application server.
+This is a [Django](https://docs.djangoproject.com) project <!-- {% comment %} -->template<!-- {% endcomment %}--> using [uWSGI](https://uwsgi-docs.readthedocs.io) as application server.
 
 > **NOTE**: for OSX check [uwsgi-emperor-mode](https://github.com/20tab/uwsgi-emperor-mode) to configure your own local server with emperor.
 
@@ -35,11 +35,11 @@ This is a [Django](https://docs.djangoproject.com) project template using [uWSGI
 ## Conventions
 
 - replace `projects` with your actual projects directory
-
+<!-- {% comment %} -->
 - replace `project_name` with your chosen project name
 
 - replace `git_repository_url` with your actual git repository url
-
+<!-- {% endcomment %} -->
 ## Workspace initialization
 
 We suggest updating pip to the latest version and using a virtual environment to wrap all your libraries.
@@ -191,7 +191,7 @@ In order to install `node` dependencies and compile the frontend code, execute:
 Use the following command as a shortcut to configure a continuous integration (e.g. Jenkins) build:
 
 ```shell
-make ci PASSWORD=<db_user_password> SECRETKEY=<django_secret_key>
+make ci PASSWORD=<database_user_password> DATABASE=<database_name> SECRETKEY=<django_secret_key>
 ```
 
 ## Deploy
