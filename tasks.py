@@ -60,7 +60,7 @@ def init(c):
     WORKAREA_ROOT = BASE_DIRNAME.replace("/", "\/")  # noqa
     print('Generating uwsgi user file')
     if EMPEROR_MODE and not os.path.exists(f'{vassals}/{PROJECT_DIRNAME}.ini'):
-        c.run(f'cp {ini_dir}/emperor.ini.template {ini_dir}/{USERNAME}.ini')
+        c.run(f'cp {ini_dir}/vassal.ini.template {ini_dir}/{USERNAME}.ini')
         c.run((
             f'sed -i".bak" -e "s/USERNAME/{USERNAME}/g;s/ZEROCONF/{ZEROCONF}/g;s/ZEROOPTS/{ZEROOPTS}/g;" {ini_dir}/'
             f'{USERNAME}.ini'))
