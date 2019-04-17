@@ -6,7 +6,7 @@ export USERNAME=$(shell whoami)
 ci:
 	( \
 		/bin/cp {{project_name}}/settings/secret.py.template {{project_name}}/settings/secret.py; \
-		sed -i'.bak' -e 's/password/${PASSWORD}/g;s/secretkey/${SECRETKEY}/g;s/username/postgres/g' {{project_name}}/settings/secret.py; \
+		sed -i'.bak' -e 's/password/${PASSWORD}/g;s/database/${DATABASE}/g;s/secretkey/${SECRETKEY}/g;s/username/postgres/g' {{project_name}}/settings/secret.py; \
 		virtualenv --python=python3.6 ${JENKINSBUILD_DIR}/{{project_name}}; \
 		source ${JENKINSBUILD_DIR}/{{project_name}}/bin/activate; \
 		pip install -U pip; \
@@ -40,7 +40,6 @@ beta:
 		cd deploy && TARGET=beta ansible-playbook -vv deploy.yaml --skip-tags "init"; \
 	)
 
-
 initproduction:
 	( \
 		cd deploy && TARGET=production ansible-playbook -vv deploy.yaml; \
@@ -50,7 +49,6 @@ production:
 	( \
 		cd deploy && TARGET=production ansible-playbook -vv deploy.yaml --skip-tags "init"; \
 	)
-
 
 test:
 	( \

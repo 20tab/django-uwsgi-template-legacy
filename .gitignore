@@ -145,7 +145,7 @@ media/
 *secret.py
 
 # uWSGI
-*.log.old
+*.log.*
 spooler/
 
 # Prettier
