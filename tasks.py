@@ -114,7 +114,7 @@ def dropdb(c):
 @task
 def gitinit(c, git_repository_url):
     """Initialize git repository."""
-    c.run(f'sed -i".bak" -e "s/<git_repository_url>/{git_repository_url}/g;" README.md')
+    c.run(f'sed -i".bak" -e "s,GIT_REPOSITORY_URL,{git_repository_url},g;" README.md')
     c.run('git init')
     c.run('flake8 --install-hook git')
     c.run('git config flake8.strict true')
