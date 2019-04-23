@@ -77,7 +77,7 @@ In order to initialize git and sync the project with an existing repository:
 
 ```shell
 ({{project_name}}) $ cd ~/projects/{{project_name}}
-({{project_name}}) $ inv gitinit <git_repository_url>
+({{project_name}}) $ inv gitinit GIT_REPOSITORY_URL
 ```
 
 ### First initialization
@@ -95,7 +95,7 @@ Change directory and clone the project repository:
 
 ```shell
 ({{project_name}}) $ cd ~/projects/
-({{project_name}}) $ git clone <git_repository_url> {{project_name}}
+({{project_name}}) $ git clone GIT_REPOSITORY_URL {{project_name}}
 ```
 
 > **NOTE** : If you're cloning an existing project, make sure you go to the correct branch (e.g. `git checkout develop`)
