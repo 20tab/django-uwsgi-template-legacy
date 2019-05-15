@@ -68,7 +68,7 @@ Change directory and start a new project with this template:
 
 ```shell
 ({{project_name}}) $ cd ~/projects/
-({{project_name}}) $ django-admin.py startproject --template https://github.com/20tab/django-uwsgi-template/zipball/master -e cfg,ini,json,md,py,yaml,template -n Makefile {{project_name}}
+({{project_name}}) $ django-admin.py startproject --template https://github.com/20tab/django-uwsgi-template-legacy/zipball/master -e cfg,ini,json,md,py,yaml,template -n Makefile {{project_name}}
 ```
 
 ### Git initialization
